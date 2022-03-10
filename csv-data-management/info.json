@@ -1,0 +1,68 @@
+{
+    "name": "csv-data-management",
+    "version": "1.0.0",
+    "label": "CSV Data Management",
+    "description": "",
+    "publisher": "",
+    "icon_small_name": "fortisoar_logo.png",
+    "icon_large_name": "fortisoar_logo.png",
+    "category": "",
+    "configuration": {
+        "fields": []
+    },
+    "operations": [
+        {
+            "title": "Extract Data from CSV",
+            "operation": "extract_data_from_csv",
+            "description": "This action will extract data from CSV based on column names provided. User can select option to dedupicate rows based on columns",
+            "parameters": [
+                {
+                 "name": "input",
+                 "title": "Type",
+                  "type": "select",
+                  "options": [
+                             "Attachment ID",
+                             "File IRI"
+                             ],
+                  "editable": true,
+                  "visible": true,
+                  "required": true,
+                  "value": "",
+                   "description": "Type of option you want to use to provide CSV file. Type can be an Attachment ID or a File IRI."
+                },
+                {
+                  "name": "value",
+                   "title": "Reference ID",
+                   "type": "text",
+                   "editable": true,
+                   "visible": true,
+                   "required": true,
+                   "value": "",
+          "description": "Reference ID that is used to access the attachment metadata from the FortiSOAR™ Attachments module.\nIn the playbook, this defaults to the{{vars.attachment_id}} value or the {{vars.file_iri}} value."
+        },
+                {
+                    "title": "Column Names",
+                    "type": "text",
+                    "name": "columnNames",
+                    "required": false,
+                    "visible": true,
+                    "editable": true,
+                    "value": ""
+                },
+                {
+                    "title": "De Dup Values on",
+                    "type": "text",
+                    "name": "deDupValuesOn",
+                    "required": false,
+                    "visible": true,
+                    "editable": true,
+                    "value": ""
+                }
+            ],
+            "open": false,
+            "category": "utilities"
+        }
+    ],
+    "forked_from": false,
+    "icon_medium_name": "fortisoar_logo.png"
+}

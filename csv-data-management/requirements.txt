@@ -1,0 +1,4 @@
+# Add Python Dependencies
+pandas
+numpy
+json
