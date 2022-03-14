@@ -20,9 +20,11 @@ def extract_data_from_csv(config, params):
         logger.info("file from code:" + file_path)
         if params.get('columnNames'):
             columnNames = params.get('columnNames')
-            columNames = columNames.split(",")
+            columnNames = columnNames.split(",")
+            # We are passing  specific columns name to filter data from here
             df = pd.read_csv('{}'.format(file_path), delimiter=',', encoding="utf-8-sig")[[columNames]]
         else:
+            # We are not passing any specific columns name to filter data from here
             df = pd.read_csv('{}'.format(file_path), delimiter=',', encoding="utf-8-sig")
 
         if params.get('deDupValuesOn'):
@@ -40,7 +42,7 @@ def extract_data_from_csv(config, params):
 
     except Exception as Err:
         logger.error('Error in extract_data_from_csv(): %s' % Err)
-        logger.exception('Error in extract_data_from_csv(): %s' % Err)
+        
 
 
 def handle_params(params):
