@@ -15,17 +15,31 @@ def extract_data_from_csv(config, params):
     try:
         endpoint = "files"
         logger.info(params)
+        numberOfRowsToSkip = None
         file_iri = handle_params(params)
         file_path = join('/tmp', download_file_from_cyops(file_iri)['cyops_file_path'])
         logger.info("file from code:" + file_path)
+        if params.get('numberOfRowsToSkip'):
+          numberOfRowsToSkip = params.get('numberOfRowsToSkip')
+          
         if params.get('columnNames'):
             columnNames = params.get('columnNames')
             columnNames = columnNames.split(",")
+            
             # We are passing  specific columns name to filter data from here
-            df = pd.read_csv('{}'.format(file_path), delimiter=',', encoding="utf-8-sig")[[columNames]]
-        else:
+            df = pd.read_csv('{}'.format(file_path), delimiter=',', encoding="utf-8-sig",skiprows=numberOfRowsToSkip)[[columNames]]
+            
+        elif params.get('isCSVWithoutHeaders') and params.get('columnNames') :
+            # We are passing no columns as option but adding a top level
+            df = pd.read_csv('{}'.format(file_path), delimiter=',', encoding="utf-8-sig",header = None,skiprows=numberOfRowsToSkip)[[columNames]]
+            
+        elif params.get('isCSVWithoutHeaders'):
+            # We are reading file which has no column headers
+            df = pd.read_csv('{}'.format(file_path), delimiter=',', encoding="utf-8-sig",header = None,skiprows=numberOfRowsToSkip)  
+
+        else:  
             # We are not passing any specific columns name to filter data from here
-            df = pd.read_csv('{}'.format(file_path), delimiter=',', encoding="utf-8-sig")
+            df = pd.read_csv('{}'.format(file_path), delimiter=',', encoding="utf-8-sig",skiprows=numberOfRowsToSkip)
 
         if params.get('deDupValuesOn'):
             deDupValuesOn = params.get('deDupValuesOn')
@@ -51,7 +65,7 @@ def handle_params(params):
     try:
         if isinstance(value, bytes):
             value = value.decode('utf-8')
-        if input_type == 'Attachment ID':
+        if input_type == 'Attachment IRI':
             if not value.startswith('/api/3/attachments/'):
                 value = '/api/3/attachments/{0}'.format(value)
             attachment_data = make_request(value, 'GET')
