@@ -190,7 +190,7 @@
           "title": "Merge on Column",
           "type": "text",
           "name": "mergeColumnNames",
-          "required": false,
+          "required": true,
           "visible": true,
           "editable": true,
           "value": ""
