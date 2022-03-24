@@ -7,65 +7,205 @@
   "icon_small_name": "utilities_small.png",
   "icon_large_name": "utilities_large.png",
   "category": "",
+  "icon_medium_name": {
+    "name": {
+      "name": "utilities_medium.png",
+      "content": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAYAAACOEfKtAAAAAXNSR0IArs4c6QAAE51JREFUeF7tnAlQlefVx88VAVmUVdwFBVFRcMENQUXABSEucTebkya1mUySfvO103Q6nel0pp1J02W+r7VN06SJMaapccMN9w3jvsQFV0BFRMB9AZG18zu9L0Ou93IvKJcb4zNzRxy4977v/znL//zPeV5TbW1trTxbTUbA9AzAJmOnb3wG4OPh1zQA8Xp9sQOPeQEt/XbjHkwmk/Bq7HLYAqurq6WislIqq6r0xc9G+Gz81zb2Mpvn743gz/W3bt1a3M0vDw8Pae3m5hCgDgEIeFevXZPDJ07IyXPnpKC4WMoePJDamprmuTNnf6rJJB7u7hISGCiRPXpIbP/+0iciQgG1txoEkB0quX5d9hw5IrsOHJDcS5fk9t27Ul1Tox/eqlWrp8KFuc8qs0d5e3lJt06dZFhMjIyNi5PQrl3F08PDJo42AcQ9LxYUSNbBg7Jh507JKygQPx8f6dqpk3Tt2FEC/P0d2iF7O+gKv6+prZV79+9L0bVrkl9YKMXXrkmAn5+MHjZMkuPjJbp3b2nj6Wn1Um0CeO3GDdm4a5es2rxZcvPz1bRHDBwoA/r21V0JaNdO48Z3Nf4ZaNSaTBqK7peWSmFxsWSfPy8Hjh2TI6dOSRsPDxmfkCBTJ0yQvuHhVmOiVQBramokc+dO+ffatXLizBkF7wezZ8vQmBjdmad5PSgvlwuXL8vHS5fKnsOHpa2vr6QnJ8sP58xRV7bM1I8ACHg3b9+WP3z0kca9zh06yA9mzZKRsbHi6+2tce9pXoQuGEb+1avyl0WL1BrDQ0PlrZdflkH9+mmyqb8eAbD84UP5+tAh+duSJZowxiUkyOtz5oh/u3ZPPXh1bm0GcfWWLbIsM1NKbt6UqePGyaszZ0pbH5+GASQWfLJsmazYuFGTxbzJkyU1MfFpNjqb93YmN1cWr1wpO/bv10Tyq3fekZCgoG8Z0iMWiNX99q9/la8PH5b42FiZP2OGREVEOBVAaBKuBJltyXWvtFQ+z8iQpWvXil/btvK7d9+VsK5dv+XGjwB4684d+fn770v2uXMyccwYmT99unTp2NGp93H3/n0hlLTz9bUauJ11MRQQS9evl89WrNDqCwD7hIeLd5s2dZfwCIAkEAA8lZMjkxITFcBOISHOumb9niMnT2rFExIcLInDh9vkYM19UQBIDMSN2dA6AL287AN4OidHY98r06dLZycDuP+bb2Tdtm2Sk58vr82aJYP799ck5uxlAPjZypXy8OFDee/dd5UPUq0Yy6YFthSAVVVVsu/oUflq/XrZeeCAJAwZohlwUP/+EuTv71QMXR5AEgWuQbCmlCotL5fS0lI5cfaslpDHTp8Wd3d3SRwxQlLHjJEh0dFOtUSXBRCy/rCiQkofPJCCoiI5m5srZ/Py5FJhody4dUuMJMLfGRk5bvBgmTFxolqkmzk783sstqq6WpONihtN0PRsmbVLAsgN37p7V/YeOSJ7jx5V4Ki7AbROnzOLm1pnm0xSUVEhPl5eMmroUPnf117TchKwAPv8xYuSd/myjBk+XNoHBj5SKTyOz7scgFeKi+VIdrbWmOcuXBAoU1l5uVRWVqol4dIAg4XxamUyCTfBooyakpIiKQkJChKWhquTbLbv2yf9IiNl5ODBWq+HdunyOLjVvdclAAQUONSp8+fV4g4cPy65Fy/K/bIywQUBDKkIzhfs7y+BAQEaF1FGCktKlEwP7tdPxo8aJfFDhkiH4GC9Qd67Ydcu+XzVKvkmO1v8/fykZ7duGifjYmMlxixBPY5LtziA3CTKNRl9/Y4dAj1B2eamAAY6QGalZOzRrZsKmYgX6JDb9u6VQ8ePS//evWXmpEkyYtAgLaOMhdVmbNkiSzIy5NKVK3Wg4sYoypOSkhREalcjZjbWLFsUQCwPKyPGffDFF1rZwKXQEIlrKDsDo6LU7WKjoyW0c+e6GhMXX7Fhg5L5/3n1VXVLLKz+QjE5ePy4ZO7YoYoJJSiLhMJ39AoNlQXz5mkN64cQ0oTk0qIAoqsdPnlSPvrySzmdm6suR0alYcPNPT9xoromVgVVqV/3YqlQGCogkoM1Gc2Qna7fuqWbs3zDBq1e+F4sjgSE8Pv67NlqvYSIxq4WA5Avhgyv3LRJdh86pIkAyyB+DR8wQFLHjpXw7t2V01lr3Fy/eVPu3L8v/m3b1mVcWzfP58IhcWMUdEQQqJGbmdIMiYmRaePHqzzfUG/D2ue3GIDEPMDbvHu33DG7FrENGoK+SFwDOFsBngtXNcaBrphx41j3mZwc2bpnj8pPxFGskDiLFT8/YYKWhI1ZTgeQmy4tK5N/rVmjSQNpHMpBlqWuTh87VqL79LF7D+qeFRX/zdS1tap+eHp6OiRvQY+wxIzNm5WQEyvZvHHx8SrNIUs5qqo7HUAuFm7250WLtDkDEMQjEsVrs2dL34gIh4I5pPpKUZEcP3NGXR93R4dztB+Tc+mSLFm1SmkOFIqmUa+wMFXWoUK2OmyWO+t0AO/cuyf/9+mnsnP/fu2r0NVi93/x5pvSOzxcqwlHFvGM7PrPZcukprpaa+EZqamaDBxZbMCFggL57cKFApgkFpII2f7nb7whQQEBDm2kUwGkriX2cdEQYHWdkBCZnJwsM9PSbLpOyY0bQtLAReGBVCQ79u3TrApNgX6wCbQWqUSCAwK0guE7As0c0hJUg0Jlbt8uX65dqwkGT4Bz/nTBAuWJuLK95VQAKdMoqxatWCHl5eXSpk0bDdpvvviiRISGWk0IuClZGlfFrSLCwrQmhsIcO3VK7paWKoDcfJ+ePWVwdLR0DA7WBnjB1avq1glDh2posJT/dRylpET+snix1t3EQ093d92I2WlpStztLacBCMeDg/3t88/l0IkTGne6d+miEhRxx1ZvY1NWliq+vIesTBXBe0lEDysrlYoYZRuBn2Ti6+urmR1AsFiS08vTpmm2tZbVqVSoWCD0Hq1b6yZBztlcez0XpwH4wNwKfe+DD4Q4yM0nxMbKnPR0GTVsmNWNxs1oXq/dulUuXrmiHA3wsDiVpQDPYnjWIONYJO/HapG3frZggc0Q8c3p0/JFRoZSKjYJVvCT11/XuRd7buw0AHEpqMOfP/usDoBpEybIi1OnSpcOHWx6CpYH5dm+d6/eGKBgRQZQhkKDpcAJAdb4G8rC3j17ypRx42R2erpNaoJ0BoBMWajyU1Wl/d3nkpNVfGhoOQ1A+qfwLtyFXQ4ODJQXpkyRWWlpDVIGOBtqyrrt2+uItdaybm46e4OLAlzR9euqGQKA4XYoNtTSM1NTJS0pySYOfN6qTZv0ey4VFEhVTY2Chzhrj1g7DUCyJT0MqAdxC8qC9aUnJVmNS1gYMQzZnu4/GiHAQ5qxRPrQlHw9u3dXAIuvX9fZRP7uxu3bCiJZvnvnzpI8cqRMnzhRO3i2YhrVyRerV8vBY8cUaOSuuc89px0/l7BAeN+Xa9ZoRkVVjhs0SCcaiDOWC3mLDIrSgmSFTkjcxD1xL3XLlBTV/6ApLKoSFBeSAe5uxEDAJhMDIqoLCYK4ZplMECfYYIg1G4z4ygbTtnUJAMmmMP/D2dkav6h3SSD0MSxXXn6+/Gv1atmQlaXZlhvCcrA+3PKladNkckqKToTVX1gsyvP7H36ogJJsiIe4KIBG9eolb770krq1pUABLWJUBW7JdzEsROYmfroEgLguIxA0h7y9vWXi6NHqvjFW6t6TZ8/K/y9apO7Uys2t7mYNMN6ZP18mjB5dpzwbN0hCwZJ+s3ChIGEZQ+FsGNUKY2i/fOstLdUsVRfkLsQNSDUAwgFffv55VWlcAkCs6uyFC1oy4UIozGh51jQ4Esei5ctVNSGOcUNGdoVEkyEBn/hXf2GtjNu99/e/q8qtFihS1zPh7+F3SProi/UXm4YFMqbB9/G3AEi/2SUAxPV4YRVUIO5mUKxdHGUYLgWFOZqdrdodPBLpCUBJHlPGj1fpCyGVhZsSK8nWKzdurItxuH/7oCC1dF6IFmycpdrCqMjyzEzJ2LpVQwbzLYQKNsolAGzwKqz8EnpADczs9abdu+X8hQviRhauqVHBgamwpLg4zbKAgVyPUEoMZIaZzFxdVaV0CdCotXFLSjVr1QjJDR6ITshGQV+gWcRqlwHQiGGAg5uorG6nD4FSwuQTlqVE2WTSTAwQndq3V0uhBYCuiCCASm0kCOptWp00nCaNHWsTB66LcWWSHOUmwmvKyJEyKz1dwXcZAIlRjMUiEDDJTwViOc1pebFohoZuV3901jgJRfPJZD4RpT/zMn8IISM6MlI5IAKBrUVc/fe6dfo9qD5sEAxh6vjxmrldBsDLhYWyhib33r3a60CCQs4CSOYLcTc6a7ioQUHgZlQJyGBYGtYBQGq55ul5btD4P7Wx0UvmbxFYx44YIW/Pn6/x0prFI+1TIUHYeS+fy7wzPLNj+/auASAWc/L8eVm4eLHsP3pUXdjH21stEDBRWQZERWl7EmUYNySDrtq4UbMjKjZu6+PjoyDC8wgFRjIwjpRhpVAUsj1lHQmEOPajuXP1vRyWuXbzpiYjmABhARFh2fr12tAnO3MtiAmQfa96g5LWkHRaKccFw9F+9+GHqtWxkNGN0oxkgCqTOGxY3REqAKQJhAhx8MQJVa/DunXT3rER8/hcw6qwFqR9ACi+cUOKSkqUjgAg3I9Nwa3hl8a5lo4hIQoelRICLBvAaYMfzp3r0Niy0wBEvt/y9dfyx48/VjcxFBVDJH11xgyJ6dvXqnxEcqC0w2Ip44hZBH2qhpyLF5V2YMlQjumpqRoOOEkESIDKewyQsVRcdem6dVrlDB0wQKkSYi9E3MvTU9544QVJio9/hKi3qAUyIYUa8+ny5XrDRkKAEyIM/Ortt7XYtzZiAcdTd2XcA9eurZUzeXkaGyHcWPGoIUNkrrm25vN1rI0SjjLQovWJ6PBVZqas2bq1Li7y+bh+rx495Nc//rFyRUdapk6zQCoEeBYFPxeJesJxCRYlFrJWWmKiw8Pq1L1IZKg1ANU/MlKPmBHX7K3LV6+qKvTBkiV1k14AzmYynksCCQ8L+9aguK3PdAqAuMa2fftk98GDmmFROgAU12F+j53u1rmzUgfUY0cG1kkkuCAaoJFtjYl9ewDSS+Zafv+Pf2hPhaxuZG4SGg2lYQMHykDzhjRkiU4BkJjF7As3S3MHAoxMRclFuWYQbDIwPRJAJHs218LlaUj96ZNPhBqY+Fj/IDW1OhmYSgcJDPrUohao3I0+Rr2qA+shmENgSRLcAK5IvYoaPGHUKKUQT3ok1wACcQMBlbhMPA4OClI+SneQpMMAJhwVMBsafXOKBVrbPayOzEdm/ufSpeqOgMULF2b36ZkwbGR5eK8plmn57AZDsGDAiRoZbZHvJdOzmToBa74el6lELC9ETzwWFsq2PXuUkiDFAyyA0e+IiozU88fEImJkYyenKMkoG1FpmEKAD9JDwbL5HUkMEQLQqFJo3BttUkc3qcUs0LhA4iOjuhuzsjSxUFZRReDuXl5e0qNrV3UpLASyjUXiVvR4jTloJeXm05O8F/mfeHu5qEjnrOn38liCpJEjtblEp+1JWDXf2+IA6kXU1KiCvDkrS2kJ0hWZkphIdgQsgOPG6W9AjhnBMNyN2hWLKisrk5t37milQ1wlzvEzZ0wAuEP79vKjefN0lI3xjyexXAJA40YosxA2jSFIuB6LrMmF8iI2MX0AeFAidWuTSasTVGiA51/9W/M0v6Fmu3t4yJy0NG0U0Vx6EsulALQcyd2ye7eKCAirOpFQD5CGbl6b7gBeU6OiBbUx8TQlLk6Pg+nIcCMGM102idi6MIg3lkS1gmhAHKPmRdpnisA4NwJQhgqjNMlctmGhEGJq4oju3SWyZ08VFToEBWnV86TAc5kY2NAOE7+wQJQV/kWKAkQyKIozlsmiWkCYIJuiAaItYmnES+JnUwbIHXFxl3JhexdszPQRGwGQWAcVYpFVoScA2K5tW/H18XFoQNLed9r7/WMB2JIHru3dmLN+bwDYqAPXrnDk31kA2fseAKSXvHjFCqlw9Mg/7J3uP6eFKPyZbEck+D4uQgn9FCYaiLMc+Yf81xcgHjmxzps+/uorVVOoDhgS4uET38d1Li9POO7PzDYynT72BGG43sOHrD54h4oBQZKATveKMV12wNHzFd91sI0Tpmu2bFF1mxbC5HHj9KiG3QfvwL8ovRAkESYp9HluFCKktiS/B49+MoQKzrtwRBe3feuVV1SMtdQPbT58bO22bdqcoflNDATEQVFRevLxaV7lFRWSf+WKynB4IsSdo7PU2XBRuw8fM8ChUmB2BWGUigEQUXKZv6Popxpo6jlcV9sA44gaGiby2L5jx/SsMlVNSny8jsERA6017ht8ACPAIUMBJJP0gX5+enwB3Y2fjbO/rgZIY6+HHjYnPukdc5/8287HR094AuCAPn20KWVtNfwI0NparVmZbqI5zcMd7t67p1MFVAcq4zfhIHNjb7C5/16TRmWlymu4KWMpxPzkuDhVtBs6W+fQQ2jR7ph9oevPCAemztGuWo6lNvfdNfPnG08GQTpD2YkMC5PYmBjt3zgizDoEIPcAiMyswMj5l6FIRmtZ3/XHgOJFZFdA5AVwDZ1nrr+nDgNY/02IoPXlpmY2kmb9eGPzORlFSLI302h5MU0CsFnv6Dv24c8AfMwNewbgYwL4H3svhvJH0yxVAAAAAElFTkSuQmCC"
+    },
+    "content": ""
+  },
   "configuration": {},
   "operations": [
-      {
-          "title": "Extract Data from CSV",
-          "operation": "extract_data_from_csv",
-          "description": "This action will extract data from CSV based on column names provided. User can select option to deduplicate rows based on columns",
-          "parameters": [
-              {
-                  "title": "Type",
-                  "type": "select",
-                  "name": "input",
-                  "required": true,
-                  "visible": true,
-                  "editable": true,
-                  "value": "",
-                  "options": [
-                      "Attachment IRI",
-                      "File IRI"
-                  ]
-              },
-              {
-                  "title": "Reference ID",
-                  "type": "text",
-                  "name": "value",
-                  "required": true,
-                  "visible": true,
-                  "editable": true,
-                  "value": ""
-              },
-              {
-                  "title": "Column Names",
-                  "type": "text",
-                  "name": "columnNames",
-                  "required": false,
-                  "visible": true,
-                  "editable": true,
-                  "value": ""
-              },
-              {
-                  "title": "Deduplicate Values on",
-                  "type": "text",
-                  "name": "deDupValuesOn",
-                  "required": false,
-                  "visible": true,
-                  "editable": true,
-                  "value": ""
-              },
-              {
-                  "title": "Is CSV without headers",
-                  "type": "checkbox",
-                  "name": "isCSVWithoutHeaders",
-                  "required": false,
-                  "visible": true,
-                  "editable": true,
-                  "value": null
-              }
-          ],
-          "open": false
-      }
-  ],
-  "icon_medium_name": "utilities_medium.png"
+    {
+      "title": "Extract Data from Single CSV",
+      "operation": "extract_data_from_csv",
+      "description": "This action will extract data from CSV based on column names provided. User can select option to deduplicate rows based on columns",
+      "parameters": [
+        {
+          "title": "Type",
+          "type": "select",
+          "name": "input",
+          "required": true,
+          "visible": true,
+          "editable": true,
+          "value": "",
+          "options": [
+            "Attachment IRI",
+            "File IRI"
+          ]
+        },
+        {
+          "title": "Reference ID",
+          "type": "text",
+          "name": "value",
+          "required": true,
+          "visible": true,
+          "editable": true,
+          "value": ""
+        },
+        {
+          "title": "Column Names",
+          "type": "text",
+          "name": "columnNames",
+          "required": false,
+          "visible": true,
+          "editable": true,
+          "value": ""
+        },
+        {
+          "title": "Deduplicate Values on",
+          "type": "text",
+          "name": "deDupValuesOn",
+          "required": false,
+          "visible": true,
+          "editable": true,
+          "value": ""
+        },
+        {
+          "title": "Is CSV without headers",
+          "type": "checkbox",
+          "name": "isCSVWithoutHeaders",
+          "required": false,
+          "visible": true,
+          "editable": true,
+          "value": null
+        },
+        {
+          "title": "Number of rows to skip",
+          "type": "integer",
+          "name": "numberOfRowsToSkip",
+          "required": false,
+          "visible": true,
+          "editable": true,
+          "value": null
+        }
+      ],
+      "open": true
+    },
+    {
+      "title": "Extract Data from Two CSV",
+      "operation": "extract_data_from_two_csv",
+      "description": "This action will extract data from CSV based on column names provided by merging two CSV file. User can select option to deduplicate rows based on columns",
+      "parameters": [
+        {
+          "title": "Type",
+          "type": "select",
+          "name": "input",
+          "required": true,
+          "visible": true,
+          "editable": true,
+          "value": "",
+          "options": [
+            "Attachment IRI",
+            "File IRI"
+          ]
+        },
+        {
+          "title": "First File Reference ID",
+          "type": "text",
+          "name": "file_one_value",
+          "required": true,
+          "visible": true,
+          "editable": true,
+          "value": ""
+        },
+        {
+          "title": "First File Column Names",
+          "type": "text",
+          "name": "file1_columnNames",
+          "required": false,
+          "visible": true,
+          "editable": true,
+          "value": ""
+        },
+        {
+          "title": "Is First CSV without headers",
+          "type": "checkbox",
+          "name": "isCSVWithoutHeadersFirst",
+          "required": false,
+          "visible": true,
+          "editable": true,
+          "value": null
+        },
+        {
+          "title": "Number of rows to skip from First File",
+          "type": "integer",
+          "name": "numberOfRowsToSkipFirst",
+          "required": false,
+          "visible": true,
+          "editable": true,
+          "value": null
+        },
+        {
+          "title": "Type",
+          "type": "select",
+          "name": "input",
+          "required": true,
+          "visible": true,
+          "editable": true,
+          "value": "",
+          "options": [
+            "Attachment IRI",
+            "File IRI"
+          ]
+        },
+        {
+          "title": "Second File Reference ID",
+          "type": "text",
+          "name": "file_two_value",
+          "required": true,
+          "visible": true,
+          "editable": true,
+          "value": ""
+        }
+        ,
+        {
+          "title": "Is Second CSV without headers",
+          "type": "checkbox",
+          "name": "isCSVWithoutHeadersSecond",
+          "required": false,
+          "visible": true,
+          "editable": true,
+          "value": null
+        },
+        {
+          "title": "Number of rows to skip from Second File",
+          "type": "integer",
+          "name": "numberOfRowsToSkipSecond",
+          "required": false,
+          "visible": true,
+          "editable": true,
+          "value": null
+        },
+        {
+          "title": "Second File Column Names",
+          "type": "text",
+          "name": "file2_columnNames",
+          "required": false,
+          "visible": true,
+          "editable": true,
+          "value": ""
+        },
+        {
+          "title": "Merge on Column",
+          "type": "text",
+          "name": "mergeColumnNames",
+          "required": false,
+          "visible": true,
+          "editable": true,
+          "value": ""
+        },
+        {
+          "title": "Deduplicate Values on",
+          "type": "text",
+          "name": "deDupValuesOn",
+          "required": false,
+          "visible": true,
+          "editable": true,
+          "value": ""
+        }
+      ],
+      "open": true
+    }
+  ]
 }
