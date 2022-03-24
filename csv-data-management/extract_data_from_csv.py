@@ -57,7 +57,7 @@ def extract_data_from_csv(config, params):
             all_records.append(batch.to_dict("records"))
             final_result = {"records": all_records}
 
-        return (json.dumps(final_result))
+        return final_result
 
     except Exception as Err:
         logger.error('Error in extract_data_from_csv(): %s' % Err)
@@ -143,7 +143,7 @@ def extract_data_from_two_csv(config, params):
             all_records.append(batch.to_dict("records"))
             final_result = {"records": all_records}
 
-        return (json.dumps(final_result))
+        return final_result
 
     except Exception as Err:
         logger.error('Error in extract_data_from_csv(): %s' % Err)
