@@ -46,7 +46,7 @@ def extract_data_from_csv(config, params):
             if params.get('deDupValuesOn'):
                 deDupValuesOn = params.get('deDupValuesOn')
                 deDupValuesOn = deDupValuesOn.split(",")
-                df.drop_duplicates(subset=[deDupValuesOn], keep='first')
+                df.drop_duplicates(subset=deDupValuesOn, keep='first')
         except Exception as Err:
             logger.error('Error in dedeuplicating data  extract_data_from_csv(): %s' % Err)
         
@@ -135,7 +135,7 @@ def extract_data_from_two_csv(config, params):
             if params.get('deDupValuesOn'):
                 deDupValuesOn = params.get('deDupValuesOn')
                 deDupValuesOn = deDupValuesOn.split(",")
-                combined_recordSet.drop_duplicates(subset=[deDupValuesOn], keep='first')
+                combined_recordSet.drop_duplicates(subset=deDupValuesOn, keep='first')
         except Exception as Err:
             logger.error('Error in dedeuplicating data  extract_data_from_csv(): %s' % Err)
 
