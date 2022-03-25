@@ -156,19 +156,23 @@ def extract_data_from_two_csv(config, params):
 
 
 def _read_file_specific_columns(filepath,columns_list,numberOfRowsToSkip=None):
-    df = pd.read_csv('{}'.format(filepath), delimiter=',', encoding="utf-8-sig",skiprows=numberOfRowsToSkip)[columns_list]
+    chunk = pd.read_csv('{}'.format(filepath), delimiter=',', encoding="utf-8-sig",skiprows=numberOfRowsToSkip,chunksize=10000)[columns_list]
+    df = pd.concat(chunk)
     return df
 
 def _read_file_all_columns(filepath,numberOfRowsToSkip=None):
-    df = pd.read_csv('{}'.format(filepath), delimiter=',', encoding="utf-8-sig",skiprows=numberOfRowsToSkip)
+    chunk = pd.read_csv('{}'.format(filepath), delimiter=',', encoding="utf-8-sig",skiprows=numberOfRowsToSkip,chunksize=10000)
+    df = pd.concat(chunk)
     return df
 
 def _read_file_specific_columns_no_headers(filepath,columns_list,numberOfRowsToSkip=None):
-    df = pd.read_csv('{}'.format(filepath), delimiter=',', encoding="utf-8-sig",header = None,skiprows=numberOfRowsToSkip)[columns_list]
+    chunk = pd.read_csv('{}'.format(filepath), delimiter=',', encoding="utf-8-sig",header = None,skiprows=numberOfRowsToSkip,chunksize=10000)[columns_list]
+    df = pd.concat(chunk)
     return df
 
 def _read_file_no_headers(filepath,numberOfRowsToSkip=None):
-    df = pd.read_csv('{}'.format(filepath), delimiter=',', encoding="utf-8-sig",header = None,skiprows=numberOfRowsToSkip)
+    chunk = pd.read_csv('{}'.format(filepath), delimiter=',', encoding="utf-8-sig",header = None,skiprows=numberOfRowsToSkip,chunksize=10000)
+    df = pd.concat(chunk)
     return df
 
 
