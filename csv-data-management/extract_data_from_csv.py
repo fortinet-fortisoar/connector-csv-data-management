@@ -49,6 +49,9 @@ def extract_data_from_csv(config, params):
                 df.drop_duplicates(subset=[deDupValuesOn], keep='first')
         except Exception as Err:
             logger.error('Error in dedeuplicating data  extract_data_from_csv(): %s' % Err)
+        
+        # Replace empty values with N/A 
+        df = df.fillna('N/A')
 
         #Create small chunks of dataset to cosume by playbook    
         smaller_datasets = np.array_split(df, 20)
@@ -135,6 +138,9 @@ def extract_data_from_two_csv(config, params):
                 combined_recordSet.drop_duplicates(subset=[deDupValuesOn], keep='first')
         except Exception as Err:
             logger.error('Error in dedeuplicating data  extract_data_from_csv(): %s' % Err)
+
+        # Replace empty values with N/A 
+        combined_recordSet = combined_recordSet.fillna('N/A')
 
         #Create small chunks of dataset to cosume by playbook    
         smaller_datasets = np.array_split(combined_recordSet, 20)
