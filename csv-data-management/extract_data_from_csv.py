@@ -156,7 +156,7 @@ def extract_data_from_two_csv(config, params):
 
 
 def _read_file_specific_columns(filepath,columns_list,numberOfRowsToSkip=None):
-    df = pd.read_csv('{}'.format(filepath), delimiter=',', encoding="utf-8-sig",skiprows=numberOfRowsToSkip)[[columns_list]]
+    df = pd.read_csv('{}'.format(filepath), delimiter=',', encoding="utf-8-sig",skiprows=numberOfRowsToSkip)[columns_list]
     return df
 
 def _read_file_all_columns(filepath,numberOfRowsToSkip=None):
@@ -164,7 +164,7 @@ def _read_file_all_columns(filepath,numberOfRowsToSkip=None):
     return df
 
 def _read_file_specific_columns_no_headers(filepath,columns_list,numberOfRowsToSkip=None):
-    df = pd.read_csv('{}'.format(filepath), delimiter=',', encoding="utf-8-sig",header = None,skiprows=numberOfRowsToSkip)[[columns_list]]
+    df = pd.read_csv('{}'.format(filepath), delimiter=',', encoding="utf-8-sig",header = None,skiprows=numberOfRowsToSkip)[columns_list]
     return df
 
 def _read_file_no_headers(filepath,numberOfRowsToSkip=None):
