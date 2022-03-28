@@ -1,6 +1,7 @@
 import requests
 import pandas as pd
 import numpy as np
+import csv
 from os.path import join
 import json
 from connectors.core.connector import get_logger, ConnectorError
@@ -17,6 +18,10 @@ def extract_data_from_csv(config, params):
         file_iri = handle_params(params,params.get('value'))
         file_path = join('/tmp', download_file_from_cyops(file_iri)['cyops_file_path'])
   
+        if _check_if_csv(file_path) == True:
+            isCSVWithoutHeaders = False
+        elif _check_if_csv(file_path) == "Single Column CSV":
+            isSingleColumn = True
 
         if params.get('numberOfRowsToSkip'):
           numberOfRowsToSkip = params.get('numberOfRowsToSkip')
@@ -77,6 +82,9 @@ def extract_data_from_two_csv(config, params):
         logger.warning(params)
         first_file_path = join('/tmp', download_file_from_cyops(file_1_iri_)['cyops_file_path'])
         second_file_path = join('/tmp', download_file_from_cyops(file_2_iri_)['cyops_file_path'])
+
+        file1type = _check_if_csv(first_file_path)
+        file2type = _check_if_csv(second_file_path)
 
         #Lets read first file 
          
@@ -174,6 +182,21 @@ def _read_file_no_headers(filepath,numberOfRowsToSkip=None):
     chunk = pd.read_csv('{}'.format(filepath), delimiter=',', encoding="utf-8-sig",header = None,skiprows=numberOfRowsToSkip,chunksize=10000)
     df = pd.concat(chunk)
     return df
+
+def _check_if_csv(filepath):
+    res = "Single Column CSV"
+    try:
+        sniffer = csv.Sniffer()
+        sample_bytes = 32
+        res=sniffer.has_header(open("/tmp/{{vars.steps.Download_file.data['cyops_file_path']}}").read(sample_bytes))
+        return res
+    except:
+        try:
+            pd.read_csv('{}'.format(filepath),error_bad_lines=False,usecols=[0])
+            return res
+        except Exception as Err:
+            print("Not a valid CSV: "+ Err)
+
 
 
 
