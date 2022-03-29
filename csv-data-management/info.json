@@ -66,11 +66,22 @@
         {
           "title": "Number of rows to skip",
           "name": "numberOfRowsToSkip",
+          "type": "integer",
           "required": false,
           "visible": true,
           "editable": true,
           "value": null,
           "description": "Number of rows you want to skip from top of CSV File. Note first row will not be skipped as it has column names"
+        },
+        {
+          "title": "Convert recordset into batch",
+          "name": "recordBatch",
+          "type": "checkbox",
+          "required": false,
+          "visible": true,
+          "editable": true,
+          "value": null,
+          "description": "If set , will return rows as recordSet in list of 20 batches otherwise complete result in a single variable"
         }
       ],
       "open": true
@@ -184,6 +195,16 @@
           "editable": true,
           "value": "",
           "description": "Column name you want to use deduplicate date  from CSV File"
+        },
+        {
+          "title": "Convert recordset into batch",
+          "name": "recordBatch",
+          "type": "checkbox",
+          "required": false,
+          "visible": true,
+          "editable": true,
+          "value": null,
+          "description": "If set , will return rows as recordSet in list of 20 batches otherwise complete result in a single variable"
         }
       ],
       "open": true

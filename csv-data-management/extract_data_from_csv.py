@@ -60,12 +60,15 @@ def extract_data_from_csv(config, params):
         # Replace empty values with N/A 
         df = df.fillna('N/A')
 
-        #Create small chunks of dataset to cosume by playbook    
-        smaller_datasets = np.array_split(df, 20)
-        all_records = []
-        for batch in smaller_datasets:
-            all_records.append(batch.to_dict("records"))
-            final_result = {"records": all_records}
+        #Create small chunks of dataset to cosume by playbook if requested by user otherwise return complete recordset
+        if params.get('recordBatch'):
+            smaller_datasets = np.array_split(df, 20)
+            all_records = []
+            for batch in smaller_datasets:
+                all_records.append(batch.to_dict("records"))
+                final_result = {"records": all_records}
+        else:
+            final_result = df.to_json()
 
         return final_result
 
@@ -74,7 +77,7 @@ def extract_data_from_csv(config, params):
 
 
         
-def extract_data_from_two_csv(config, params):
+def merge_two_csv_and_extract_data(config, params):
     try:
         mergeColumn = params.get('mergeColumnNames')
         numberOfRowsToSkip = None
@@ -167,13 +170,16 @@ def extract_data_from_two_csv(config, params):
         # Replace empty values with N/A 
         combined_recordSet = combined_recordSet.fillna('N/A')
 
-        #Create small chunks of dataset to cosume by playbook    
-        smaller_datasets = np.array_split(combined_recordSet, 20)
-        all_records = []
-        for batch in smaller_datasets:
-            all_records.append(batch.to_dict("records"))
-            final_result = {"records": all_records}
-
+        #Create small chunks of dataset to cosume by playbook if requested by user otherwise return complete recordset
+        if params.get('recordBatch'):
+            smaller_datasets = np.array_split(combined_recordSet, 20)
+            all_records = []
+            for batch in smaller_datasets:
+                all_records.append(batch.to_dict("records"))
+                final_result = {"records": all_records}
+        else:
+            final_result = combined_recordSet.to_json()
+            
         return final_result
 
     except Exception as Err:
