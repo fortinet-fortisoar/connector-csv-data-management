@@ -15,6 +15,7 @@ logger = get_logger(LOGGER_NAME)
 def extract_data_from_csv(config, params):
     try:
         numberOfRowsToSkip = None
+        isSingleColumn = None
         file_iri = handle_params(params,params.get('value'))
         file_path = join('/tmp', download_file_from_cyops(file_iri)['cyops_file_path'])
 
@@ -36,10 +37,10 @@ def extract_data_from_csv(config, params):
             df = _read_file_specific_columns(file_path,columnNames,numberOfRowsToSkip)
             
         elif isSingleColumn : # CSV file with one  column and header 
-            df = _read_file_single_column(file_path,columnNames,numberOfRowsToSkip)
+            df = _read_file_single_column(file_path,numberOfRowsToSkip)
 
         elif isSingleColumn and not isCSVWithoutHeaders: # CSV file with one  column and no header 
-            df = _read_file_single_column_no_header(file_path,columnNames,numberOfRowsToSkip)
+            df = _read_file_single_column_no_header(file_path,numberOfRowsToSkip)
 
         elif params.get('isCSVWithoutHeaders'): # CSV file without column header and all columns
             df = _read_file_no_headers(file_path,numberOfRowsToSkip)
@@ -68,7 +69,7 @@ def extract_data_from_csv(config, params):
                 all_records.append(batch.to_dict("records"))
                 final_result = {"records": all_records}
         else:
-            final_result = df.to_json()
+            final_result = {"records": df.to_dict()}
 
         return final_result
 
@@ -81,7 +82,8 @@ def merge_two_csv_and_extract_data(config, params):
     try:
         mergeColumn = params.get('mergeColumnNames')
         numberOfRowsToSkip = None
-        
+        isSingleColumn = None
+
         file_1_iri_ = handle_params(params,params.get('file_one_value'))
         file_2_iri_ = handle_params(params,params.get('file_two_value'))
         logger.warning(params)
@@ -120,10 +122,10 @@ def merge_two_csv_and_extract_data(config, params):
             df_file1 =  _read_file_no_headers(first_file_path,numberOfRowsToSkip) 
 
         elif isSingleColumnFrist: #CSV with single column and header    
-            df_file1 = _read_file_single_column(first_file_path,columnNames,numberOfRowsToSkip)
+            df_file1 = _read_file_single_column(first_file_path,numberOfRowsToSkip)
         
         elif isSingleColumnFrist and not isCSVWithoutHeadersFirst: # CSV file with one  column and no header 
-            df_file1 = _read_file_single_column_no_header(first_file_path,columnNames,numberOfRowsToSkip)
+            df_file1 = _read_file_single_column_no_header(first_file_path,numberOfRowsToSkip)
 
         else:  
             # We are reading complete file assuming it has column header
@@ -145,10 +147,10 @@ def merge_two_csv_and_extract_data(config, params):
             df_file2 = _read_file_no_headers(second_file_path,numberOfRowsToSkip)  
 
         elif isSingleColumnSecond: #CSV with single colum   
-            df_file2 = _read_file_single_column(second_file_path,columnNames,numberOfRowsToSkip)  
+            df_file2 = _read_file_single_column(second_file_path,numberOfRowsToSkip)  
 
         elif isSingleColumnSecond and not isCSVWithoutHeadersSecond: # CSV file with one  column and no header 
-            df_file2 = _read_file_single_column_no_header(second_file_path,columnNames,numberOfRowsToSkip) 
+            df_file2 = _read_file_single_column_no_header(second_file_path,numberOfRowsToSkip) 
 
         else:  
             # We are reading complete file assuming it has column header
@@ -178,7 +180,7 @@ def merge_two_csv_and_extract_data(config, params):
                 all_records.append(batch.to_dict("records"))
                 final_result = {"records": all_records}
         else:
-            final_result = combined_recordSet.to_json()
+            final_result = {"records": combined_recordSet.to_dict()}
             
         return final_result
 
