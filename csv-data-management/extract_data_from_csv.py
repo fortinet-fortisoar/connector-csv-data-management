@@ -15,6 +15,7 @@ logger = get_logger(LOGGER_NAME)
 def extract_data_from_csv(config, params):
     try:
         numberOfRowsToSkip = None
+        isSingleColumn = None
         file_iri = handle_params(params,params.get('value'))
         file_path = join('/tmp', download_file_from_cyops(file_iri)['cyops_file_path'])
 
@@ -81,7 +82,8 @@ def merge_two_csv_and_extract_data(config, params):
     try:
         mergeColumn = params.get('mergeColumnNames')
         numberOfRowsToSkip = None
-        
+        isSingleColumn = None
+
         file_1_iri_ = handle_params(params,params.get('file_one_value'))
         file_2_iri_ = handle_params(params,params.get('file_two_value'))
         logger.warning(params)
