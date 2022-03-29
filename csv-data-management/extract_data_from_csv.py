@@ -69,7 +69,7 @@ def extract_data_from_csv(config, params):
                 all_records.append(batch.to_dict("records"))
                 final_result = {"records": all_records}
         else:
-            final_result = df.to_json()
+            final_result = {"records": df.to_dict()}
 
         return final_result
 
@@ -180,7 +180,7 @@ def merge_two_csv_and_extract_data(config, params):
                 all_records.append(batch.to_dict("records"))
                 final_result = {"records": all_records}
         else:
-            final_result = combined_recordSet.to_json()
+            final_result = {"records": combined_recordSet.to_dict()}
             
         return final_result
 
