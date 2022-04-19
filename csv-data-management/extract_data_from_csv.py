@@ -350,10 +350,15 @@ def _read_file_single_column(filepath,numberOfRowsToSkip=None):
     except Exception as Err:
         logger.error('Error in _read_file_no_headers(): %s' % Err) 
             
-def _read_file_single_column_no_header(filepath,numberOfRowsToSkip=None):
+def _read_file_single_column_no_header(filepath,numberOfRowsToSkip=None,no_of_columns=None):
     try:
+        if no_of_columns:
+            colList = []
+            for i in range(no_of_columns):
+                colList.append("Column"+str(i))
         chunk = pd.read_csv('{}'.format(filepath),usecols=[0],header = None,skiprows=numberOfRowsToSkip,chunksize=100000,error_bad_lines=False)
         df = pd.concat(chunk)
+        df.columns = colList
         return df
     except Exception as Err:
         logger.error('Error in _read_file_single_column_no_header(): %s' % Err) 
