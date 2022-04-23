@@ -90,7 +90,7 @@ def merge_two_csv_and_extract_data(config, params):
         logger.info(mergeColumn)
         numberOfRowsToSkipFirst = None
         numberOfRowsToSkipSecond = None
-        isSingleColumnFrist = None
+        isSingleColumnFirst = None
         isSingleColumnSecond = None
         isCSVWithoutHeadersFirst = False
         isCSVWithoutHeadersSecond = False
@@ -108,7 +108,7 @@ def merge_two_csv_and_extract_data(config, params):
             isCSVWithoutHeadersFirst = True
 
         if res.get('columns') == 1:
-            isSingleColumnFrist = True
+            isSingleColumnFirst = True
         
         res = _check_if_csv(second_file_path)
 
@@ -123,8 +123,8 @@ def merge_two_csv_and_extract_data(config, params):
         if params.get('numberOfRowsToSkipFirst'):
           numberOfRowsToSkipFirst = params.get('numberOfRowsToSkipFirst')
           
-        if params.get('file1_columnNames') != "":  # CSV file with column header and specifci columns to use in creating recordset 
-            columnNames = params.get('file1_columnNames')
+        if params.get('file1_column_names') != "":  # CSV file with column header and specific columns to use in creating recordset 
+            columnNames = params.get('file1_column_names')
             columnNames = columnNames.split(",")
             
             # We are passing  specific columns name to filter data from here
@@ -133,10 +133,10 @@ def merge_two_csv_and_extract_data(config, params):
         elif isCSVWithoutHeadersFirst: # CSV file without column header and more than one column
             df_file1 =  _read_file_no_headers(first_file_path,numberOfRowsToSkipFirst) 
 
-        elif isSingleColumnFrist: #CSV with single column and header    
+        elif isSingleColumnFirst: #CSV with single column and header    
             df_file1 = _read_file_single_column(first_file_path,numberOfRowsToSkipFirst)
         
-        elif isSingleColumnFrist and not isCSVWithoutHeadersFirst: # CSV file with one  column and no header 
+        elif isSingleColumnFirst and not isCSVWithoutHeadersFirst: # CSV file with one  column and no header 
             df_file1 = _read_file_single_column_no_header(first_file_path,numberOfRowsToSkipFirst)
 
         else:  
@@ -148,8 +148,8 @@ def merge_two_csv_and_extract_data(config, params):
         if params.get('numberOfRowsToSkipSecond'):
             numberOfRowsToSkipSecond = params.get('numberOfRowsToSkipSecond')
           
-        if params.get('file2_columnNames') != "":  # CSV file with column header and specifci columns to use in creating recordset 
-            columnNames = params.get('file2_columnNames')
+        if params.get('file2_column_names') != "":  # CSV file with column header and specific columns to use in creating recordset 
+            columnNames = params.get('file2_column_names')
             columnNames = columnNames.split(",")
     
             # We are passing  specific columns name to filter data from here
@@ -204,7 +204,7 @@ def concat_two_csv_and_extract_data(config, params):
     try:
         numberOfRowsToSkipFirst = None
         numberOfRowsToSkipSecond = None
-        isSingleColumnFrist = None
+        isSingleColumnFirst = None
         isSingleColumnSecond = None
         isCSVWithoutHeadersFirst = False
         isCSVWithoutHeadersSecond = False
@@ -222,7 +222,7 @@ def concat_two_csv_and_extract_data(config, params):
             isCSVWithoutHeadersFirst = True
 
         if res.get('columns') == 1:
-            isSingleColumnFrist = True
+            isSingleColumnFirst = True
         
         res = _check_if_csv(second_file_path)
 
@@ -237,8 +237,8 @@ def concat_two_csv_and_extract_data(config, params):
         if params.get('numberOfRowsToSkipFirst'):
           numberOfRowsToSkipFirst = params.get('numberOfRowsToSkipFirst')
           
-        if params.get('file1_columnNames') != "":  # CSV file with column header and specifci columns to use in creating recordset 
-            columnNames = params.get('file1_columnNames')
+        if params.get('file1_column_names') != "":  # CSV file with column header and specific columns to use in creating recordset 
+            columnNames = params.get('file1_column_names')
             columnNames = columnNames.split(",")
             
             # We are passing  specific columns name to filter data from here
@@ -247,10 +247,10 @@ def concat_two_csv_and_extract_data(config, params):
         elif isCSVWithoutHeadersFirst: # CSV file without column header and more than one column
             df_file1 =  _read_file_no_headers(first_file_path,numberOfRowsToSkipFirst) 
 
-        elif isSingleColumnFrist: #CSV with single column and header    
+        elif isSingleColumnFirst: #CSV with single column and header    
             df_file1 = _read_file_single_column(first_file_path,numberOfRowsToSkipFirst)
         
-        elif isSingleColumnFrist and not isCSVWithoutHeadersFirst: # CSV file with one  column and no header 
+        elif isSingleColumnFirst and not isCSVWithoutHeadersFirst: # CSV file with one  column and no header 
             df_file1 = _read_file_single_column_no_header(first_file_path,numberOfRowsToSkipFirst)
 
         else:  
@@ -262,8 +262,8 @@ def concat_two_csv_and_extract_data(config, params):
         if params.get('numberOfRowsToSkipSecond'):
             numberOfRowsToSkipSecond = params.get('numberOfRowsToSkipSecond')
           
-        if params.get('file2_columnNames') != "":  # CSV file with column header and specifci columns to use in creating recordset 
-            columnNames = params.get('file2_columnNames')
+        if params.get('file2_column_names') != "":  # CSV file with column header and specific columns to use in creating recordset 
+            columnNames = params.get('file2_column_names')
             columnNames = columnNames.split(",")
     
             # We are passing  specific columns name to filter data from here
