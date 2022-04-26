@@ -4,15 +4,15 @@
     {
       "@type": "WorkflowCollection",
       "name": "CSV Data Management",
-      "description": "Sample playbooks for CSV Data Management",
+      "description": null,
       "visible": true,
       "image": null,
-      "uuid": "8326dfde-a8f6-48dd-9d88-86d185157595",
-      "id": 43,
-      "createUser": "/api/3/people/dc57abb7-94a9-498a-98ef-07a9bab13f7a",
-      "createDate": 1649242854.334781,
-      "modifyUser": "/api/3/people/dc57abb7-94a9-498a-98ef-07a9bab13f7a",
-      "modifyDate": 1649242854.334781,
+      "uuid": "98074fea-fb2d-4fb0-bbcd-84231772900f",
+      "id": 108,
+      "createUser": "/api/3/people/ffd74c31-e057-4bd5-a395-30303223ed6e",
+      "createDate": 1650890059.985297,
+      "modifyUser": "/api/3/people/ffd74c31-e057-4bd5-a395-30303223ed6e",
+      "modifyDate": 1650890059.985297,
       "deletedAt": null,
       "importedBy": [],
       "recordTags": [],
@@ -20,27 +20,131 @@
         {
           "@type": "Workflow",
           "triggerLimit": null,
-          "name": "Merge and Extract data from two CSV",
+          "name": "Read CSV and create dataset",
           "aliasName": null,
           "tag": null,
-          "description": "Merge two csv files on common column and extract data as a single data set",
+          "description": "Reads a CSV file and returns a dataset which can be consumed in FortiSOAR",
           "isActive": true,
           "debug": true,
           "singleRecordExecution": false,
           "remoteExecutableFlag": false,
           "parameters": [],
           "synchronous": false,
-          "lastModifyDate": 1649249175,
-          "collection": "/api/3/workflow_collections/8326dfde-a8f6-48dd-9d88-86d185157595",
+          "lastModifyDate": 1650890210,
+          "collection": "/api/3/workflow_collections/98074fea-fb2d-4fb0-bbcd-84231772900f",
           "versions": [],
-          "triggerStep": "/api/3/workflow_steps/1901b7ff-bdae-4f88-bb69-57a9b50a827a",
+          "triggerStep": "/api/3/workflow_steps/b4bf578d-8810-4247-8c35-752cf8983717",
+          "steps": [
+            {
+              "@type": "WorkflowStep",
+              "name": "Read CSV and Extract Data",
+              "description": null,
+              "arguments": {
+                "name": "CSV Data Management",
+                "params": {
+                  "input": "Attachment IRI",
+                  "value": "/api/3/attachments/3ea9ca36-74cd-4533-a2fd-427294a32369",
+                  "columnNames": "",
+                  "recordBatch": "",
+                  "deDupValuesOn": "",
+                  "numberOfRowsToSkip": ""
+                },
+                "version": "1.0.0",
+                "connector": "csv-data-management",
+                "operation": "extract_data_from_csv",
+                "operationTitle": "Extract Data from Single CSV",
+                "pickFromTenant": false,
+                "step_variables": []
+              },
+              "status": null,
+              "top": "235",
+              "left": "202",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
+              "uuid": "0eb357d9-6a6d-4297-8fdc-cb66353da76b"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "arguments": {
+                "route": "5c100f15-1e9f-4e40-b983-842acd6cc60c",
+                "resources": [
+                  "attachments"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "params": [],
+                    "records": "{{vars.input.records}}"
+                  }
+                },
+                "displayConditions": {
+                  "attachments": {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": []
+                  }
+                },
+                "executeButtonText": "Execute",
+                "noRecordExecution": true,
+                "singleRecordExecution": false
+              },
+              "status": null,
+              "top": "40",
+              "left": "40",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+              "uuid": "b4bf578d-8810-4247-8c35-752cf8983717"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "name": "Start -> Read CSV and Extract Data",
+              "targetStep": "/api/3/workflow_steps/0eb357d9-6a6d-4297-8fdc-cb66353da76b",
+              "sourceStep": "/api/3/workflow_steps/b4bf578d-8810-4247-8c35-752cf8983717",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "dd8b1f36-8aa2-4f1a-baf3-24910a03960e"
+            }
+          ],
+          "priority": "/api/3/picklists/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
+          "uuid": "43bc9852-b291-467a-80b4-bdb29864c91e",
+          "id": 1367,
+          "createUser": "/api/3/people/ffd74c31-e057-4bd5-a395-30303223ed6e",
+          "createDate": 1650890107.617648,
+          "modifyUser": "/api/3/people/ffd74c31-e057-4bd5-a395-30303223ed6e",
+          "modifyDate": 1650890210.720883,
+          "owners": [],
+          "isPrivate": false,
+          "deletedAt": null,
+          "importedBy": [],
+          "recordTags": []
+        },
+        {
+          "@type": "Workflow",
+          "triggerLimit": null,
+          "name": "Read CSV with no headers",
+          "aliasName": null,
+          "tag": null,
+          "description": "Read CSV file with no headers. Connector read files and determines if it have any headers , depending on result will add dummy header and provide result",
+          "isActive": true,
+          "debug": true,
+          "singleRecordExecution": false,
+          "remoteExecutableFlag": false,
+          "parameters": [],
+          "synchronous": false,
+          "lastModifyDate": 1650961280,
+          "collection": "/api/3/workflow_collections/98074fea-fb2d-4fb0-bbcd-84231772900f",
+          "versions": [],
+          "triggerStep": "/api/3/workflow_steps/91f005c3-7111-4238-ada2-edcc46f58557",
           "steps": [
             {
               "@type": "WorkflowStep",
               "name": "Start",
               "description": null,
               "arguments": {
-                "route": "ee141ea4-47ff-467d-960e-d1f2e929907a",
+                "route": "04441099-9db7-4300-97f8-5cf569f3f541",
                 "resources": [
                   "attachments"
                 ],
@@ -59,38 +163,94 @@
               "top": "40",
               "left": "40",
               "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
-              "uuid": "1901b7ff-bdae-4f88-bb69-57a9b50a827a"
+              "uuid": "91f005c3-7111-4238-ada2-edcc46f58557"
             },
             {
               "@type": "WorkflowStep",
-              "name": "Configuration",
-              "description": null,
-              "arguments": {
-                "csv_attachment_file_1": "/api/3/attachments/ba670e18-0de3-4cea-bc82-d89e9fb12009",
-                "csv_attachment_file_2": "/api/3/attachments/21240471-433f-4c72-b255-fbc5225390c5"
-              },
-              "status": null,
-              "top": "154",
-              "left": "221",
-              "stepType": "/api/3/workflow_step_types/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
-              "uuid": "5555c05d-4f1e-4963-94b6-7e34861ddb94"
-            },
-            {
-              "@type": "WorkflowStep",
-              "name": "Merged and Extract",
+              "name": "Read CSV with no headers",
               "description": null,
               "arguments": {
                 "name": "CSV Data Management",
                 "params": {
                   "input": "Attachment IRI",
-                  "recordBatch": true,
+                  "value": "/api/3/attachments/8def86fb-21d3-4325-9ff6-4c679a2489a9",
+                  "columnNames": "",
+                  "recordBatch": "",
                   "deDupValuesOn": "",
-                  "file_one_value": "{{vars.csv_attachment_file_1}}",
-                  "file_two_value": "{{vars.csv_attachment_file_2}}",
-                  "mergeColumnNames": "IP",
-                  "file1_columnNames": "",
-                  "file2_columnNames": "",
-                  "numberOfRowsToSkipFirst": 4,
+                  "numberOfRowsToSkip": ""
+                },
+                "version": "1.0.0",
+                "connector": "csv-data-management",
+                "operation": "extract_data_from_csv",
+                "operationTitle": "Extract Data from Single CSV",
+                "pickFromTenant": false,
+                "step_variables": []
+              },
+              "status": null,
+              "top": "220",
+              "left": "240",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
+              "uuid": "9c2e0368-777b-4e13-9890-b91783870bc6"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "name": "Start -> Read CSV with no headers",
+              "targetStep": "/api/3/workflow_steps/9c2e0368-777b-4e13-9890-b91783870bc6",
+              "sourceStep": "/api/3/workflow_steps/91f005c3-7111-4238-ada2-edcc46f58557",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "4c8ff4db-d5cf-44b6-872b-68c9747782c5"
+            }
+          ],
+          "priority": "/api/3/picklists/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
+          "uuid": "460d853f-fbcc-4f14-975f-8b68388ee5a4",
+          "id": 1368,
+          "createUser": "/api/3/people/ffd74c31-e057-4bd5-a395-30303223ed6e",
+          "createDate": 1650890240.906566,
+          "modifyUser": "/api/3/people/ffd74c31-e057-4bd5-a395-30303223ed6e",
+          "modifyDate": 1650961281.100006,
+          "owners": [],
+          "isPrivate": false,
+          "deletedAt": null,
+          "importedBy": [],
+          "recordTags": []
+        },
+        {
+          "@type": "Workflow",
+          "triggerLimit": null,
+          "name": "Read two CSV and merge in single data set",
+          "aliasName": null,
+          "tag": null,
+          "description": "Will read two CSV files and merge into single data set pivoting on column provided to merge on",
+          "isActive": true,
+          "debug": true,
+          "singleRecordExecution": false,
+          "remoteExecutableFlag": false,
+          "parameters": [],
+          "synchronous": false,
+          "lastModifyDate": 1650965815,
+          "collection": "/api/3/workflow_collections/98074fea-fb2d-4fb0-bbcd-84231772900f",
+          "versions": [],
+          "triggerStep": "/api/3/workflow_steps/d60027b8-d116-415d-9870-2689e2a622a5",
+          "steps": [
+            {
+              "@type": "WorkflowStep",
+              "name": "Merge CSV",
+              "description": null,
+              "arguments": {
+                "name": "CSV Data Management",
+                "params": {
+                  "input": "Attachment IRI",
+                  "recordBatch": "",
+                  "deDupValuesOn": "",
+                  "file_one_value": "/api/3/attachments/ed67ae79-df48-45c8-b529-49dfd48e8458",
+                  "file_two_value": "/api/3/attachments/14b10cde-1905-4990-a987-744649eab213",
+                  "mergeColumnNames": "ip_address",
+                  "file1_column_names": "",
+                  "file2_column_names": "",
+                  "numberOfRowsToSkipFirst": "",
                   "numberOfRowsToSkipSecond": ""
                 },
                 "version": "1.0.0",
@@ -101,69 +261,17 @@
                 "step_variables": []
               },
               "status": null,
-              "top": "300",
-              "left": "360",
+              "top": "152",
+              "left": "195",
               "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
-              "uuid": "ea4d9287-3078-484f-86c0-98cbb8b50558"
-            }
-          ],
-          "routes": [
-            {
-              "@type": "WorkflowRoute",
-              "name": "Start -> Configuration",
-              "targetStep": "/api/3/workflow_steps/5555c05d-4f1e-4963-94b6-7e34861ddb94",
-              "sourceStep": "/api/3/workflow_steps/1901b7ff-bdae-4f88-bb69-57a9b50a827a",
-              "label": null,
-              "isExecuted": false,
-              "uuid": "d2352697-5b02-4d4d-b905-95063195eed2"
+              "uuid": "d0e465c6-f06e-4223-b113-b81d3fdf3ba1"
             },
-            {
-              "@type": "WorkflowRoute",
-              "name": "Configuration -> Merged and Extract",
-              "targetStep": "/api/3/workflow_steps/ea4d9287-3078-484f-86c0-98cbb8b50558",
-              "sourceStep": "/api/3/workflow_steps/5555c05d-4f1e-4963-94b6-7e34861ddb94",
-              "label": null,
-              "isExecuted": false,
-              "uuid": "620525d5-f99d-457d-a7f2-0dfc3857241d"
-            }
-          ],
-          "priority": "/api/3/picklists/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
-          "uuid": "1cb74385-f42d-4f85-93ec-179d0e477c10",
-          "id": 456,
-          "createUser": "/api/3/people/dc57abb7-94a9-498a-98ef-07a9bab13f7a",
-          "createDate": 1649243373.692175,
-          "modifyUser": "/api/3/people/dc57abb7-94a9-498a-98ef-07a9bab13f7a",
-          "modifyDate": 1649249176.309483,
-          "owners": [],
-          "isPrivate": false,
-          "deletedAt": null,
-          "importedBy": [],
-          "recordTags": []
-        },
-        {
-          "@type": "Workflow",
-          "triggerLimit": null,
-          "name": "Extract data from Single CSV File - Specific Columns",
-          "aliasName": null,
-          "tag": null,
-          "description": "Extract data from single csv file , read specific columns and create a data set for ingestion",
-          "isActive": true,
-          "debug": true,
-          "singleRecordExecution": false,
-          "remoteExecutableFlag": false,
-          "parameters": [],
-          "synchronous": false,
-          "lastModifyDate": 1649243100,
-          "collection": "/api/3/workflow_collections/8326dfde-a8f6-48dd-9d88-86d185157595",
-          "versions": [],
-          "triggerStep": "/api/3/workflow_steps/7032741a-caa2-40aa-821f-15315ecfc834",
-          "steps": [
             {
               "@type": "WorkflowStep",
               "name": "Start",
               "description": null,
               "arguments": {
-                "route": "454c1727-947d-4cd9-b486-67e42f75e9a5",
+                "route": "04ee352e-f3ad-4572-bcb2-8e621a92201d",
                 "resources": [
                   "attachments"
                 ],
@@ -174,70 +282,35 @@
                     "records": "{{vars.input.records}}"
                   }
                 },
-                "displayConditions": {
-                  "attachments": {
-                    "sort": [],
-                    "limit": 30,
-                    "logic": "AND",
-                    "filters": []
-                  }
-                },
                 "executeButtonText": "Execute",
-                "noRecordExecution": false,
-                "singleRecordExecution": true
+                "noRecordExecution": true,
+                "singleRecordExecution": false
               },
               "status": null,
               "top": "40",
               "left": "40",
               "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
-              "uuid": "7032741a-caa2-40aa-821f-15315ecfc834"
-            },
-            {
-              "@type": "WorkflowStep",
-              "name": "Extract Data",
-              "description": null,
-              "arguments": {
-                "name": "CSV Data Management",
-                "params": {
-                  "input": "Attachment IRI",
-                  "value": "{{vars.input.records[0]['@id']}}",
-                  "columnNames": "first_name,last_name",
-                  "recordBatch": "",
-                  "deDupValuesOn": "",
-                  "numberOfRowsToSkip": ""
-                },
-                "version": "1.0.0",
-                "connector": "csv-data-management",
-                "operation": "extract_data_from_csv",
-                "operationTitle": "Extract Data from Single CSV",
-                "pickFromTenant": false,
-                "step_variables": []
-              },
-              "status": null,
-              "top": "194",
-              "left": "243",
-              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
-              "uuid": "739fe5fb-4175-4dff-aea1-9293b70a0537"
+              "uuid": "d60027b8-d116-415d-9870-2689e2a622a5"
             }
           ],
           "routes": [
             {
               "@type": "WorkflowRoute",
-              "name": "Start -> Extract Data",
-              "targetStep": "/api/3/workflow_steps/739fe5fb-4175-4dff-aea1-9293b70a0537",
-              "sourceStep": "/api/3/workflow_steps/7032741a-caa2-40aa-821f-15315ecfc834",
+              "name": "Start -> Merge CSV",
+              "targetStep": "/api/3/workflow_steps/d0e465c6-f06e-4223-b113-b81d3fdf3ba1",
+              "sourceStep": "/api/3/workflow_steps/d60027b8-d116-415d-9870-2689e2a622a5",
               "label": null,
               "isExecuted": false,
-              "uuid": "94ce07ee-7f28-4599-b2a5-85ce4bac7b72"
+              "uuid": "367b4caa-dd85-4f3b-83e3-8e10c866924f"
             }
           ],
           "priority": "/api/3/picklists/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
-          "uuid": "1faa28aa-e121-4edf-83a1-9ff7faf3cdd5",
-          "id": 454,
-          "createUser": "/api/3/people/dc57abb7-94a9-498a-98ef-07a9bab13f7a",
-          "createDate": 1649243045.656714,
-          "modifyUser": "/api/3/people/dc57abb7-94a9-498a-98ef-07a9bab13f7a",
-          "modifyDate": 1649243101.064512,
+          "uuid": "7a7cf47c-ae15-4afc-8318-a41223d4631c",
+          "id": 1370,
+          "createUser": "/api/3/people/ffd74c31-e057-4bd5-a395-30303223ed6e",
+          "createDate": 1650948826.561551,
+          "modifyUser": "/api/3/people/ffd74c31-e057-4bd5-a395-30303223ed6e",
+          "modifyDate": 1650965815.950776,
           "owners": [],
           "isPrivate": false,
           "deletedAt": null,
@@ -247,27 +320,27 @@
         {
           "@type": "Workflow",
           "triggerLimit": null,
-          "name": "Extract data from Single CSV File - All Columns",
+          "name": "Read Single Column CSV",
           "aliasName": null,
           "tag": null,
-          "description": "Extract data from single csv file , read all columns and create a data set for ingestion",
+          "description": "Reads single column csv and returns rows as dataset",
           "isActive": true,
           "debug": true,
           "singleRecordExecution": false,
           "remoteExecutableFlag": false,
           "parameters": [],
           "synchronous": false,
-          "lastModifyDate": 1649243021,
-          "collection": "/api/3/workflow_collections/8326dfde-a8f6-48dd-9d88-86d185157595",
+          "lastModifyDate": 1650965291,
+          "collection": "/api/3/workflow_collections/98074fea-fb2d-4fb0-bbcd-84231772900f",
           "versions": [],
-          "triggerStep": "/api/3/workflow_steps/a1ec1339-c0c5-495b-b9d6-c97e8b9985e3",
+          "triggerStep": "/api/3/workflow_steps/4ccaa18b-e81c-4317-925e-70951fd8db92",
           "steps": [
             {
               "@type": "WorkflowStep",
               "name": "Start",
               "description": null,
               "arguments": {
-                "route": "236eb78c-1d9f-46e0-a779-079f584ad353",
+                "route": "feff571d-4c0e-4867-aa37-65af1adc85c5",
                 "resources": [
                   "attachments"
                 ],
@@ -278,33 +351,25 @@
                     "records": "{{vars.input.records}}"
                   }
                 },
-                "displayConditions": {
-                  "attachments": {
-                    "sort": [],
-                    "limit": 30,
-                    "logic": "AND",
-                    "filters": []
-                  }
-                },
                 "executeButtonText": "Execute",
-                "noRecordExecution": false,
-                "singleRecordExecution": true
+                "noRecordExecution": true,
+                "singleRecordExecution": false
               },
               "status": null,
               "top": "40",
               "left": "40",
               "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
-              "uuid": "a1ec1339-c0c5-495b-b9d6-c97e8b9985e3"
+              "uuid": "4ccaa18b-e81c-4317-925e-70951fd8db92"
             },
             {
               "@type": "WorkflowStep",
-              "name": "Extract Data",
+              "name": "Read CSV and extract data",
               "description": null,
               "arguments": {
                 "name": "CSV Data Management",
                 "params": {
                   "input": "Attachment IRI",
-                  "value": "{{vars.input.records[0]['@id']}}",
+                  "value": "/api/3/attachments/eb526ed0-bad0-4a54-8555-e7a507a4f7a2",
                   "columnNames": "",
                   "recordBatch": "",
                   "deDupValuesOn": "",
@@ -318,30 +383,30 @@
                 "step_variables": []
               },
               "status": null,
-              "top": "194",
-              "left": "243",
+              "top": "216",
+              "left": "224",
               "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
-              "uuid": "f4be4f3e-beda-4eba-b543-a61e4a1dfc01"
+              "uuid": "b59524f9-3df0-4818-b8be-91fdfa1a4a98"
             }
           ],
           "routes": [
             {
               "@type": "WorkflowRoute",
-              "name": "Start -> Extract Data",
-              "targetStep": "/api/3/workflow_steps/f4be4f3e-beda-4eba-b543-a61e4a1dfc01",
-              "sourceStep": "/api/3/workflow_steps/a1ec1339-c0c5-495b-b9d6-c97e8b9985e3",
+              "name": "Start -> Read CSV and extract data",
+              "targetStep": "/api/3/workflow_steps/b59524f9-3df0-4818-b8be-91fdfa1a4a98",
+              "sourceStep": "/api/3/workflow_steps/4ccaa18b-e81c-4317-925e-70951fd8db92",
               "label": null,
               "isExecuted": false,
-              "uuid": "f116743f-c003-4431-bafd-1a01cc05514e"
+              "uuid": "80ab462d-f223-445f-8858-52e9a4cdcc64"
             }
           ],
           "priority": "/api/3/picklists/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
-          "uuid": "b4749f7b-f47b-4c18-b449-56e5b08afebf",
-          "id": 453,
-          "createUser": "/api/3/people/dc57abb7-94a9-498a-98ef-07a9bab13f7a",
-          "createDate": 1649242933.351895,
-          "modifyUser": "/api/3/people/dc57abb7-94a9-498a-98ef-07a9bab13f7a",
-          "modifyDate": 1649243022.181772,
+          "uuid": "85f517c9-06bc-41a4-8cba-0d9f00142da3",
+          "id": 1369,
+          "createUser": "/api/3/people/ffd74c31-e057-4bd5-a395-30303223ed6e",
+          "createDate": 1650890470.11953,
+          "modifyUser": "/api/3/people/ffd74c31-e057-4bd5-a395-30303223ed6e",
+          "modifyDate": 1650965292.011821,
           "owners": [],
           "isPrivate": false,
           "deletedAt": null,
@@ -351,27 +416,27 @@
         {
           "@type": "Workflow",
           "triggerLimit": null,
-          "name": "Extract data from Single CSV File - Deduplicate values",
+          "name": "Read two CSV and concat in single data set",
           "aliasName": null,
           "tag": null,
-          "description": "Extract data from single csv file , read specific columns and create a data set for ingestion",
+          "description": "Will read two CSV files and concat them into single data set pivoting on column provided to merge on",
           "isActive": true,
           "debug": true,
           "singleRecordExecution": false,
           "remoteExecutableFlag": false,
           "parameters": [],
           "synchronous": false,
-          "lastModifyDate": 1649243286,
-          "collection": "/api/3/workflow_collections/8326dfde-a8f6-48dd-9d88-86d185157595",
+          "lastModifyDate": 1650964850,
+          "collection": "/api/3/workflow_collections/98074fea-fb2d-4fb0-bbcd-84231772900f",
           "versions": [],
-          "triggerStep": "/api/3/workflow_steps/50a13240-0e0b-4794-b23a-dcad1ca310b7",
+          "triggerStep": "/api/3/workflow_steps/1a7bbad7-bfce-40b8-be7a-403052552e21",
           "steps": [
             {
               "@type": "WorkflowStep",
               "name": "Start",
               "description": null,
               "arguments": {
-                "route": "ff9ce39a-592c-4f01-b9f3-a966b28f57be",
+                "route": "f1a47e68-8ee3-448e-a79d-5b35ecb5e04d",
                 "resources": [
                   "attachments"
                 ],
@@ -382,70 +447,65 @@
                     "records": "{{vars.input.records}}"
                   }
                 },
-                "displayConditions": {
-                  "attachments": {
-                    "sort": [],
-                    "limit": 30,
-                    "logic": "AND",
-                    "filters": []
-                  }
-                },
                 "executeButtonText": "Execute",
-                "noRecordExecution": false,
-                "singleRecordExecution": true
+                "noRecordExecution": true,
+                "singleRecordExecution": false
               },
               "status": null,
               "top": "40",
               "left": "40",
               "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
-              "uuid": "50a13240-0e0b-4794-b23a-dcad1ca310b7"
+              "uuid": "1a7bbad7-bfce-40b8-be7a-403052552e21"
             },
             {
               "@type": "WorkflowStep",
-              "name": "Extract Data",
+              "name": "Merge CSV",
               "description": null,
               "arguments": {
                 "name": "CSV Data Management",
                 "params": {
                   "input": "Attachment IRI",
-                  "value": "{{vars.input.records[0]['@id']}}",
-                  "columnNames": "",
                   "recordBatch": "",
-                  "deDupValuesOn": "first_name",
-                  "numberOfRowsToSkip": ""
+                  "deDupValuesOn": "",
+                  "file_one_value": "/api/3/attachments/6e4fcb6c-648d-4f32-8676-e30c7fa1beb9",
+                  "file_two_value": "/api/3/attachments/f172a798-20f5-4d85-982c-198e08fa73d8",
+                  "file1_column_names": "",
+                  "file2_column_names": "",
+                  "numberOfRowsToSkipFirst": "",
+                  "numberOfRowsToSkipSecond": ""
                 },
                 "version": "1.0.0",
                 "connector": "csv-data-management",
-                "operation": "extract_data_from_csv",
-                "operationTitle": "Extract Data from Single CSV",
+                "operation": "concat_two_csv_and_extract_data",
+                "operationTitle": "Concat and Extract Data from two CSV",
                 "pickFromTenant": false,
                 "step_variables": []
               },
               "status": null,
-              "top": "194",
-              "left": "243",
+              "top": "160",
+              "left": "180",
               "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
-              "uuid": "1dcb5256-68bf-485c-a0f1-07da9b1267cb"
+              "uuid": "e3ff7fb2-da97-48be-b3ea-c855c851ed0f"
             }
           ],
           "routes": [
             {
               "@type": "WorkflowRoute",
-              "name": "Start -> Extract Data",
-              "targetStep": "/api/3/workflow_steps/1dcb5256-68bf-485c-a0f1-07da9b1267cb",
-              "sourceStep": "/api/3/workflow_steps/50a13240-0e0b-4794-b23a-dcad1ca310b7",
+              "name": "Start -> Merge CSV",
+              "targetStep": "/api/3/workflow_steps/e3ff7fb2-da97-48be-b3ea-c855c851ed0f",
+              "sourceStep": "/api/3/workflow_steps/1a7bbad7-bfce-40b8-be7a-403052552e21",
               "label": null,
               "isExecuted": false,
-              "uuid": "57b8903a-a107-4a21-b23c-e62212a96b8a"
+              "uuid": "69fc004c-2a71-4a94-9ab5-1a3504610723"
             }
           ],
           "priority": "/api/3/picklists/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
-          "uuid": "bbbc0ca9-5935-469d-9e7d-8fbbea56f753",
-          "id": 455,
-          "createUser": "/api/3/people/dc57abb7-94a9-498a-98ef-07a9bab13f7a",
-          "createDate": 1649243213.939702,
-          "modifyUser": "/api/3/people/dc57abb7-94a9-498a-98ef-07a9bab13f7a",
-          "modifyDate": 1649243286.953487,
+          "uuid": "baccb6ab-fbf1-4847-9942-81a10da6d9e1",
+          "id": 1371,
+          "createUser": "/api/3/people/ffd74c31-e057-4bd5-a395-30303223ed6e",
+          "createDate": 1650951180.042837,
+          "modifyUser": "/api/3/people/ffd74c31-e057-4bd5-a395-30303223ed6e",
+          "modifyDate": 1650964850.479053,
           "owners": [],
           "isPrivate": false,
           "deletedAt": null,

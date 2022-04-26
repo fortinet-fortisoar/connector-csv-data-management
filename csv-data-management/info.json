@@ -4,8 +4,8 @@
   "label": "CSV Data Management",
   "description": "CSV Data management will allow to read  and import CSV rows as records, along with options to deduplicate , merge two CSV files and then import and more utility functions",
   "publisher": "Fortinet",
-  "icon_small_name": "utilities_small.png",
-  "icon_large_name": "utilities_large.png",
+  "icon_small_name": "fortisoar_logo.png",
+  "icon_large_name": "fortisoar_logo.png",
   "category": "",
   "configuration": {},
   "operations": [
@@ -44,7 +44,8 @@
           "visible": true,
           "editable": true,
           "value": "",
-          "description": "comma separate lis of columns name you want to extract from CSV File"
+          "description": "comma separated  columns name you want to extract from CSV File",
+          "tooltip":"comma separated columns name you want to extract from CSV File"
         },
         {
           "title": "Deduplicate Values on",
@@ -54,7 +55,8 @@
           "visible": true,
           "editable": true,
           "value": "",
-          "description": "Column name you want to use deduplicate date  from CSV File"
+          "description": "Column name you want to use deduplicate date  from CSV File",
+          "tooltip":"Column name you want to use deduplicate date  from CSV File"
         },
         {
           "title": "Number of rows to skip",
@@ -64,7 +66,8 @@
           "visible": true,
           "editable": true,
           "value": null,
-          "description": "Number of rows you want to skip from top of CSV File. Note first row will not be skipped as it has column names"
+          "description": "Number of rows you want to skip from top of CSV File. Note first row will not be skipped as it has column names",
+          "tooltip":"Number of rows you want to skip from top of CSV File. Note first row will not be skipped as it has column names"
         },
         {
           "title": "Convert recordset into batch",
@@ -74,7 +77,8 @@
           "visible": true,
           "editable": true,
           "value": null,
-          "description": "If set , will return rows as recordSet in list of 20 batches otherwise complete result in a single variable"
+          "description": "If set , will return rows as recordSet in list of 20 batches otherwise complete result in a single variable",
+          "tooltip":"If set , will return rows as recordSet in list of 20 batches otherwise complete result in a single variable"
         }
       ],
       "open": true
@@ -109,12 +113,13 @@
         {
           "title": "First File Column Names",
           "type": "text",
-          "name": "file1_columnNames",
+          "name": "file1_column_names",
           "required": false,
           "visible": true,
           "editable": true,
           "value": "",
-          "description": "comma separate lis of columns name you want to extract from CSV File"
+          "description": "comma separate list of columns name you want to extract from CSV File",
+          "tooltip":"comma separate list of columns name you want to extract from CSV File"
         },
         {
           "title": "Number of rows to skip from First File",
@@ -124,7 +129,9 @@
           "visible": true,
           "editable": true,
           "value": null,
-          "description": "Number of rows you want to skip from top of CSV File. Note first row will not be skipped as it has column names"
+          "description": "Number of rows you want to skip from top of CSV File. Note first row will not be skipped as it has column names",
+          "tooltip":"Number of rows you want to skip from top of CSV File. Note first row will not be skipped as it has column names"
+          
         },
         {
           "title": "Type",
@@ -151,12 +158,13 @@
         {
           "title": "Second File Column Names",
           "type": "text",
-          "name": "file2_columnNames",
+          "name": "file2_column_names",
           "required": false,
           "visible": true,
           "editable": true,
           "value": "",
-          "description": "comma separate lis of columns name you want to extract from CSV File"
+          "description": "comma separate list of columns name you want to extract from CSV File",
+          "tooltip":"comma separate list of columns name you want to extract from CSV File"
         },
         {
           "title": "Number of rows to skip from Second File",
@@ -166,7 +174,8 @@
           "visible": true,
           "editable": true,
           "value": null,
-          "description": "Number of rows you want to skip from top of CSV File. Note first row will not be skipped as it has column names"
+          "description": "Number of rows you want to skip from top of CSV File. Note first row will not be skipped as it has column names",
+          "tooltip":"Number of rows you want to skip from top of CSV File. Note first row will not be skipped as it has column names"
         },
         
         {
@@ -177,7 +186,8 @@
           "visible": true,
           "editable": true,
           "value": "",
-          "description": "Column name which is common in two files which you want to use to merge data from both files"
+          "description": "Column name which is common in two files which you want to use to merge data from both files",
+          "tooltip":"Column name which is common in two files which you want to use to merge data from both files"
         },
         {
           "title": "Deduplicate Values on",
@@ -187,7 +197,8 @@
           "visible": true,
           "editable": true,
           "value": "",
-          "description": "Column name you want to use deduplicate date  from CSV File"
+          "description": "Column name you want to use deduplicate date  from CSV File",
+          "tooltip":"Column name you want to use deduplicate date  from CSV File"
         },
         {
           "title": "Convert recordset into batch",
@@ -197,7 +208,126 @@
           "visible": true,
           "editable": true,
           "value": null,
-          "description": "If set , will return rows as recordSet in list of 20 batches otherwise complete result in a single variable"
+          "description": "If set , will return rows as recordSet in list of 20 batches otherwise complete result in a single variable",
+          "tooltip":"If set , will return rows as recordSet in list of 20 batches otherwise complete result in a single variable"
+        }
+      ],
+      "open": true
+    },
+    {
+      "title": "Concat and Extract Data from two CSV",
+      "operation": "concat_two_csv_and_extract_data",
+      "description": "This action will extract data by concatting two CSV file. User can select option to deduplicate rows based on columns",
+      "parameters": [
+        {
+          "title": "Type",
+          "type": "select",
+          "name": "input",
+          "required": true,
+          "visible": true,
+          "editable": true,
+          "value": "",
+          "options": [
+            "Attachment IRI",
+            "File IRI"
+          ]
+        },
+        {
+          "title": "First File Reference ID",
+          "type": "text",
+          "name": "file_one_value",
+          "required": true,
+          "visible": true,
+          "editable": true,
+          "value": ""
+        },
+        {
+          "title": "First File Column Names",
+          "type": "text",
+          "name": "file1_column_names",
+          "required": false,
+          "visible": true,
+          "editable": true,
+          "value": "",
+          "description": "comma separate list of columns name you want to extract from CSV File",
+          "tooltip":"comma separate list of columns name you want to extract from CSV File"
+        },
+        {
+          "title": "Number of rows to skip from First File",
+          "type": "integer",
+          "name": "numberOfRowsToSkipFirst",
+          "required": false,
+          "visible": true,
+          "editable": true,
+          "value": null,
+          "description": "Number of rows you want to skip from top of CSV File. Note first row will not be skipped as it has column names",
+          "tooltip":"Number of rows you want to skip from top of CSV File. Note first row will not be skipped as it has column names"
+        },
+        {
+          "title": "Type",
+          "type": "select",
+          "name": "input",
+          "required": true,
+          "visible": true,
+          "editable": true,
+          "value": "",
+          "options": [
+            "Attachment IRI",
+            "File IRI"
+          ]
+        },
+        {
+          "title": "Second File Reference ID",
+          "type": "text",
+          "name": "file_two_value",
+          "required": true,
+          "visible": true,
+          "editable": true,
+          "value": ""
+        },
+        {
+          "title": "Second File Column Names",
+          "type": "text",
+          "name": "file2_column_names",
+          "required": false,
+          "visible": true,
+          "editable": true,
+          "value": "",
+          "description": "comma separate list of columns name you want to extract from CSV File",
+          "tooltip":"comma separate list of columns name you want to extract from CSV File"
+        },
+        {
+          "title": "Number of rows to skip from Second File",
+          "type": "integer",
+          "name": "numberOfRowsToSkipSecond",
+          "required": false,
+          "visible": true,
+          "editable": true,
+          "value": null,
+          "description": "Number of rows you want to skip from top of CSV File. Note first row will not be skipped as it has column names",
+          "tooltip":"Number of rows you want to skip from top of CSV File. Note first row will not be skipped as it has column names"
+        },
+        {
+          "title": "Deduplicate Values on",
+          "type": "text",
+          "name": "deDupValuesOn",
+          "required": false,
+          "visible": true,
+          "editable": true,
+          "value": "",
+          "description": "Column name you want to use deduplicate date  from CSV File",
+          "tooltip":"Number of rows you want to skip from top of CSV File. Note first row will not be skipped as it has column names"
+        },
+        {
+          "title": "Convert recordset into batch",
+          "name": "recordBatch",
+          "type": "checkbox",
+          "required": false,
+          "visible": true,
+          "editable": true,
+          "value": null,
+          "description": "If set , will return rows as recordSet in list of 20 batches otherwise complete result in a single recordSet",
+          "tooltip":"If set , will return rows as recordSet in list of 20 batches otherwise complete result in a single recordSet"
         }
       ],
       "open": true
