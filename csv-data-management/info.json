@@ -4,8 +4,8 @@
   "label": "CSV Data Management",
   "description": "CSV Data management will allow to read  and import CSV rows as records, along with options to deduplicate , merge two CSV files and then import and more utility functions",
   "publisher": "Fortinet",
-  "icon_small_name": "utilities_small.png",
-  "icon_large_name": "utilities_large.png",
+  "icon_small_name": "fortisoar_logo.png",
+  "icon_large_name": "fortisoar_logo.png",
   "category": "",
   "configuration": {},
   "operations": [

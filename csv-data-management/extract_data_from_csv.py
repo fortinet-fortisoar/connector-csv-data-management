@@ -44,10 +44,10 @@ def extract_data_from_csv(config, params):
             df = _read_file_single_column(file_path,numberOfRowsToSkip)
 
         elif isSingleColumn and isCSVWithoutHeaders: # CSV file with one  column and no header 
-            df = _read_file_single_column_no_header(file_path,numberOfRowsToSkip)
+            df = _read_file_single_column_no_header(file_path,numberOfRowsToSkip,no_of_columns)
 
         elif isCSVWithoutHeaders: # CSV file without column header and all columns
-            df = _read_file_no_headers(file_path,numberOfRowsToSkip)
+            df = _read_file_no_headers(file_path,numberOfRowsToSkip,no_of_columns)
 
         else:  
             # We are reading complete file assuming it has column header
@@ -87,90 +87,18 @@ def merge_two_csv_and_extract_data(config, params):
         if (params.get('mergeColumnNames')):
              mergeColumn = params.get('mergeColumnNames')
              mergeColumn = mergeColumn.split(",")
-        logger.info(mergeColumn)
-        numberOfRowsToSkipFirst = None
-        numberOfRowsToSkipSecond = None
-        isSingleColumnFirst = None
-        isSingleColumnSecond = None
-        isCSVWithoutHeadersFirst = False
-        isCSVWithoutHeadersSecond = False
+        fileOneIRI = handle_params(params,params.get('file_one_value'))
+        fileOnePath = join('/tmp', download_file_from_cyops(fileOneIRI)['cyops_file_path'])
+        fileTwoIRI = handle_params(params,params.get('file_two_value'))
+        fileTwoPath = join('/tmp', download_file_from_cyops(fileTwoIRI)['cyops_file_path'])
+        logger.info(params)
+        # Read First File
+        df1 = _read_and_return_ds(fileOnePath,params,config)
+        # Read Second File
+        df2=  _read_and_return_ds(fileTwoPath,params,config)
 
-        file_1_iri_ = handle_params(params,params.get('file_one_value'))
-        file_2_iri_ = handle_params(params,params.get('file_two_value'))
-        logger.warning(params)
-        first_file_path = join('/tmp', download_file_from_cyops(file_1_iri_)['cyops_file_path'])
-        second_file_path = join('/tmp', download_file_from_cyops(file_2_iri_)['cyops_file_path'])
-
-        res = _check_if_csv(first_file_path)
-        logger.info(res)
-  
-        if res.get('headers') == False:
-            isCSVWithoutHeadersFirst = True
-
-        if res.get('columns') == 1:
-            isSingleColumnFirst = True
-        
-        res = _check_if_csv(second_file_path)
-
-        if res.get('headers') == False:
-            isCSVWithoutHeadersSecond = True
-        elif res.get('columns') == 1:
-            isSingleColumnSecond = True
-
-
-        #Lets read first file 
-         
-        if params.get('numberOfRowsToSkipFirst'):
-          numberOfRowsToSkipFirst = params.get('numberOfRowsToSkipFirst')
-          
-        if params.get('file1_column_names') != "":  # CSV file with column header and specific columns to use in creating recordset 
-            columnNames = params.get('file1_column_names')
-            columnNames = columnNames.split(",")
-            
-            # We are passing  specific columns name to filter data from here
-            df_file1 =  _read_file_specific_columns(first_file_path,columnNames,numberOfRowsToSkipFirst)
-            
-        elif isCSVWithoutHeadersFirst: # CSV file without column header and more than one column
-            df_file1 =  _read_file_no_headers(first_file_path,numberOfRowsToSkipFirst) 
-
-        elif isSingleColumnFirst: #CSV with single column and header    
-            df_file1 = _read_file_single_column(first_file_path,numberOfRowsToSkipFirst)
-        
-        elif isSingleColumnFirst and not isCSVWithoutHeadersFirst: # CSV file with one  column and no header 
-            df_file1 = _read_file_single_column_no_header(first_file_path,numberOfRowsToSkipFirst)
-
-        else:  
-            # We are reading complete file assuming it has column header
-            df_file1 = _read_file_all_columns(first_file_path,numberOfRowsToSkipFirst)
-
-        #Lets read second file 
-        
-        if params.get('numberOfRowsToSkipSecond'):
-            numberOfRowsToSkipSecond = params.get('numberOfRowsToSkipSecond')
-          
-        if params.get('file2_column_names') != "":  # CSV file with column header and specific columns to use in creating recordset 
-            columnNames = params.get('file2_column_names')
-            columnNames = columnNames.split(",")
-    
-            # We are passing  specific columns name to filter data from here
-            df_file2 = _read_file_specific_columns(second_file_path,columnNames,numberOfRowsToSkipSecond)
-            
-        elif isCSVWithoutHeadersSecond: # CSV file without column header and more than one column
-            df_file2 = _read_file_no_headers(second_file_path,numberOfRowsToSkipSecond)  
-
-        elif isSingleColumnSecond: #CSV with single colum   
-            df_file2 = _read_file_single_column(second_file_path,numberOfRowsToSkipSecond)  
-
-        elif isSingleColumnSecond and  isCSVWithoutHeadersSecond: # CSV file with one  column and no header 
-            df_file2 = _read_file_single_column_no_header(second_file_path,numberOfRowsToSkipSecond) 
-
-        else:  
-            # We are reading complete file assuming it has column header
-            df_file2 = _read_file_all_columns(second_file_path,numberOfRowsToSkipSecond)
-
-        
         #Merge both files
-        combined_recordSet =pd.merge(df_file1,df_file2,how='left',left_on=mergeColumn,right_on=mergeColumn)    
+        combined_recordSet =pd.merge(df1,df2,how='left',left_on=mergeColumn,right_on=mergeColumn)    
 
         # If user has selected to dedeuplicate recordset
         try:
@@ -202,89 +130,20 @@ def merge_two_csv_and_extract_data(config, params):
 
 def concat_two_csv_and_extract_data(config, params):
     try:
-        numberOfRowsToSkipFirst = None
-        numberOfRowsToSkipSecond = None
-        isSingleColumnFirst = None
-        isSingleColumnSecond = None
-        isCSVWithoutHeadersFirst = False
-        isCSVWithoutHeadersSecond = False
+        fileOneIRI = handle_params(params,params.get('file_one_value'))
+        fileOnePath = join('/tmp', download_file_from_cyops(fileOneIRI)['cyops_file_path'])
+        fileTwoIRI = handle_params(params,params.get('file_two_value'))
+        fileTwoPath = join('/tmp', download_file_from_cyops(fileTwoIRI)['cyops_file_path'])
 
-        file_1_iri_ = handle_params(params,params.get('file_one_value'))
-        file_2_iri_ = handle_params(params,params.get('file_two_value'))
-        logger.warning(params)
-        first_file_path = join('/tmp', download_file_from_cyops(file_1_iri_)['cyops_file_path'])
-        second_file_path = join('/tmp', download_file_from_cyops(file_2_iri_)['cyops_file_path'])
+        with open(fileOnePath) as myfile:
+           head = [next(myfile) for x in range(10)]
+        logger.info(head)  
+        logger.info(params)
+        df1 = _read_and_return_ds(fileOnePath,params,config)
+        df2=  _read_and_return_ds(fileTwoPath,params,config)
 
-        res = _check_if_csv(first_file_path)
-        logger.info(res)
-  
-        if res.get('headers') == False:
-            isCSVWithoutHeadersFirst = True
-
-        if res.get('columns') == 1:
-            isSingleColumnFirst = True
-        
-        res = _check_if_csv(second_file_path)
-
-        if res.get('headers') == False:
-            isCSVWithoutHeadersSecond = True
-        elif res.get('columns') == 1:
-            isSingleColumnSecond = True
-
-
-        #Lets read first file 
-         
-        if params.get('numberOfRowsToSkipFirst'):
-          numberOfRowsToSkipFirst = params.get('numberOfRowsToSkipFirst')
-          
-        if params.get('file1_column_names') != "":  # CSV file with column header and specific columns to use in creating recordset 
-            columnNames = params.get('file1_column_names')
-            columnNames = columnNames.split(",")
-            
-            # We are passing  specific columns name to filter data from here
-            df_file1 =  _read_file_specific_columns(first_file_path,columnNames,numberOfRowsToSkipFirst)
-            
-        elif isCSVWithoutHeadersFirst: # CSV file without column header and more than one column
-            df_file1 =  _read_file_no_headers(first_file_path,numberOfRowsToSkipFirst) 
-
-        elif isSingleColumnFirst: #CSV with single column and header    
-            df_file1 = _read_file_single_column(first_file_path,numberOfRowsToSkipFirst)
-        
-        elif isSingleColumnFirst and not isCSVWithoutHeadersFirst: # CSV file with one  column and no header 
-            df_file1 = _read_file_single_column_no_header(first_file_path,numberOfRowsToSkipFirst)
-
-        else:  
-            # We are reading complete file assuming it has column header
-            df_file1 = _read_file_all_columns(first_file_path,numberOfRowsToSkipFirst)
-
-        #Lets read second file 
-        
-        if params.get('numberOfRowsToSkipSecond'):
-            numberOfRowsToSkipSecond = params.get('numberOfRowsToSkipSecond')
-          
-        if params.get('file2_column_names') != "":  # CSV file with column header and specific columns to use in creating recordset 
-            columnNames = params.get('file2_column_names')
-            columnNames = columnNames.split(",")
-    
-            # We are passing  specific columns name to filter data from here
-            df_file2 = _read_file_specific_columns(second_file_path,columnNames,numberOfRowsToSkipSecond)
-            
-        elif isCSVWithoutHeadersSecond: # CSV file without column header and more than one column
-            df_file2 = _read_file_no_headers(second_file_path,numberOfRowsToSkipSecond)  
-
-        elif isSingleColumnSecond: #CSV with single colum   
-            df_file2 = _read_file_single_column(second_file_path,numberOfRowsToSkipSecond)  
-
-        elif isSingleColumnSecond and  isCSVWithoutHeadersSecond: # CSV file with one  column and no header 
-            df_file2 = _read_file_single_column_no_header(second_file_path,numberOfRowsToSkipSecond) 
-
-        else:  
-            # We are reading complete file assuming it has column header
-            df_file2 = _read_file_all_columns(second_file_path,numberOfRowsToSkipSecond)
-
-        
         #Merge both files
-        combined_recordSet =pd.concat([df_file1,df_file2])    
+        combined_recordSet =pd.concat([df1,df2])    
 
         # If user has selected to dedeuplicate recordset
         try:
@@ -366,11 +225,13 @@ def _read_file_single_column_no_header(filepath,numberOfRowsToSkip=None,no_of_co
 def _check_if_csv(filepath):
     try:
         sniffer = csv.Sniffer()
-        sample_bytes = 32
-        res=sniffer.has_header(open(filepath).read(sample_bytes))
+        res = sniffer.has_header(open(filepath).read(2048))
         df = pd.read_csv('{}'.format(filepath),error_bad_lines=False,nrows=10)
         row, col = df.shape
-        return {"headers": True,"columns": col }
+        if  res:
+            return {"headers": True,"columns": col }
+        else:
+            return {"headers": False,"columns": col }     
     except:
         logger.error('Error in _check_if_csv() - csv check header: %s' % Err) 
         try:
@@ -380,7 +241,55 @@ def _check_if_csv(filepath):
         except Exception as Err:
              ("Not a valid CSV: "+ Err)
 
+def _read_and_return_ds(filepath,params,config):
+    try:
+        numberOfRowsToSkip = None
+        isSingleColumn = None
+        isCSVWithoutHeaders = False
 
+        fileIRI = handle_params(params,params.get('file_one_value'))
+        logger.warning(params)
+        filepath = join('/tmp', download_file_from_cyops(fileIRI)['cyops_file_path'])
+
+        res = _check_if_csv(filepath)
+        logger.info(res)
+  
+        if res.get('headers') == False:
+            isCSVWithoutHeaders = True
+            noOfColumns = res.get('columns')
+
+        if res.get('columns') == 1:
+            isSingleColumn = True
+
+        #Lets read file 
+         
+        if params.get('numberOfRowsToSkip'):
+          numberOfRowsToSkip = params.get('numberOfRowsToSkip')
+          
+        if params.get('file1_column_names') != "":  # CSV file with column header and specific columns to use in creating recordset 
+            columnNames = params.get('file1_column_names')
+            columnNames = columnNames.split(",")
+            
+            # We are passing  specific columns name to filter data from here
+            df_file =  _read_file_specific_columns(filepath,columnNames,numberOfRowsToSkip)
+            
+        elif isCSVWithoutHeaders: # CSV file without column header and more than one column
+            df_file =  _read_file_no_headers(filepath,numberOfRowsToSkip,noOfColumns) 
+
+        elif isSingleColumn: #CSV with single column and header    
+            df_file = _read_file_single_column(filepath,numberOfRowsToSkip)
+        
+        elif isSingleColumn and not isCSVWithoutHeaders: # CSV file with one  column and no header 
+            df_file = _read_file_single_column_no_header(filepath,numberOfRowsToSkip,noOfColumns)
+
+        else:  
+            # We are reading complete file assuming it has column header
+            df_file = _read_file_all_columns(filepath,numberOfRowsToSkip)
+        return df_file
+    except Exception as Err:
+        logger.error('Error in _read_and_return_ds(): %s' % Err)
+
+    
 
 
 def handle_params(params,file_param):
