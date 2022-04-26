@@ -118,8 +118,8 @@
           "visible": true,
           "editable": true,
           "value": "",
-          "description": "comma separate lis of columns name you want to extract from CSV File",
-          "tooltip":"comma separate lis of columns name you want to extract from CSV File"
+          "description": "comma separate list of columns name you want to extract from CSV File",
+          "tooltip":"comma separate list of columns name you want to extract from CSV File"
         },
         {
           "title": "Number of rows to skip from First File",
@@ -163,8 +163,8 @@
           "visible": true,
           "editable": true,
           "value": "",
-          "description": "comma separate lis of columns name you want to extract from CSV File",
-          "tooltip":"comma separate lis of columns name you want to extract from CSV File"
+          "description": "comma separate list of columns name you want to extract from CSV File",
+          "tooltip":"comma separate list of columns name you want to extract from CSV File"
         },
         {
           "title": "Number of rows to skip from Second File",
@@ -249,8 +249,8 @@
           "visible": true,
           "editable": true,
           "value": "",
-          "description": "comma separate lis of columns name you want to extract from CSV File",
-          "tooltip":"comma separate lis of columns name you want to extract from CSV File"
+          "description": "comma separate list of columns name you want to extract from CSV File",
+          "tooltip":"comma separate list of columns name you want to extract from CSV File"
         },
         {
           "title": "Number of rows to skip from First File",
@@ -293,8 +293,8 @@
           "visible": true,
           "editable": true,
           "value": "",
-          "description": "comma separate lis of columns name you want to extract from CSV File",
-          "tooltip":"comma separate lis of columns name you want to extract from CSV File"
+          "description": "comma separate list of columns name you want to extract from CSV File",
+          "tooltip":"comma separate list of columns name you want to extract from CSV File"
         },
         {
           "title": "Number of rows to skip from Second File",
@@ -326,8 +326,8 @@
           "visible": true,
           "editable": true,
           "value": null,
-          "description": "If set , will return rows as recordSet in list of 20 batches otherwise complete result in a single variable",
-          "tooltip":"If set , will return rows as recordSet in list of 20 batches otherwise complete result in a single variable"
+          "description": "If set , will return rows as recordSet in list of 20 batches otherwise complete result in a single recordSet",
+          "tooltip":"If set , will return rows as recordSet in list of 20 batches otherwise complete result in a single recordSet"
         }
       ],
       "open": true

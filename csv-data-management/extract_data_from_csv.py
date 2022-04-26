@@ -53,14 +53,14 @@ def extract_data_from_csv(config, params):
             # We are reading complete file assuming it has column header
             df = _read_file_all_columns(file_path,numberOfRowsToSkip)
 
-        # If user has selected to dedeuplicate recordset
+        # If user has selected to deduplicate recordset
         try:
             if params.get('deDupValuesOn'):
                 deDupValuesOn = params.get('deDupValuesOn')
                 deDupValuesOn = deDupValuesOn.split(",")
                 df.drop_duplicates(subset=deDupValuesOn, keep='first')
         except Exception as Err:
-            logger.error('Error in dedeuplicating data  extract_data_from_csv(): %s' % Err)
+            logger.error('Error in deduplicating data  extract_data_from_csv(): %s' % Err)
         
         # Replace empty values with N/A 
         df = df.fillna('N/A')
@@ -100,14 +100,14 @@ def merge_two_csv_and_extract_data(config, params):
         #Merge both files
         combined_recordSet =pd.merge(df1,df2,how='left',left_on=mergeColumn,right_on=mergeColumn)    
 
-        # If user has selected to dedeuplicate recordset
+        # If user has selected to deduplicate recordset
         try:
             if params.get('deDupValuesOn'):
                 deDupValuesOn = params.get('deDupValuesOn')
                 deDupValuesOn = deDupValuesOn.split(",")
                 combined_recordSet.drop_duplicates(subset=deDupValuesOn, keep='first')
         except Exception as Err:
-            logger.error('Error in dedeuplicating data  extract_data_from_csv(): %s' % Err)
+            logger.error('Error in deduplicating data  extract_data_from_csv(): %s' % Err)
 
         # Replace empty values with N/A 
         combined_recordSet = combined_recordSet.fillna('N/A')
@@ -145,14 +145,14 @@ def concat_two_csv_and_extract_data(config, params):
         #Merge both files
         combined_recordSet =pd.concat([df1,df2])    
 
-        # If user has selected to dedeuplicate recordset
+        # If user has selected to deduplicate recordset
         try:
             if params.get('deDupValuesOn'):
                 deDupValuesOn = params.get('deDupValuesOn')
                 deDupValuesOn = deDupValuesOn.split(",")
                 combined_recordSet.drop_duplicates(subset=deDupValuesOn, keep='first')
         except Exception as Err:
-            logger.error('Error in dedeuplicating data  extract_data_from_csv(): %s' % Err)
+            logger.error('Error in deduplicating data  extract_data_from_csv(): %s' % Err)
 
         # Replace empty values with N/A 
         combined_recordSet = combined_recordSet.fillna('N/A')
@@ -172,9 +172,9 @@ def concat_two_csv_and_extract_data(config, params):
     except Exception as Err:
         logger.error('Error in extract_data_from_csv(): %s' % Err)
     
-def _read_file_specific_columns(filepath,columns_list,numberOfRowsToSkip=None):
+def _read_file_specific_columns(filepath,columns_t,numberOfRowsToSkip=None):
     try:
-        chunk = pd.read_csv('{}'.format(filepath), delimiter=',', encoding="utf-8-sig",skiprows=numberOfRowsToSkip,chunksize=100000,error_bad_lines=False,usecols=columns_list)
+        chunk = pd.read_csv('{}'.format(filepath), delimiter=',', encoding="utf-8-sig",skiprows=numberOfRowsToSkip,chunksize=100000,error_bad_lines=False,usecols=columns_t)
         df = pd.concat(chunk)
         return df
     except Exception as Err:
