@@ -58,7 +58,7 @@ def extract_data_from_csv(config, params):
             if params.get('deDupValuesOn'):
                 deDupValuesOn = params.get('deDupValuesOn')
                 deDupValuesOn = deDupValuesOn.split(",")
-                df.drop_duplicates(subset=deDupValuesOn, keep='first')
+                df=df.drop_duplicates(subset=deDupValuesOn, keep='first')
         except Exception as Err:
             logger.error('Error in deduplicating data  extract_data_from_csv(): %s' % Err)
         
@@ -105,7 +105,7 @@ def merge_two_csv_and_extract_data(config, params):
             if params.get('deDupValuesOn'):
                 deDupValuesOn = params.get('deDupValuesOn')
                 deDupValuesOn = deDupValuesOn.split(",")
-                combined_recordSet.drop_duplicates(subset=deDupValuesOn, keep='first')
+                combined_recordSet=combined_recordSet.drop_duplicates(subset=deDupValuesOn, keep='first')
         except Exception as Err:
             logger.error('Error in deduplicating data  extract_data_from_csv(): %s' % Err)
 
@@ -150,7 +150,7 @@ def concat_two_csv_and_extract_data(config, params):
             if params.get('deDupValuesOn'):
                 deDupValuesOn = params.get('deDupValuesOn')
                 deDupValuesOn = deDupValuesOn.split(",")
-                combined_recordSet.drop_duplicates(subset=deDupValuesOn, keep='first')
+                combined_recordSet=combined_recordSet.drop_duplicates(subset=deDupValuesOn, keep='first')
         except Exception as Err:
             logger.error('Error in deduplicating data  extract_data_from_csv(): %s' % Err)
 
@@ -179,7 +179,7 @@ def join_two_csv_and_extract_data(config, params):
         fileTwoIRI = handle_params(params,params.get('file_two_value'))
         fileTwoPath = join('/tmp', download_file_from_cyops(fileTwoIRI)['cyops_file_path'])
 
-    
+
         df1 = _read_and_return_ds(fileOnePath,params,config)
         df2=  _read_and_return_ds(fileTwoPath,params,config)
 
@@ -191,7 +191,7 @@ def join_two_csv_and_extract_data(config, params):
             if params.get('deDupValuesOn'):
                 deDupValuesOn = params.get('deDupValuesOn')
                 deDupValuesOn = deDupValuesOn.split(",")
-                combined_recordSet.drop_duplicates(subset=deDupValuesOn, keep='first')
+                combined_recordSet=combined_recordSet.drop_duplicates(subset=deDupValuesOn, keep='first')
         except Exception as Err:
             logger.error('Error in deduplicating data  extract_data_from_csv(): %s' % Err)
 
