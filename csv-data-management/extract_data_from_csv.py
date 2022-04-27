@@ -171,6 +171,50 @@ def concat_two_csv_and_extract_data(config, params):
 
     except Exception as Err:
         logger.error('Error in extract_data_from_csv(): %s' % Err)
+
+def append_two_csv_and_extract_data(config, params):
+    try:
+        fileOneIRI = handle_params(params,params.get('file_one_value'))
+        fileOnePath = join('/tmp', download_file_from_cyops(fileOneIRI)['cyops_file_path'])
+        fileTwoIRI = handle_params(params,params.get('file_two_value'))
+        fileTwoPath = join('/tmp', download_file_from_cyops(fileTwoIRI)['cyops_file_path'])
+
+        with open(fileOnePath) as myfile:
+           head = [next(myfile) for x in range(10)]
+        logger.info(head)  
+        logger.info(params)
+        df1 = _read_and_return_ds(fileOnePath,params,config)
+        df2=  _read_and_return_ds(fileTwoPath,params,config)
+
+        #Merge both files
+        combined_recordSet =df1.join(df2,lsuffix='_FirstFile', rsuffix='_SecondFile')    
+
+        # If user has selected to deduplicate recordset
+        try:
+            if params.get('deDupValuesOn'):
+                deDupValuesOn = params.get('deDupValuesOn')
+                deDupValuesOn = deDupValuesOn.split(",")
+                combined_recordSet.drop_duplicates(subset=deDupValuesOn, keep='first')
+        except Exception as Err:
+            logger.error('Error in deduplicating data  extract_data_from_csv(): %s' % Err)
+
+        # Replace empty values with N/A 
+        combined_recordSet = combined_recordSet.fillna('N/A')
+
+        #Create small chunks of dataset to cosume by playbook if requested by user otherwise return complete recordset
+        if params.get('recordBatch'):
+            smaller_datasets = np.array_split(combined_recordSet, 20)
+            all_records = []
+            for batch in smaller_datasets:
+                all_records.append(batch.to_dict("records"))
+                final_result = {"records": all_records}
+        else:
+            final_result = {"records": combined_recordSet.to_dict()}
+            
+        return final_result
+
+    except Exception as Err:
+        logger.error('Error in extract_data_from_csv(): %s' % Err)        
     
 def _read_file_specific_columns(filepath,columns_t,numberOfRowsToSkip=None):
     try:
