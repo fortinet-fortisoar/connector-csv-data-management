@@ -172,7 +172,7 @@ def concat_two_csv_and_extract_data(config, params):
     except Exception as Err:
         logger.error('Error in extract_data_from_csv(): %s' % Err)
 
-def append_two_csv_and_extract_data(config, params):
+def join_two_csv_and_extract_data(config, params):
     try:
         fileOneIRI = handle_params(params,params.get('file_one_value'))
         fileOnePath = join('/tmp', download_file_from_cyops(fileOneIRI)['cyops_file_path'])
