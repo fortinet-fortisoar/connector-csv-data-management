@@ -12,7 +12,7 @@
     {
       "title": "Extract Data from Single CSV",
       "operation": "extract_data_from_csv",
-      "description": "This action will extract data from CSV based on column names provided. Optionally, User can select an option to deduplicate resultant recordset based on column(s) providedd",
+      "description": "This action will extract data from CSV based on column names provided. Optionally, User can select an option to deduplicate resultant recordset based on column(s) provided",
       "parameters": [
         {
           "title": "Type",
