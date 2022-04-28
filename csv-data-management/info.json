@@ -8,7 +8,7 @@
   "icon_large_name": "fortisoar_logo.png",
   "category": "",
   "configuration": {},
-  "help_online": null,
+  "help_online": "",
   "operations": [
     {
       "title": "Extract Data from Single CSV",
