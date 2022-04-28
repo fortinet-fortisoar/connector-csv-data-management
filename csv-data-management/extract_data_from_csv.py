@@ -61,6 +61,7 @@ def extract_data_from_csv(config, params):
                 df=df.drop_duplicates(subset=deDupValuesOn, keep='first')
         except Exception as Err:
             logger.error('Error in deduplicating data  extract_data_from_csv(): %s' % Err)
+            raise ConnectorError('Error in deduplicating data  extract_data_from_csv(): %s' % Err)
         
         # Replace empty values with N/A 
         df = df.fillna('N/A')
@@ -110,6 +111,7 @@ def merge_two_csv_and_extract_data(config, params):
                 combined_recordSet=combined_recordSet.drop_duplicates(subset=deDupValuesOn, keep='first')
         except Exception as Err:
             logger.error('Error in deduplicating data  extract_data_from_csv(): %s' % Err)
+            raise ConnectorError('Error in deduplicating data  extract_data_from_csv(): %s' % Err)
 
         # Replace empty values with N/A 
         combined_recordSet = combined_recordSet.fillna('N/A')
@@ -153,6 +155,7 @@ def concat_two_csv_and_extract_data(config, params):
                 combined_recordSet=combined_recordSet.drop_duplicates(subset=deDupValuesOn, keep='first')
         except Exception as Err:
             logger.error('Error in deduplicating data  extract_data_from_csv(): %s' % Err)
+            raise ConnectorError('Error in deduplicating data  extract_data_from_csv(): %s' % Err)
 
         # Replace empty values with N/A 
         combined_recordSet = combined_recordSet.fillna('N/A')
@@ -195,6 +198,7 @@ def join_two_csv_and_extract_data(config, params):
                 combined_recordSet=combined_recordSet.drop_duplicates(subset=deDupValuesOn, keep='first')
         except Exception as Err:
             logger.error('Error in deduplicating data  extract_data_from_csv(): %s' % Err)
+            raise ConnectorError('Error in deduplicating data  extract_data_from_csv(): %s' % Err)
 
         # Replace empty values with N/A 
         combined_recordSet = combined_recordSet.fillna('N/A')
