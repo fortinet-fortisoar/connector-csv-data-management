@@ -275,8 +275,14 @@ def _read_file_single_column_no_header(filepath,numberOfRowsToSkip=None,no_of_co
         raise ConnectorError('Error in processing CSV File: %s' % Err)  
 
 def _check_if_csv(filepath):
+    sniffer = csv.Sniffer()
+    # bailing out incase CSV file encoding is not UTF-8
+    # To-Do  Read CSV file encoding and then use it for reading file. use -chardet.detect
     try:
-        sniffer = csv.Sniffer()
+        res = sniffer.has_header(open(filepath).read(2048))
+    except UnicodeDecodeError:
+        raise ConnectorError("CSV file has unsupported encoding.Supported encoding is UTF-8")
+    try: 
         res = sniffer.has_header(open(filepath).read(2048))
         df = pd.read_csv('{}'.format(filepath),error_bad_lines=False,nrows=10)
         row, col = df.shape
