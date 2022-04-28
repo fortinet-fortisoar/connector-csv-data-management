@@ -72,7 +72,7 @@ def extract_data_from_csv(config, params):
             all_records = []
             for batch in smaller_datasets:
                 all_records.append(batch.to_dict("records"))
-                final_result = {"records": all_records}
+            final_result = {"records": all_records}
         else:
             final_result = {"records": df.to_dict()}
 
@@ -122,7 +122,7 @@ def merge_two_csv_and_extract_data(config, params):
             all_records = []
             for batch in smaller_datasets:
                 all_records.append(batch.to_dict("records"))
-                final_result = {"records": all_records}
+            final_result = {"records": all_records}
         else:
             final_result = {"records": combined_recordSet.to_dict()}
             
@@ -166,7 +166,7 @@ def concat_two_csv_and_extract_data(config, params):
             all_records = []
             for batch in smaller_datasets:
                 all_records.append(batch.to_dict("records"))
-                final_result = {"records": all_records}
+            final_result = {"records": all_records}
         else:
             final_result = {"records": combined_recordSet.to_dict()}
             
@@ -209,7 +209,7 @@ def join_two_csv_and_extract_data(config, params):
             all_records = []
             for batch in smaller_datasets:
                 all_records.append(batch.to_dict("records"))
-                final_result = {"records": all_records}
+            final_result = {"records": all_records}
         else:
             final_result = {"records": combined_recordSet.to_dict()}
             
