@@ -66,8 +66,8 @@
           "visible": true,
           "editable": true,
           "value": null,
-          "description": "Number of rows you want to skip from top of CSV File. Note first row will not be skipped as it has column names",
-          "tooltip":"Number of rows you want to skip from top of CSV File. Note first row will not be skipped as it has column names"
+          "description": "Number of rows you want to skip from top of CSV File. Note first row will be skipped even if it has column names",
+          "tooltip":"Number of rows you want to skip from top of CSV File. Note first row will be skipped even if it has column names"
         },
         {
           "title": "Convert recordset into batch",
@@ -129,8 +129,8 @@
           "visible": true,
           "editable": true,
           "value": null,
-          "description": "Number of rows you want to skip from top of CSV File. Note first row will not be skipped as it has column names",
-          "tooltip":"Number of rows you want to skip from top of CSV File. Note first row will not be skipped as it has column names"
+          "description": "Number of rows you want to skip from top of CSV File.  Note first row will be skipped even if it has column names",
+          "tooltip":"Number of rows you want to skip from top of CSV File.  Note first row will be skipped even if it has column names"
           
         },
         {
@@ -174,8 +174,8 @@
           "visible": true,
           "editable": true,
           "value": null,
-          "description": "Number of rows you want to skip from top of CSV File. Note first row will not be skipped as it has column names",
-          "tooltip":"Number of rows you want to skip from top of CSV File. Note first row will not be skipped as it has column names"
+          "description": "Number of rows you want to skip from top of CSV File.  Note first row will be skipped even if it has column names",
+          "tooltip":"Number of rows you want to skip from top of CSV File.  Note first row will be skipped even if it has column names"
         },
         
         {
@@ -260,8 +260,8 @@
           "visible": true,
           "editable": true,
           "value": null,
-          "description": "Number of rows you want to skip from top of CSV File. Note first row will not be skipped as it has column names",
-          "tooltip":"Number of rows you want to skip from top of CSV File. Note first row will not be skipped as it has column names"
+          "description": "Number of rows you want to skip from top of CSV File. Note first row will be skipped even if it has column names",
+          "tooltip":"Number of rows you want to skip from top of CSV File.  Note first row will be skipped even if it has column names"
         },
         {
           "title": "Type",
@@ -304,8 +304,8 @@
           "visible": true,
           "editable": true,
           "value": null,
-          "description": "Number of rows you want to skip from top of CSV File. Note first row will not be skipped as it has column names",
-          "tooltip":"Number of rows you want to skip from top of CSV File. Note first row will not be skipped as it has column names"
+          "description": "Number of rows you want to skip from top of CSV File.  Note first row will be skipped even if it has column names",
+          "tooltip":"Number of rows you want to skip from top of CSV File.  Note first row will be skipped even if it has column names"
         },
         {
           "title": "Deduplicate Values on",
@@ -315,8 +315,8 @@
           "visible": true,
           "editable": true,
           "value": "",
-          "description": "Column name you want to use deduplicate date  from CSV File",
-          "tooltip":"Number of rows you want to skip from top of CSV File. Note first row will not be skipped as it has column names"
+          "description": "Column name you want to use deduplicate date  from CSV File. Note first row will be skipped even if it has column names",
+          "tooltip":"Number of rows you want to skip from top of CSV File.  Note first row will be skipped even if it has column names"
         },
         {
           "title": "Convert recordset into batch",
@@ -378,8 +378,8 @@
           "visible": true,
           "editable": true,
           "value": null,
-          "description": "Number of rows you want to skip from top of CSV File. Note first row will not be skipped as it has column names",
-          "tooltip":"Number of rows you want to skip from top of CSV File. Note first row will not be skipped as it has column names"
+          "description": "Number of rows you want to skip from top of CSV File. Note first row will be skipped even if it has column names",
+          "tooltip":"Number of rows you want to skip from top of CSV File. Note first row will be skipped even if it has column names"
         },
         {
           "title": "Type",
@@ -422,8 +422,8 @@
           "visible": true,
           "editable": true,
           "value": null,
-          "description": "Number of rows you want to skip from top of CSV File. Note first row will not be skipped as it has column names",
-          "tooltip":"Number of rows you want to skip from top of CSV File. Note first row will not be skipped as it has column names"
+          "description": "Number of rows you want to skip from top of CSV File. Note first row will be skipped even if it has column names",
+          "tooltip":"Number of rows you want to skip from top of CSV File.  Note first row will be skipped even if it has column names"
         },
         {
           "title": "Deduplicate Values on",
@@ -433,8 +433,8 @@
           "visible": true,
           "editable": true,
           "value": "",
-          "description": "Column name you want to use deduplicate data from CSV File",
-          "tooltip":"Number of rows you want to skip from top of CSV File. Note first row will not be skipped as it has column names"
+          "description": "Column name you want to use deduplicate data from CSV File. Note first row will be skipped even if it has column names",
+          "tooltip":"Number of rows you want to skip from top of CSV File.  Note first row will be skipped even if it has column names"
         },
         {
           "title": "Convert recordset into batch",
