@@ -138,9 +138,6 @@ def concat_two_csv_and_extract_data(config, params):
         fileTwoIRI = handle_params(params,params.get('file_two_value'))
         fileTwoPath = join('/tmp', download_file_from_cyops(fileTwoIRI)['cyops_file_path'])
 
-        with open(fileOnePath) as myfile:
-           head = [next(myfile) for x in range(10)]
-        logger.info(head)  
         logger.info(params)
         df1 = _read_and_return_ds(fileOnePath,params,config)
         df2=  _read_and_return_ds(fileTwoPath,params,config)
