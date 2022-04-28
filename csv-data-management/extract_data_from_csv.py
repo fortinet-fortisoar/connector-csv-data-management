@@ -298,10 +298,6 @@ def _read_and_return_ds(filepath,params,config):
         isSingleColumn = None
         isCSVWithoutHeaders = False
 
-        fileIRI = handle_params(params,params.get('file_one_value'))
-        logger.warning(params)
-        filepath = join('/tmp', download_file_from_cyops(fileIRI)['cyops_file_path'])
-
         res = _check_if_csv(filepath)
         logger.info(res)
   
