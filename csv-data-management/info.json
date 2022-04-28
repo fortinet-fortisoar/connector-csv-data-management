@@ -2,7 +2,7 @@
   "name": "csv-data-management",
   "version": "1.0.0",
   "label": "CSV Data Management",
-  "description": "CSV Data management will allow to read  and import CSV rows as records, along with options to deduplicate , merge two CSV files , then import resulant dataset into FortiSOAR and more such utility functions",
+  "description": "CSV Data management can perform different operations on CSV files like read file, perform deduplication, merge two CSV files,join two CSV files,concat two CSV files and return well formatted dataset",
   "publisher": "Fortinet",
   "icon_small_name": "fortisoar_logo.png",
   "icon_large_name": "fortisoar_logo.png",
@@ -12,7 +12,7 @@
     {
       "title": "Extract Data from Single CSV",
       "operation": "extract_data_from_csv",
-      "description": "This action will extract data from CSV based on column names provided. User can select option to deduplicate values based on column(s) provided",
+      "description": "This action will extract data from CSV based on column names provided. Optionally, User can select an option to deduplicate resultant recordset based on column(s) providedd",
       "parameters": [
         {
           "title": "Type",
@@ -86,7 +86,7 @@
     {
       "title": "Merge and Extract Data from two CSV",
       "operation": "merge_two_csv_and_extract_data",
-      "description": "This action will extract data from CSV based on column names provided ,by merging two CSV file. User can select option to deduplicate values based on column(s) provided",
+      "description": "This action will extract data from CSV based on column names provided ,by merging two CSV file. Optionally, User can select an option to deduplicate resultant recordset based on column(s) provided",
       "parameters": [
         {
           "title": "Type",
@@ -118,8 +118,8 @@
           "visible": true,
           "editable": true,
           "value": "",
-          "description": "comma separate list of columns name you want to extract from CSV File",
-          "tooltip":"comma separate list of columns name you want to extract from CSV File"
+          "description": "comma separated list of columns name you want to extract from CSV File",
+          "tooltip":"comma separated list of columns name you want to extract from CSV File"
         },
         {
           "title": "Number of rows to skip from First File",
@@ -163,8 +163,8 @@
           "visible": true,
           "editable": true,
           "value": "",
-          "description": "comma separate list of columns name you want to extract from CSV File",
-          "tooltip":"comma separate list of columns name you want to extract from CSV File"
+          "description": "comma separated list of columns name you want to extract from CSV File",
+          "tooltip":"comma separated list of columns name you want to extract from CSV File"
         },
         {
           "title": "Number of rows to skip from Second File",
@@ -217,7 +217,7 @@
     {
       "title": "Concat and Extract Data from two CSV",
       "operation": "concat_two_csv_and_extract_data",
-      "description": "This action will extract data by concatting two CSV file. User can select option to deduplicate rows based on columns",
+      "description": "This action will extract data by concatting two CSV file. Optionally, User can select an option to deduplicate resultant recordset based on column(s) provided",
       "parameters": [
         {
           "title": "Type",
@@ -249,8 +249,8 @@
           "visible": true,
           "editable": true,
           "value": "",
-          "description": "comma separate list of columns name you want to extract from CSV File",
-          "tooltip":"comma separate list of columns name you want to extract from CSV File"
+          "description": "comma separated list of columns name you want to extract from CSV File",
+          "tooltip":"comma separated list of columns name you want to extract from CSV File"
         },
         {
           "title": "Number of rows to skip from First File",
@@ -293,8 +293,8 @@
           "visible": true,
           "editable": true,
           "value": "",
-          "description": "comma separate list of columns name you want to extract from CSV File",
-          "tooltip":"comma separate list of columns name you want to extract from CSV File"
+          "description": "comma separated list of columns name you want to extract from CSV File",
+          "tooltip":"comma separated list of columns name you want to extract from CSV File"
         },
         {
           "title": "Number of rows to skip from Second File",
@@ -335,7 +335,7 @@
     {
       "title": "Join and Extract Data from two CSV",
       "operation": "join_two_csv_and_extract_data",
-      "description": "This action will extract data by 'joining' two CSV file. User can select option to deduplicate values based on column(s) provided",
+      "description": "This action will extract data by 'joining' two CSV file. Optionally, User can select an option to deduplicate resultant recordset based on column(s) provided",
       "parameters": [
         {
           "title": "Type",
@@ -367,8 +367,8 @@
           "visible": true,
           "editable": true,
           "value": "",
-          "description": "comma separate list of columns name you want to extract from CSV File",
-          "tooltip":"comma separate list of columns name you want to extract from CSV File"
+          "description": "comma separated list of columns name you want to extract from CSV File",
+          "tooltip":"comma separated list of columns name you want to extract from CSV File"
         },
         {
           "title": "Number of rows to skip from First File",
@@ -411,8 +411,8 @@
           "visible": true,
           "editable": true,
           "value": "",
-          "description": "comma separate list of columns name you want to extract from CSV File",
-          "tooltip":"comma separate list of columns name you want to extract from CSV File"
+          "description": "comma separated list of columns name you want to extract from CSV File",
+          "tooltip":"comma separated list of columns name you want to extract from CSV File"
         },
         {
           "title": "Number of rows to skip from Second File",

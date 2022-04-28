@@ -65,7 +65,7 @@ def extract_data_from_csv(config, params):
         # Replace empty values with N/A 
         df = df.fillna('N/A')
 
-        #Create small chunks of dataset to cosume by playbook if requested by user otherwise return complete recordset
+        #Create small chunks of dataset to consume by playbook if requested by user otherwise return complete recordset
         if params.get('recordBatch'):
             smaller_datasets = np.array_split(df, 20)
             all_records = []
@@ -79,6 +79,8 @@ def extract_data_from_csv(config, params):
 
     except Exception as Err:
         logger.error('Error in extract_data_from_csv(): %s' % Err)
+        raise ConnectorError('Error in processing CSV File: %s' % Err)
+
 
 
         
@@ -112,7 +114,7 @@ def merge_two_csv_and_extract_data(config, params):
         # Replace empty values with N/A 
         combined_recordSet = combined_recordSet.fillna('N/A')
 
-        #Create small chunks of dataset to cosume by playbook if requested by user otherwise return complete recordset
+        #Create small chunks of dataset to consume by playbook if requested by user otherwise return complete recordset
         if params.get('recordBatch'):
             smaller_datasets = np.array_split(combined_recordSet, 20)
             all_records = []
@@ -125,7 +127,8 @@ def merge_two_csv_and_extract_data(config, params):
         return final_result
 
     except Exception as Err:
-        logger.error('Error in extract_data_from_csv(): %s' % Err)
+        logger.error('Error in merge_two_csv_and_extract_data(): %s' % Err)
+        raise ConnectorError('Error in processing CSV File: %s' % Err)
 
 
 def concat_two_csv_and_extract_data(config, params):
@@ -157,7 +160,7 @@ def concat_two_csv_and_extract_data(config, params):
         # Replace empty values with N/A 
         combined_recordSet = combined_recordSet.fillna('N/A')
 
-        #Create small chunks of dataset to cosume by playbook if requested by user otherwise return complete recordset
+        #Create small chunks of dataset to consume by playbook if requested by user otherwise return complete recordset
         if params.get('recordBatch'):
             smaller_datasets = np.array_split(combined_recordSet, 20)
             all_records = []
@@ -170,7 +173,8 @@ def concat_two_csv_and_extract_data(config, params):
         return final_result
 
     except Exception as Err:
-        logger.error('Error in extract_data_from_csv(): %s' % Err)
+        logger.error('Error in concat_two_csv_and_extract_data(): %s' % Err)
+        raise ConnectorError('Error in processing CSV File: %s' % Err)
 
 def join_two_csv_and_extract_data(config, params):
     try:
@@ -211,7 +215,8 @@ def join_two_csv_and_extract_data(config, params):
         return final_result
 
     except Exception as Err:
-        logger.error('Error in extract_data_from_csv(): %s' % Err)        
+        logger.error('Error in join_two_csv_and_extract_data(): %s' % Err)
+        raise ConnectorError('Error in processing CSV File: %s' % Err)        
     
 def _read_file_specific_columns(filepath,columns_t,numberOfRowsToSkip=None):
     try:
@@ -219,7 +224,8 @@ def _read_file_specific_columns(filepath,columns_t,numberOfRowsToSkip=None):
         df = pd.concat(chunk)
         return df
     except Exception as Err:
-        logger.error('Error in _read_file_specific_columns(): %s' % Err)    
+        logger.error('Error in _read_file_specific_columns(): %s' % Err)
+        raise ConnectorError('Error in processing CSV File: %s' % Err)     
 
 def _read_file_all_columns(filepath,numberOfRowsToSkip=None):
     try:
@@ -228,6 +234,7 @@ def _read_file_all_columns(filepath,numberOfRowsToSkip=None):
         return df
     except Exception as Err:
         logger.error('Error in _read_file_all_columns(): %s' % Err)
+        raise ConnectorError('Error in processing CSV File: %s' % Err) 
 
 def _read_file_no_headers(filepath,numberOfRowsToSkip=None,no_of_columns=None):
     try:
@@ -240,7 +247,8 @@ def _read_file_no_headers(filepath,numberOfRowsToSkip=None,no_of_columns=None):
         df.columns = colList
         return df
     except Exception as Err:
-        logger.error('Error in _read_file_no_headers(): %s' % Err)    
+        logger.error('Error in _read_file_no_headers(): %s' % Err)
+        raise ConnectorError('Error in processing CSV File: %s' % Err)     
 
 def _read_file_single_column(filepath,numberOfRowsToSkip=None):
     try:
@@ -248,7 +256,8 @@ def _read_file_single_column(filepath,numberOfRowsToSkip=None):
         df = pd.concat(chunk)
         return df
     except Exception as Err:
-        logger.error('Error in _read_file_no_headers(): %s' % Err) 
+        logger.error('Error in _read_file_no_headers(): %s' % Err)
+        raise ConnectorError('Error in processing CSV File: %s' % Err)  
             
 def _read_file_single_column_no_header(filepath,numberOfRowsToSkip=None,no_of_columns=None):
     try:
@@ -261,7 +270,8 @@ def _read_file_single_column_no_header(filepath,numberOfRowsToSkip=None,no_of_co
         df.columns = colList
         return df
     except Exception as Err:
-        logger.error('Error in _read_file_single_column_no_header(): %s' % Err) 
+        logger.error('Error in _read_file_single_column_no_header(): %s' % Err)
+        raise ConnectorError('Error in processing CSV File: %s' % Err)  
 
 def _check_if_csv(filepath):
     try:
@@ -280,7 +290,7 @@ def _check_if_csv(filepath):
             row, col = df.shape
             return {"headers": False,"columns": col }
         except Exception as Err:
-             ("Not a valid CSV: "+ Err)
+            raise ConnectorError("Not a valid CSV: "+ Err)
 
 def _read_and_return_ds(filepath,params,config):
     try:
@@ -329,6 +339,8 @@ def _read_and_return_ds(filepath,params,config):
         return df_file
     except Exception as Err:
         logger.error('Error in _read_and_return_ds(): %s' % Err)
+        raise ConnectorError('Error in processing CSV File: %s' % Err)
+        
 
     
 
