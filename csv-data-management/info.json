@@ -8,6 +8,7 @@
   "icon_large_name": "fortisoar_logo.png",
   "category": "",
   "configuration": {},
+  "help_online": null,
   "operations": [
     {
       "title": "Extract Data from Single CSV",
@@ -448,8 +449,8 @@
           "tooltip":"If set , will return rows as recordSet in list of 20 batches otherwise complete result in a single recordSet"
         }
       ],
-      "open": true,
-      "help_online": null
+      "open": true
+      
     }
   ]
 }
