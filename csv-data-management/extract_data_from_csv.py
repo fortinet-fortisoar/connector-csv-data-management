@@ -58,20 +58,21 @@ def extract_data_from_csv(config, params):
             if params.get('deDupValuesOn'):
                 deDupValuesOn = params.get('deDupValuesOn')
                 deDupValuesOn = deDupValuesOn.split(",")
-                df.drop_duplicates(subset=deDupValuesOn, keep='first')
+                df=df.drop_duplicates(subset=deDupValuesOn, keep='first')
         except Exception as Err:
             logger.error('Error in deduplicating data  extract_data_from_csv(): %s' % Err)
+            raise ConnectorError('Error in deduplicating data  extract_data_from_csv(): %s' % Err)
         
         # Replace empty values with N/A 
         df = df.fillna('N/A')
 
-        #Create small chunks of dataset to cosume by playbook if requested by user otherwise return complete recordset
+        #Create small chunks of dataset to consume by playbook if requested by user otherwise return complete recordset
         if params.get('recordBatch'):
             smaller_datasets = np.array_split(df, 20)
             all_records = []
             for batch in smaller_datasets:
                 all_records.append(batch.to_dict("records"))
-                final_result = {"records": all_records}
+            final_result = {"records": all_records}
         else:
             final_result = {"records": df.to_dict()}
 
@@ -79,6 +80,8 @@ def extract_data_from_csv(config, params):
 
     except Exception as Err:
         logger.error('Error in extract_data_from_csv(): %s' % Err)
+        raise ConnectorError('Error in processing CSV File: %s' % Err)
+
 
 
         
@@ -105,27 +108,29 @@ def merge_two_csv_and_extract_data(config, params):
             if params.get('deDupValuesOn'):
                 deDupValuesOn = params.get('deDupValuesOn')
                 deDupValuesOn = deDupValuesOn.split(",")
-                combined_recordSet.drop_duplicates(subset=deDupValuesOn, keep='first')
+                combined_recordSet=combined_recordSet.drop_duplicates(subset=deDupValuesOn, keep='first')
         except Exception as Err:
             logger.error('Error in deduplicating data  extract_data_from_csv(): %s' % Err)
+            raise ConnectorError('Error in deduplicating data  extract_data_from_csv(): %s' % Err)
 
         # Replace empty values with N/A 
         combined_recordSet = combined_recordSet.fillna('N/A')
 
-        #Create small chunks of dataset to cosume by playbook if requested by user otherwise return complete recordset
+        #Create small chunks of dataset to consume by playbook if requested by user otherwise return complete recordset
         if params.get('recordBatch'):
             smaller_datasets = np.array_split(combined_recordSet, 20)
             all_records = []
             for batch in smaller_datasets:
                 all_records.append(batch.to_dict("records"))
-                final_result = {"records": all_records}
+            final_result = {"records": all_records}
         else:
             final_result = {"records": combined_recordSet.to_dict()}
             
         return final_result
 
     except Exception as Err:
-        logger.error('Error in extract_data_from_csv(): %s' % Err)
+        logger.error('Error in merge_two_csv_and_extract_data(): %s' % Err)
+        raise ConnectorError('Error in processing CSV File: %s' % Err)
 
 
 def concat_two_csv_and_extract_data(config, params):
@@ -135,14 +140,11 @@ def concat_two_csv_and_extract_data(config, params):
         fileTwoIRI = handle_params(params,params.get('file_two_value'))
         fileTwoPath = join('/tmp', download_file_from_cyops(fileTwoIRI)['cyops_file_path'])
 
-        with open(fileOnePath) as myfile:
-           head = [next(myfile) for x in range(10)]
-        logger.info(head)  
         logger.info(params)
         df1 = _read_and_return_ds(fileOnePath,params,config)
         df2=  _read_and_return_ds(fileTwoPath,params,config)
 
-        #Merge both files
+        #concat both files
         combined_recordSet =pd.concat([df1,df2])    
 
         # If user has selected to deduplicate recordset
@@ -150,9 +152,53 @@ def concat_two_csv_and_extract_data(config, params):
             if params.get('deDupValuesOn'):
                 deDupValuesOn = params.get('deDupValuesOn')
                 deDupValuesOn = deDupValuesOn.split(",")
-                combined_recordSet.drop_duplicates(subset=deDupValuesOn, keep='first')
+                combined_recordSet=combined_recordSet.drop_duplicates(subset=deDupValuesOn, keep='first')
         except Exception as Err:
             logger.error('Error in deduplicating data  extract_data_from_csv(): %s' % Err)
+            raise ConnectorError('Error in deduplicating data  extract_data_from_csv(): %s' % Err)
+
+        # Replace empty values with N/A 
+        combined_recordSet = combined_recordSet.fillna('N/A')
+
+        #Create small chunks of dataset to consume by playbook if requested by user otherwise return complete recordset
+        if params.get('recordBatch'):
+            smaller_datasets = np.array_split(combined_recordSet, 20)
+            all_records = []
+            for batch in smaller_datasets:
+                all_records.append(batch.to_dict("records"))
+            final_result = {"records": all_records}
+        else:
+            final_result = {"records": combined_recordSet.to_dict()}
+            
+        return final_result
+
+    except Exception as Err:
+        logger.error('Error in concat_two_csv_and_extract_data(): %s' % Err)
+        raise ConnectorError('Error in processing CSV File: %s' % Err)
+
+def join_two_csv_and_extract_data(config, params):
+    try:
+        fileOneIRI = handle_params(params,params.get('file_one_value'))
+        fileOnePath = join('/tmp', download_file_from_cyops(fileOneIRI)['cyops_file_path'])
+        fileTwoIRI = handle_params(params,params.get('file_two_value'))
+        fileTwoPath = join('/tmp', download_file_from_cyops(fileTwoIRI)['cyops_file_path'])
+
+
+        df1 = _read_and_return_ds(fileOnePath,params,config)
+        df2=  _read_and_return_ds(fileTwoPath,params,config)
+
+        #Join both files
+        combined_recordSet =df1.join(df2,lsuffix='_FirstFile', rsuffix='_SecondFile')    
+
+        # If user has selected to deduplicate recordset
+        try:
+            if params.get('deDupValuesOn'):
+                deDupValuesOn = params.get('deDupValuesOn')
+                deDupValuesOn = deDupValuesOn.split(",")
+                combined_recordSet=combined_recordSet.drop_duplicates(subset=deDupValuesOn, keep='first')
+        except Exception as Err:
+            logger.error('Error in deduplicating data  extract_data_from_csv(): %s' % Err)
+            raise ConnectorError('Error in deduplicating data  extract_data_from_csv(): %s' % Err)
 
         # Replace empty values with N/A 
         combined_recordSet = combined_recordSet.fillna('N/A')
@@ -163,14 +209,15 @@ def concat_two_csv_and_extract_data(config, params):
             all_records = []
             for batch in smaller_datasets:
                 all_records.append(batch.to_dict("records"))
-                final_result = {"records": all_records}
+            final_result = {"records": all_records}
         else:
             final_result = {"records": combined_recordSet.to_dict()}
             
         return final_result
 
     except Exception as Err:
-        logger.error('Error in extract_data_from_csv(): %s' % Err)
+        logger.error('Error in join_two_csv_and_extract_data(): %s' % Err)
+        raise ConnectorError('Error in processing CSV File: %s' % Err)        
     
 def _read_file_specific_columns(filepath,columns_t,numberOfRowsToSkip=None):
     try:
@@ -178,7 +225,8 @@ def _read_file_specific_columns(filepath,columns_t,numberOfRowsToSkip=None):
         df = pd.concat(chunk)
         return df
     except Exception as Err:
-        logger.error('Error in _read_file_specific_columns(): %s' % Err)    
+        logger.error('Error in _read_file_specific_columns(): %s' % Err)
+        raise ConnectorError('Error in processing CSV File: %s' % Err)     
 
 def _read_file_all_columns(filepath,numberOfRowsToSkip=None):
     try:
@@ -187,6 +235,7 @@ def _read_file_all_columns(filepath,numberOfRowsToSkip=None):
         return df
     except Exception as Err:
         logger.error('Error in _read_file_all_columns(): %s' % Err)
+        raise ConnectorError('Error in processing CSV File: %s' % Err) 
 
 def _read_file_no_headers(filepath,numberOfRowsToSkip=None,no_of_columns=None):
     try:
@@ -199,7 +248,8 @@ def _read_file_no_headers(filepath,numberOfRowsToSkip=None,no_of_columns=None):
         df.columns = colList
         return df
     except Exception as Err:
-        logger.error('Error in _read_file_no_headers(): %s' % Err)    
+        logger.error('Error in _read_file_no_headers(): %s' % Err)
+        raise ConnectorError('Error in processing CSV File: %s' % Err)     
 
 def _read_file_single_column(filepath,numberOfRowsToSkip=None):
     try:
@@ -207,7 +257,8 @@ def _read_file_single_column(filepath,numberOfRowsToSkip=None):
         df = pd.concat(chunk)
         return df
     except Exception as Err:
-        logger.error('Error in _read_file_no_headers(): %s' % Err) 
+        logger.error('Error in _read_file_no_headers(): %s' % Err)
+        raise ConnectorError('Error in processing CSV File: %s' % Err)  
             
 def _read_file_single_column_no_header(filepath,numberOfRowsToSkip=None,no_of_columns=None):
     try:
@@ -220,7 +271,8 @@ def _read_file_single_column_no_header(filepath,numberOfRowsToSkip=None,no_of_co
         df.columns = colList
         return df
     except Exception as Err:
-        logger.error('Error in _read_file_single_column_no_header(): %s' % Err) 
+        logger.error('Error in _read_file_single_column_no_header(): %s' % Err)
+        raise ConnectorError('Error in processing CSV File: %s' % Err)  
 
 def _check_if_csv(filepath):
     try:
@@ -239,17 +291,13 @@ def _check_if_csv(filepath):
             row, col = df.shape
             return {"headers": False,"columns": col }
         except Exception as Err:
-             ("Not a valid CSV: "+ Err)
+            raise ConnectorError("Not a valid CSV: "+ Err)
 
 def _read_and_return_ds(filepath,params,config):
     try:
         numberOfRowsToSkip = None
         isSingleColumn = None
         isCSVWithoutHeaders = False
-
-        fileIRI = handle_params(params,params.get('file_one_value'))
-        logger.warning(params)
-        filepath = join('/tmp', download_file_from_cyops(fileIRI)['cyops_file_path'])
 
         res = _check_if_csv(filepath)
         logger.info(res)
@@ -288,6 +336,8 @@ def _read_and_return_ds(filepath,params,config):
         return df_file
     except Exception as Err:
         logger.error('Error in _read_and_return_ds(): %s' % Err)
+        raise ConnectorError('Error in processing CSV File: %s' % Err)
+        
 
     
 
