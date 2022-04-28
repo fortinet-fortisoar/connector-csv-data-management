@@ -9,6 +9,9 @@
   "category": "",
   "configuration": {},
   "help_online": "",
+  "cs_approved": false,
+  "cs_compatible": true,
+  "supportInfo": "https://github.com/fortinet-fortisoar/",
   "operations": [
     {
       "title": "Extract Data from Single CSV",
@@ -449,7 +452,7 @@
           "tooltip":"If set , will return rows as recordSet in list of 20 batches otherwise complete result in a single recordSet"
         }
       ],
-      "open": true
+      "enabled": true
       
     }
   ]
