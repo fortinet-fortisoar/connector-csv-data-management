@@ -145,7 +145,7 @@ def concat_two_csv_and_extract_data(config, params):
         df1 = _read_and_return_ds(fileOnePath,params,config)
         df2=  _read_and_return_ds(fileTwoPath,params,config)
 
-        #Merge both files
+        #concat both files
         combined_recordSet =pd.concat([df1,df2])    
 
         # If user has selected to deduplicate recordset
@@ -187,7 +187,7 @@ def join_two_csv_and_extract_data(config, params):
         df1 = _read_and_return_ds(fileOnePath,params,config)
         df2=  _read_and_return_ds(fileTwoPath,params,config)
 
-        #Merge both files
+        #Join both files
         combined_recordSet =df1.join(df2,lsuffix='_FirstFile', rsuffix='_SecondFile')    
 
         # If user has selected to deduplicate recordset
