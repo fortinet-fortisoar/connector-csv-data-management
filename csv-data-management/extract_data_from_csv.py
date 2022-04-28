@@ -74,7 +74,7 @@ def extract_data_from_csv(config, params):
                 all_records.append(batch.to_dict("records"))
             final_result = {"records": all_records}
         else:
-            final_result = {"records": df.to_dict()}
+            final_result = df.to_dict("records")
 
         return final_result
 
@@ -124,7 +124,7 @@ def merge_two_csv_and_extract_data(config, params):
                 all_records.append(batch.to_dict("records"))
             final_result = {"records": all_records}
         else:
-            final_result = {"records": combined_recordSet.to_dict()}
+            final_result = combined_recordSet.to_dict("records")
             
         return final_result
 
@@ -168,7 +168,7 @@ def concat_two_csv_and_extract_data(config, params):
                 all_records.append(batch.to_dict("records"))
             final_result = {"records": all_records}
         else:
-            final_result = {"records": combined_recordSet.to_dict()}
+            final_result =  combined_recordSet.to_dict("records")
             
         return final_result
 
@@ -211,7 +211,7 @@ def join_two_csv_and_extract_data(config, params):
                 all_records.append(batch.to_dict("records"))
             final_result = {"records": all_records}
         else:
-            final_result = {"records": combined_recordSet.to_dict()}
+            final_result = combined_recordSet.to_dict("records")
             
         return final_result
 
@@ -284,7 +284,7 @@ def _check_if_csv(filepath):
             return {"headers": True,"columns": col }
         else:
             return {"headers": False,"columns": col }     
-    except:
+    except Exception as Err:
         logger.error('Error in _check_if_csv() - csv check header: %s' % Err) 
         try:
             df = pd.read_csv('{}'.format(filepath),error_bad_lines=False,nrows=100)

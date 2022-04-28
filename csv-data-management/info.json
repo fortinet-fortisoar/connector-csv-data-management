@@ -448,7 +448,8 @@
           "tooltip":"If set , will return rows as recordSet in list of 20 batches otherwise complete result in a single recordSet"
         }
       ],
-      "open": true
+      "open": true,
+      "help_online": "https://docs.fortinet.com/product/fortisoar/2.0"
     }
   ]
 }
