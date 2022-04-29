@@ -319,10 +319,20 @@ def _read_and_return_ds(filepath,params,config):
          
         if params.get('numberOfRowsToSkip'):
           numberOfRowsToSkip = params.get('numberOfRowsToSkip')
-          
+
+        if params.get('numberOfRowsToSkipFirst'):
+          numberOfRowsToSkip = params.get('numberOfRowsToSkipFirst')
+
+        if params.get('numberOfRowsToSkipSecond'):
+          numberOfRowsToSkip = params.get('numberOfRowsToSkipSecond')  
+
         if params.get('file1_column_names') != "":  # CSV file with column header and specific columns to use in creating recordset 
             columnNames = params.get('file1_column_names')
             columnNames = columnNames.split(",")
+
+        if params.get('file2_column_names') != "":  # CSV file with column header and specific columns to use in creating recordset 
+            columnNames = params.get('file2_column_names')
+            columnNames = columnNames.split(",")    
             
             # We are passing  specific columns name to filter data from here
             df_file =  _read_file_specific_columns(filepath,columnNames,numberOfRowsToSkip)
