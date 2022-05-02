@@ -8,7 +8,7 @@
   "icon_large_name": "fortisoar_logo.png",
   "category": "",
   "configuration": {},
-  "help_online": "",
+  "help_online": "https://docs.fortinet.com/document/fortisoar/1.0.0/csv-data-management/270/csv-data-management-v1-0-0",
   "cs_approved": false,
   "cs_compatible": true,
   "supportInfo": "Fortinet Customer Support",
