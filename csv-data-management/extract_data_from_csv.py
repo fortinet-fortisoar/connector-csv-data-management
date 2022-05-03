@@ -40,7 +40,7 @@ def extract_data_from_csv(config, params):
             # We are passing  specific columns name to filter data from here
             df = _read_file_specific_columns(file_path,columnNames,numberOfRowsToSkip)
             
-        elif isSingleColumn : # CSV file with one  column and header 
+        elif isSingleColumn and not isCSVWithoutHeaders : # CSV file with one  column and header 
             df = _read_file_single_column(file_path,numberOfRowsToSkip)
 
         elif isSingleColumn and isCSVWithoutHeaders: # CSV file with one  column and no header 
@@ -257,7 +257,7 @@ def _read_file_single_column(filepath,numberOfRowsToSkip=None):
         df = pd.concat(chunk)
         return df
     except Exception as Err:
-        logger.error('Error in _read_file_no_headers(): %s' % Err)
+        logger.error('Error in _read_file_single_column(): %s' % Err)
         raise ConnectorError('Error in processing CSV File: %s' % Err)  
             
 def _read_file_single_column_no_header(filepath,numberOfRowsToSkip=None,no_of_columns=None):
@@ -280,8 +280,11 @@ def _check_if_csv(filepath):
     # To-Do  Read CSV file encoding and then use it for reading file. use -chardet.detect
     try:
         res = sniffer.has_header(open(filepath).read(2048))
-    except UnicodeDecodeError:
-        raise ConnectorError("CSV file has unsupported encoding.Supported encoding is UTF-8")
+    except Exception as Err:
+        if "UnicodeDecodeError" in repr(Err):
+            raise ConnectorError("CSV file has unsupported encoding.Supported encoding is UTF-8")
+        else:
+            pass
     try: 
         res = sniffer.has_header(open(filepath).read(2048))
         df = pd.read_csv('{}'.format(filepath),error_bad_lines=False,nrows=10)
@@ -337,14 +340,14 @@ def _read_and_return_ds(filepath,params,config):
             # We are passing  specific columns name to filter data from here
             df_file =  _read_file_specific_columns(filepath,columnNames,numberOfRowsToSkip)
             
-        elif isCSVWithoutHeaders: # CSV file without column header and more than one column
-            df_file =  _read_file_no_headers(filepath,numberOfRowsToSkip,noOfColumns) 
-
-        elif isSingleColumn: #CSV with single column and header    
+        elif isSingleColumn and not isCSVWithoutHeaders: #CSV with single column and header    
             df_file = _read_file_single_column(filepath,numberOfRowsToSkip)
         
         elif isSingleColumn and not isCSVWithoutHeaders: # CSV file with one  column and no header 
             df_file = _read_file_single_column_no_header(filepath,numberOfRowsToSkip,noOfColumns)
+        
+        elif isCSVWithoutHeaders: # CSV file without column header and more than one column
+            df_file =  _read_file_no_headers(filepath,numberOfRowsToSkip,noOfColumns) 
 
         else:  
             # We are reading complete file assuming it has column header
