@@ -343,7 +343,7 @@ def _read_and_return_ds(filepath,params,config):
         elif isSingleColumn and not isCSVWithoutHeaders: #CSV with single column and header    
             df_file = _read_file_single_column(filepath,numberOfRowsToSkip)
         
-        elif isSingleColumn and not isCSVWithoutHeaders: # CSV file with one  column and no header 
+        elif isSingleColumn and isCSVWithoutHeaders: # CSV file with one  column and no header 
             df_file = _read_file_single_column_no_header(filepath,numberOfRowsToSkip,noOfColumns)
         
         elif isCSVWithoutHeaders: # CSV file without column header and more than one column
