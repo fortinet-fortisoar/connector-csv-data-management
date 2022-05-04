@@ -282,8 +282,9 @@ def _check_if_csv(filepath):
         res = sniffer.has_header(open(filepath).read(2048))
     except Exception as Err:
         if "UnicodeDecodeError" in repr(Err):
-            raise ConnectorError("CSV file has unsupported encoding.Supported encoding is UTF-8")
+            raise ConnectorError("CSV file has unsupported encoding. Supported encoding is UTF-8")
         else:
+            logger.info("Ignorable exception occured, continuing execution. Exception {}:".format(Err) )
             pass
     try: 
         res = sniffer.has_header(open(filepath).read(2048))
@@ -291,12 +292,12 @@ def _check_if_csv(filepath):
         row, col = df.shape
         if  res:
             return {"headers": True,"columns": col }
-        else:
-            return {"headers": False,"columns": col }     
+        
+        return {"headers": False,"columns": col }     
     except Exception as Err:
-        logger.error('Error in _check_if_csv() - csv check header: %s' % Err) 
+        logger.error('Error in _check_if_csv(), checking with pandas only due to exception reading file with csv module : %s' % Err) 
         try:
-            df = pd.read_csv('{}'.format(filepath),error_bad_lines=False,nrows=100)
+            df = pd.read_csv('{}'.format(filepath),error_bad_lines=False,nrows=10)
             row, col = df.shape
             return {"headers": False,"columns": col }
         except Exception as Err:
