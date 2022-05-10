@@ -23,7 +23,9 @@ def extract_data_from_csv(config, params):
         file_iri = handle_params(params,params.get('value'))
         file_path = join('/tmp', download_file_from_cyops(file_iri)['cyops_file_path'])
 
-        res = _check_if_csv(file_path)
+        if params.get('numberOfRowsToSkip'):
+          numberOfRowsToSkip = params.get('numberOfRowsToSkip')
+        res = _check_if_csv(file_path,numberOfRowsToSkip)
         logger.info(res)
   
         if res.get('headers') == False:
@@ -32,8 +34,7 @@ def extract_data_from_csv(config, params):
         if res.get('columns') == 1:
             isSingleColumn = True
 
-        if params.get('numberOfRowsToSkip'):
-          numberOfRowsToSkip = params.get('numberOfRowsToSkip')
+        
           
         if params.get('columnNames') != "":  # CSV file with column header and specific columns to use in creating recordset 
             columnNames = params.get('columnNames')
@@ -275,7 +276,7 @@ def _read_file_single_column_no_header(filepath,numberOfRowsToSkip=None,no_of_co
         logger.error('Error in _read_file_single_column_no_header(): %s' % Err)
         raise ConnectorError('Error in processing CSV File: %s' % Err)  
 
-def _check_if_csv(filepath,numberOfRowsToSkip):
+def _check_if_csv(filepath,numberOfRowsToSkip=None):
     sniffer = csv.Sniffer()
     # bailing out incase CSV file encoding is not UTF-8
     # To-Do  Read CSV file encoding and then use it for reading file. use -chardet.detect
