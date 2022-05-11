@@ -291,9 +291,8 @@ def _check_if_csv(filepath,numberOfRowsToSkip=None):
     try: 
         if numberOfRowsToSkip:
             with open(filepath) as fileobj:
-                reader = csv.reader(fileobj)
                 for row in range(numberOfRowsToSkip):
-                    next(reader)
+                    reader = next(fileobj)
                 res = sniffer.has_header(fileobj.read(2048))
         else:
             res = sniffer.has_header(open(filepath).read(2048))
