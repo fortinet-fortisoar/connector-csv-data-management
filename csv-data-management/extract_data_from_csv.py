@@ -297,7 +297,7 @@ def _check_if_csv(filepath,numberOfRowsToSkip=None):
                 res = sniffer.has_header(fileobj.read(2048))
         else:
             res = sniffer.has_header(open(filepath).read(2048))
-        df = pd.read_csv('{}'.format(filepath),error_bad_lines=False,nrows=10)
+        df = pd.read_csv('{}'.format(filepath),error_bad_lines=False,nrows=10,skiprows=numberOfRowsToSkip)
         row, col = df.shape
         if  res:
             return {"headers": True,"columns": col }
@@ -306,7 +306,7 @@ def _check_if_csv(filepath,numberOfRowsToSkip=None):
     except Exception as Err:
         logger.error('Error in _check_if_csv(), checking with pandas only due to exception reading file with csv module : %s' % Err) 
         try:
-            df = pd.read_csv('{}'.format(filepath),error_bad_lines=False,nrows=10)
+            df = pd.read_csv('{}'.format(filepath),error_bad_lines=False,nrows=10,skiprows=numberOfRowsToSkip)
             row, col = df.shape
             return {"headers": False,"columns": col }
         except Exception as Err:
