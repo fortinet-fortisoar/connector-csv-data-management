@@ -16,6 +16,8 @@
     {
       "title": "Extract Data from Single CSV",
       "operation": "extract_data_from_csv",
+      "annotation": "read_csv_file",
+      "category": "investigation",
       "description": "This action will extract data from CSV based on column names provided. Optionally, User can select an option to deduplicate resultant recordset based on column(s) provided",
       "parameters": [
         {
@@ -90,6 +92,8 @@
     {
       "title": "Merge and Extract Data from two CSV",
       "operation": "merge_two_csv_and_extract_data",
+      "annotation": "read_and_merge_csv_file",
+      "category": "investigation",
       "description": "This action will extract data from CSV based on column names provided ,by merging two CSV file. Optionally, User can select an option to deduplicate resultant recordset based on column(s) provided",
       "parameters": [
         {
@@ -221,6 +225,8 @@
     {
       "title": "Concat and Extract Data from two CSV",
       "operation": "concat_two_csv_and_extract_data",
+      "annotation": "read_and_concat_csv_file",
+      "category": "investigation",
       "description": "This action will extract data by concatting two CSV file. Optionally, User can select an option to deduplicate resultant recordset based on column(s) provided",
       "parameters": [
         {
@@ -339,6 +345,8 @@
     {
       "title": "Join and Extract Data from two CSV",
       "operation": "join_two_csv_and_extract_data",
+      "annotation": "read_and_join_csv_file",
+      "category": "investigation",
       "description": "This action will extract data by 'joining' two CSV file. Optionally, User can select an option to deduplicate resultant recordset based on column(s) provided",
       "parameters": [
         {
