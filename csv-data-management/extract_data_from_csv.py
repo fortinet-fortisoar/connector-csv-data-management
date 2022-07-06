@@ -4,6 +4,8 @@
   FORTINET CONFIDENTIAL & FORTINET PROPRIETARY SOURCE CODE
   Copyright end """
 from asyncore import read
+from operator import truediv
+from webbrowser import Elinks
 import requests
 import pandas as pd
 import numpy as np
@@ -38,9 +40,7 @@ def extract_data_from_csv(config, params):
             no_of_columns = res.get('columns')
         if res.get('columns') == 1:
             isSingleColumn = True
-
-        
-          
+  
         if params.get('columnNames') != "":  # CSV file with column header and specific columns to use in creating recordset 
             columnNames = params.get('columnNames')
             columnNames = columnNames.split(",")
@@ -72,6 +72,11 @@ def extract_data_from_csv(config, params):
         
         # Replace empty values with N/A 
         df = df.fillna('N/A')
+       
+        #Filter Dataset
+        if params.get('filterInput'):
+            df = _ds_filter(params,df)
+
 
         #Create small chunks of dataset to consume by playbook if requested by user otherwise return complete recordset
         if params.get('recordBatch'):
@@ -123,6 +128,10 @@ def merge_two_csv_and_extract_data(config, params):
         # Replace empty values with N/A 
         combined_recordSet = combined_recordSet.fillna('N/A')
 
+        #Filter Dataset
+        if params.get('filterInput'):
+            df = _ds_filter(params,df)
+
         #Create small chunks of dataset to consume by playbook if requested by user otherwise return complete recordset
         if params.get('recordBatch'):
             smaller_datasets = np.array_split(combined_recordSet, 20)
@@ -167,6 +176,10 @@ def concat_two_csv_and_extract_data(config, params):
         # Replace empty values with N/A 
         combined_recordSet = combined_recordSet.fillna('N/A')
 
+        #Filter Dataset
+        if params.get('filterInput'):
+            df = _ds_filter(params,df)
+
         #Create small chunks of dataset to consume by playbook if requested by user otherwise return complete recordset
         if params.get('recordBatch'):
             smaller_datasets = np.array_split(combined_recordSet, 20)
@@ -209,6 +222,10 @@ def join_two_csv_and_extract_data(config, params):
 
         # Replace empty values with N/A 
         combined_recordSet = combined_recordSet.fillna('N/A')
+
+        #Filter Dataset
+        if params.get('filterInput'):
+            df = _ds_filter(params,df)
 
         #Create small chunks of dataset to cosume by playbook if requested by user otherwise return complete recordset
         if params.get('recordBatch'):
@@ -395,5 +412,25 @@ def handle_params(params,file_param):
                 raise ConnectorError('Invalid File IRI {0}'.format(value))
     except Exception as err:
         logger.info('handle_params(): Exception occurred {0}'.format(err))
-        raise ConnectorError('Requested resource could not be found with input type "{0}" and value "{1}"'.format
-                             (input_type, value.replace('/api/3/attachments/', '')))
+        raise ConnectorError('Requested resource could not be found with input type "{0}" and value "{1}"'.format(input_type, value.replace('/api/3/attachments/', '')))
+
+def _ds_filter(params,ds):
+    df = ds
+    if(params.get('filterInput')):
+            input_type = params.get('filterInput')
+            if input_type == 'Use Regex as Filter':
+                regex = True
+            elif input_type == 'Use \'isin\' as Filter':
+                regex = False
+
+    # Filter dataset 
+    if regex:
+        reg = params.get('filter')
+        columnName = params.get('filterColumnName')
+        df= df[df[columnName].str.match(reg)==True]
+    else:
+        filterValue = params.get('filter').split(",")
+        columnName = params.get('filterColumnName')
+        df= df[df[columnName].isin(filterValue)]
+
+    return df

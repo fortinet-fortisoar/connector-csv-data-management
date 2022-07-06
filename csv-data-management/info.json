@@ -1,6 +1,6 @@
 {
   "name": "csv-data-management",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "label": "CSV Data Management",
   "description": "CSV Data management can perform different operations on CSV files like read file, perform deduplication, merge two CSV files,join two CSV files,concat two CSV files and return well formatted dataset",
   "publisher": "Fortinet",
@@ -75,6 +75,61 @@
           "description": "Number of rows you want to skip from top of CSV File. Note first row will be skipped even if it has column names",
           "tooltip":"Number of rows you want to skip from top of CSV File. Note first row will be skipped even if it has column names"
         },
+        {
+          "title": "Filter Dataset",
+          "type": "select",
+          "name": "filterInput",
+          "required": false,
+          "visible": true,
+          "editable": true,
+          "filtervalue": "",
+          "options": [
+            "Use Regex as Filter",
+            "Use 'isin' as Filter"
+          ],
+          "onchange" :{
+            "Use Regex as Filter" :[{
+              "title": "Filter on Column",
+              "type": "text",
+              "name": "filterColumnName",
+              "required": true,
+              "visible": true,
+              "editable": true,
+              "value": "" 
+
+            },
+            { 
+              "title": "Regex Filter",
+              "type": "text",
+              "name": "filter",
+              "required": true,
+              "visible": true,
+              "editable": true,
+              "value": ""
+            }],
+            "Use 'isin' as Filter":[{
+              "title": "Filter on Column",
+              "type": "text",
+              "name": "filterColumnName",
+              "required": true,
+              "visible": true,
+              "editable": true,
+              "value": "" 
+
+            },
+              {
+              "title": "Filter String",
+              "type": "text",
+              "name": "filter",
+              "required": true,
+              "visible": true,
+              "editable": true,
+              "value": ""
+              }
+            ]
+          }
+        },
+       
         {
           "title": "Convert recordset into batch",
           "name": "recordBatch",
@@ -209,6 +264,60 @@
           "tooltip":"Column name you want to use deduplicate data  from CSV File"
         },
         {
+          "title": "Filter Dataset",
+          "type": "select",
+          "name": "filterInput",
+          "required": false,
+          "visible": true,
+          "editable": true,
+          "filtervalue": "",
+          "options": [
+            "Use Regex as Filter",
+            "Use 'isin' as Filter"
+          ],
+          "onchange" :{
+            "Use Regex as Filter" :[{
+              "title": "Filter on Column",
+              "type": "text",
+              "name": "filterColumnName",
+              "required": true,
+              "visible": true,
+              "editable": true,
+              "value": "" 
+
+            },
+            { 
+              "title": "Regex Filter",
+              "type": "text",
+              "name": "filter",
+              "required": true,
+              "visible": true,
+              "editable": true,
+              "value": ""
+            }],
+            "Use 'isin' as Filter":[{
+              "title": "Filter on Column",
+              "type": "text",
+              "name": "filterColumnName",
+              "required": true,
+              "visible": true,
+              "editable": true,
+              "value": "" 
+
+            },
+              {
+              "title": "Filter String",
+              "type": "text",
+              "name": "filter",
+              "required": true,
+              "visible": true,
+              "editable": true,
+              "value": ""
+              }
+            ]
+          }
+        },
+        {
           "title": "Convert recordset into batch",
           "name": "recordBatch",
           "type": "checkbox",
@@ -329,6 +438,60 @@
           "tooltip":"Column name you want to use deduplicate data  from CSV File"
         },
         {
+          "title": "Filter Dataset",
+          "type": "select",
+          "name": "filterInput",
+          "required": false,
+          "visible": true,
+          "editable": true,
+          "filtervalue": "",
+          "options": [
+            "Use Regex as Filter",
+            "Use 'isin' as Filter"
+          ],
+          "onchange" :{
+            "Use Regex as Filter" :[{
+              "title": "Filter on Column",
+              "type": "text",
+              "name": "filterColumnName",
+              "required": true,
+              "visible": true,
+              "editable": true,
+              "value": "" 
+
+            },
+            { 
+              "title": "Regex Filter",
+              "type": "text",
+              "name": "filter",
+              "required": true,
+              "visible": true,
+              "editable": true,
+              "value": ""
+            }],
+            "Use 'isin' as Filter":[{
+              "title": "Filter on Column",
+              "type": "text",
+              "name": "filterColumnName",
+              "required": true,
+              "visible": true,
+              "editable": true,
+              "value": "" 
+
+            },
+              {
+              "title": "Filter String",
+              "type": "text",
+              "name": "filter",
+              "required": true,
+              "visible": true,
+              "editable": true,
+              "value": ""
+              }
+            ]
+          }
+        },
+        {
           "title": "Convert recordset into batch",
           "name": "recordBatch",
           "type": "checkbox",
@@ -447,6 +610,60 @@
           "value": "",
           "description": "Column name you want to use deduplicate data from CSV File.",
           "tooltip":"Column name you want to use deduplicate data  from CSV File"
+        },
+        {
+          "title": "Filter Dataset",
+          "type": "select",
+          "name": "filterInput",
+          "required": false,
+          "visible": true,
+          "editable": true,
+          "filtervalue": "",
+          "options": [
+            "Use Regex as Filter",
+            "Use 'isin' as Filter"
+          ],
+          "onchange" :{
+            "Use Regex as Filter" :[{
+              "title": "Filter on Column",
+              "type": "text",
+              "name": "filterColumnName",
+              "required": true,
+              "visible": true,
+              "editable": true,
+              "value": "" 
+
+            },
+            { 
+              "title": "Regex Filter",
+              "type": "text",
+              "name": "filter",
+              "required": true,
+              "visible": true,
+              "editable": true,
+              "value": ""
+            }],
+            "Use 'isin' as Filter":[{
+              "title": "Filter on Column",
+              "type": "text",
+              "name": "filterColumnName",
+              "required": true,
+              "visible": true,
+              "editable": true,
+              "value": "" 
+
+            },
+              {
+              "title": "Filter String",
+              "type": "text",
+              "name": "filter",
+              "required": true,
+              "visible": true,
+              "editable": true,
+              "value": ""
+              }
+            ]
+          }
         },
         {
           "title": "Convert recordset into batch",
