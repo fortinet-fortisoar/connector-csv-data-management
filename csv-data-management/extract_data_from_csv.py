@@ -130,7 +130,7 @@ def merge_two_csv_and_extract_data(config, params):
 
         #Filter Dataset
         if params.get('filterInput'):
-            df = _ds_filter(params,combined_recordSet)
+            combined_recordSet = _ds_filter(params,combined_recordSet)
 
         #Create small chunks of dataset to consume by playbook if requested by user otherwise return complete recordset
         if params.get('recordBatch'):
@@ -178,7 +178,7 @@ def concat_two_csv_and_extract_data(config, params):
 
         #Filter Dataset
         if params.get('filterInput'):
-            df = _ds_filter(params,combined_recordSet)
+            combined_recordSet = _ds_filter(params,combined_recordSet)
 
         #Create small chunks of dataset to consume by playbook if requested by user otherwise return complete recordset
         if params.get('recordBatch'):
@@ -225,7 +225,7 @@ def join_two_csv_and_extract_data(config, params):
 
         #Filter Dataset
         if params.get('filterInput'):
-            df = _ds_filter(params,combined_recordSet)
+            combined_recordSet = _ds_filter(params,combined_recordSet)
 
         #Create small chunks of dataset to cosume by playbook if requested by user otherwise return complete recordset
         if params.get('recordBatch'):
