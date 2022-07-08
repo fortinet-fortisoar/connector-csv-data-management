@@ -1,5 +1,5 @@
 {
-  "name": "csv-data-management",
+  "name": "csv-data-management_dev",
   "version": "1.1.0",
   "label": "CSV Data Management",
   "description": "CSV Data management can perform different operations on CSV files like read file, perform deduplication, merge two CSV files,join two CSV files,concat two CSV files and return well formatted dataset",
@@ -467,6 +467,7 @@
               "required": true,
               "visible": true,
               "editable": true,
+              "placeholder" :"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$",
               "value": ""
             }],
             "Use 'isin' as Filter":[{
@@ -486,7 +487,8 @@
               "required": true,
               "visible": true,
               "editable": true,
-              "value": ""
+              "value": "",
+              "tooltip":"comma separated list of values on which you want to filter data.Values should be present in column metioned above"
               }
             ]
           }

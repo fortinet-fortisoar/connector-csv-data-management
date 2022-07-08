@@ -6,6 +6,8 @@
 from asyncore import read
 from operator import truediv
 from webbrowser import Elinks
+from datetime import datetime
+from uuid import uuid4
 import requests
 import pandas as pd
 import numpy as np
@@ -419,23 +421,18 @@ def _ds_filter(params,ds):
     if(params.get('filterInput')):
             input_type = params.get('filterInput')
             if input_type == 'Use Regex as Filter':
-                regex = True
+                reg = params.get('filter')
+                columnName = params.get('filterColumnName')
+                df= df[df[columnName].str.match(reg)==True]
             elif input_type == 'Use \'isin\' as Filter':
-                regex = False
-
-    # Filter dataset 
-    if regex:
-        reg = params.get('filter')
-        columnName = params.get('filterColumnName')
-        df= df[df[columnName].str.match(reg)==True]
-    else:
-        filterValue = params.get('filter').split(",")
-        columnName = params.get('filterColumnName')
-        df= df[df[columnName].isin(filterValue)]
+                filterValue = params.get('filter').split(",")
+                columnName = params.get('filterColumnName')
+                df= df[df[columnName].isin(filterValue)]
 
     return df
 
 def _df_to_csv(df):
-    df.to_csv('/tmp/dataset.csv', encoding='utf-8', header='true',compression="zip")
-    filepath = '/tmp/dataset.csv'
+    id = datetime.now().strftime('%Y%m-%d%H-%M%S-') + str(uuid4())
+    df.to_csv('/tmp/dataset-{}.csv'.format(id), encoding='utf-8', header='true',compression="zip")
+    filepath = '/tmp/dataset-{}.csv'.format(id)
     return filepath
