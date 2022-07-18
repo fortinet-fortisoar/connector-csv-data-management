@@ -1,5 +1,5 @@
 {
-  "name": "csv-data-management",
+  "name": "csv-data-management_dev",
   "version": "1.1.0",
   "label": "CSV Data Management",
   "description": "CSV Data management can perform different operations on CSV files like read file, perform deduplication, merge two CSV files,join two CSV files,concat two CSV files and return well formatted dataset",
@@ -51,7 +51,7 @@
           "editable": true,
           "value": "",
           "description": "comma separated  columns name you want to extract from CSV File",
-          "tooltip":"comma separated columns name you want to extract from CSV File"
+          "tooltip": "comma separated columns name you want to extract from CSV File"
         },
         {
           "title": "Deduplicate Values on",
@@ -62,7 +62,7 @@
           "editable": true,
           "value": "",
           "description": "Column name you want to use deduplicate data  from CSV File",
-          "tooltip":"Column name you want to use deduplicate data  from CSV File"
+          "tooltip": "Column name you want to use deduplicate data  from CSV File"
         },
         {
           "title": "Number of rows to skip",
@@ -73,7 +73,7 @@
           "editable": true,
           "value": null,
           "description": "Number of rows you want to skip from top of CSV File. Note first row will be skipped even if it has column names",
-          "tooltip":"Number of rows you want to skip from top of CSV File. Note first row will be skipped even if it has column names"
+          "tooltip": "Number of rows you want to skip from top of CSV File. Note first row will be skipped even if it has column names"
         },
         {
           "title": "Filter Dataset",
@@ -87,49 +87,49 @@
             "Use Regex as Filter",
             "Use 'isin' as Filter"
           ],
-          "onchange" :{
-            "Use Regex as Filter" :[{
-              "title": "Filter on Column",
-              "type": "text",
-              "name": "filterColumnName",
-              "required": true,
-              "visible": true,
-              "editable": true,
-              "value": "" 
-
-            },
-            { 
-              "title": "Regex Filter",
-              "type": "text",
-              "name": "filter",
-              "required": true,
-              "visible": true,
-              "editable": true,
-              "value": ""
-            }],
-            "Use 'isin' as Filter":[{
-              "title": "Filter on Column",
-              "type": "text",
-              "name": "filterColumnName",
-              "required": true,
-              "visible": true,
-              "editable": true,
-              "value": "" 
-
-            },
+          "onchange": {
+            "Use Regex as Filter": [
               {
-              "title": "Filter String",
-              "type": "text",
-              "name": "filter",
-              "required": true,
-              "visible": true,
-              "editable": true,
-              "value": ""
+                "title": "Filter on Column",
+                "type": "text",
+                "name": "filterColumnName",
+                "required": true,
+                "visible": true,
+                "editable": true,
+                "value": ""
+              },
+              {
+                "title": "Regex Filter",
+                "type": "text",
+                "name": "filter",
+                "required": true,
+                "visible": true,
+                "editable": true,
+                "value": ""
+              }
+            ],
+            "Use 'isin' as Filter": [
+              {
+                "title": "Filter on Column",
+                "type": "text",
+                "name": "filterColumnName",
+                "required": true,
+                "visible": true,
+                "editable": true,
+                "value": ""
+              },
+              {
+                "title": "Filter String",
+                "type": "text",
+                "name": "filter",
+                "required": true,
+                "visible": true,
+                "editable": true,
+                "value": ""
               }
             ]
           }
         },
-       
         {
           "title": "Convert recordset into batch",
           "name": "recordBatch",
@@ -139,7 +139,18 @@
           "editable": true,
           "value": null,
           "description": "If set , will return rows as recordSet in list of 20 batches otherwise complete result in a single recordSet",
-          "tooltip":"If set , will return rows as recordSet in list of 20 batches otherwise complete result in a single recordSet"
+          "tooltip": "If set , will return rows as recordSet in list of 20 batches otherwise complete result in a single recordSet"
+        },
+        {
+          "title": "Save as attachement",
+          "name": "saveAsAttachement",
+          "type": "checkbox",
+          "required": false,
+          "visible": true,
+          "editable": true,
+          "value": null,
+          "description": "If set , the resultant recordSet will be saved as attachment in CSV format",
+          "tooltip": "If set , the resultant recordSet will be saved as attachment in CSV format"
         }
       ],
       "open": true
@@ -182,7 +193,7 @@
           "editable": true,
           "value": "",
           "description": "comma separated list of columns name you want to extract from CSV File",
-          "tooltip":"comma separated list of columns name you want to extract from CSV File"
+          "tooltip": "comma separated list of columns name you want to extract from CSV File"
         },
         {
           "title": "Number of rows to skip from First File",
@@ -193,8 +204,7 @@
           "editable": true,
           "value": null,
           "description": "Number of rows you want to skip from top of CSV File.  Note first row will be skipped even if it has column names",
-          "tooltip":"Number of rows you want to skip from top of CSV File.  Note first row will be skipped even if it has column names"
-          
+          "tooltip": "Number of rows you want to skip from top of CSV File.  Note first row will be skipped even if it has column names"
         },
         {
           "title": "Type",
@@ -227,7 +237,7 @@
           "editable": true,
           "value": "",
           "description": "comma separated list of columns name you want to extract from CSV File",
-          "tooltip":"comma separated list of columns name you want to extract from CSV File"
+          "tooltip": "comma separated list of columns name you want to extract from CSV File"
         },
         {
           "title": "Number of rows to skip from Second File",
@@ -238,9 +248,8 @@
           "editable": true,
           "value": null,
           "description": "Number of rows you want to skip from top of CSV File.  Note first row will be skipped even if it has column names",
-          "tooltip":"Number of rows you want to skip from top of CSV File.  Note first row will be skipped even if it has column names"
+          "tooltip": "Number of rows you want to skip from top of CSV File.  Note first row will be skipped even if it has column names"
         },
-        
         {
           "title": "Merge on Column",
           "type": "text",
@@ -250,7 +259,7 @@
           "editable": true,
           "value": "",
           "description": "Column name which is common in two files which you want to use to merge data from both files",
-          "tooltip":"Column name which is common in two files which you want to use to merge data from both files"
+          "tooltip": "Column name which is common in two files which you want to use to merge data from both files"
         },
         {
           "title": "Deduplicate Values on",
@@ -261,7 +270,7 @@
           "editable": true,
           "value": "",
           "description": "Column name you want to use deduplicate data  from CSV File",
-          "tooltip":"Column name you want to use deduplicate data  from CSV File"
+          "tooltip": "Column name you want to use deduplicate data  from CSV File"
         },
         {
           "title": "Filter Dataset",
@@ -275,44 +284,45 @@
             "Use Regex as Filter",
             "Use 'isin' as Filter"
           ],
-          "onchange" :{
-            "Use Regex as Filter" :[{
-              "title": "Filter on Column",
-              "type": "text",
-              "name": "filterColumnName",
-              "required": true,
-              "visible": true,
-              "editable": true,
-              "value": "" 
-
-            },
-            { 
-              "title": "Regex Filter",
-              "type": "text",
-              "name": "filter",
-              "required": true,
-              "visible": true,
-              "editable": true,
-              "value": ""
-            }],
-            "Use 'isin' as Filter":[{
-              "title": "Filter on Column",
-              "type": "text",
-              "name": "filterColumnName",
-              "required": true,
-              "visible": true,
-              "editable": true,
-              "value": "" 
-
-            },
+          "onchange": {
+            "Use Regex as Filter": [
               {
-              "title": "Filter String",
-              "type": "text",
-              "name": "filter",
-              "required": true,
-              "visible": true,
-              "editable": true,
-              "value": ""
+                "title": "Filter on Column",
+                "type": "text",
+                "name": "filterColumnName",
+                "required": true,
+                "visible": true,
+                "editable": true,
+                "value": ""
+              },
+              {
+                "title": "Regex Filter",
+                "type": "text",
+                "name": "filter",
+                "required": true,
+                "visible": true,
+                "editable": true,
+                "value": ""
+              }
+            ],
+            "Use 'isin' as Filter": [
+              {
+                "title": "Filter on Column",
+                "type": "text",
+                "name": "filterColumnName",
+                "required": true,
+                "visible": true,
+                "editable": true,
+                "value": ""
+              },
+              {
+                "title": "Filter String",
+                "type": "text",
+                "name": "filter",
+                "required": true,
+                "visible": true,
+                "editable": true,
+                "value": ""
               }
             ]
           }
@@ -326,7 +336,18 @@
           "editable": true,
           "value": null,
           "description": "If set , will return rows as recordSet in list of 20 batches otherwise complete result in a single recordSet",
-          "tooltip":"If set , will return rows as recordSet in list of 20 batches otherwise complete result in a single recordSet"
+          "tooltip": "If set , will return rows as recordSet in list of 20 batches otherwise complete result in a single recordSet"
+        },
+        {
+          "title": "Save as attachement",
+          "name": "saveAsAttachement",
+          "type": "checkbox",
+          "required": false,
+          "visible": true,
+          "editable": true,
+          "value": null,
+          "description": "If set , the resultant recordSet will be saved as attachment in CSV format",
+          "tooltip": "If set , the resultant recordSet will be saved as attachment in CSV format"
         }
       ],
       "open": true
@@ -369,7 +390,7 @@
           "editable": true,
           "value": "",
           "description": "comma separated list of columns name you want to extract from CSV File",
-          "tooltip":"comma separated list of columns name you want to extract from CSV File"
+          "tooltip": "comma separated list of columns name you want to extract from CSV File"
         },
         {
           "title": "Number of rows to skip from First File",
@@ -380,7 +401,7 @@
           "editable": true,
           "value": null,
           "description": "Number of rows you want to skip from top of CSV File. Note first row will be skipped even if it has column names",
-          "tooltip":"Number of rows you want to skip from top of CSV File.  Note first row will be skipped even if it has column names"
+          "tooltip": "Number of rows you want to skip from top of CSV File.  Note first row will be skipped even if it has column names"
         },
         {
           "title": "Type",
@@ -413,7 +434,7 @@
           "editable": true,
           "value": "",
           "description": "comma separated list of columns name you want to extract from CSV File",
-          "tooltip":"comma separated list of columns name you want to extract from CSV File"
+          "tooltip": "comma separated list of columns name you want to extract from CSV File"
         },
         {
           "title": "Number of rows to skip from Second File",
@@ -424,7 +445,7 @@
           "editable": true,
           "value": null,
           "description": "Number of rows you want to skip from top of CSV File.  Note first row will be skipped even if it has column names",
-          "tooltip":"Number of rows you want to skip from top of CSV File.  Note first row will be skipped even if it has column names"
+          "tooltip": "Number of rows you want to skip from top of CSV File.  Note first row will be skipped even if it has column names"
         },
         {
           "title": "Deduplicate Values on",
@@ -435,7 +456,7 @@
           "editable": true,
           "value": "",
           "description": "Column name you want to use deduplicate data  from CSV File.",
-          "tooltip":"Column name you want to use deduplicate data  from CSV File"
+          "tooltip": "Column name you want to use deduplicate data  from CSV File"
         },
         {
           "title": "Filter Dataset",
@@ -449,46 +470,47 @@
             "Use Regex as Filter",
             "Use 'isin' as Filter"
           ],
-          "onchange" :{
-            "Use Regex as Filter" :[{
-              "title": "Filter on Column",
-              "type": "text",
-              "name": "filterColumnName",
-              "required": true,
-              "visible": true,
-              "editable": true,
-              "value": "" 
-
-            },
-            { 
-              "title": "Regex Filter",
-              "type": "text",
-              "name": "filter",
-              "required": true,
-              "visible": true,
-              "editable": true,
-              "placeholder" :"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$",
-              "value": ""
-            }],
-            "Use 'isin' as Filter":[{
-              "title": "Filter on Column",
-              "type": "text",
-              "name": "filterColumnName",
-              "required": true,
-              "visible": true,
-              "editable": true,
-              "value": "" 
-
-            },
+          "onchange": {
+            "Use Regex as Filter": [
               {
-              "title": "Filter String",
-              "type": "text",
-              "name": "filter",
-              "required": true,
-              "visible": true,
-              "editable": true,
-              "value": "",
-              "tooltip":"comma separated list of values on which you want to filter data.Values should be present in column metioned above"
+                "title": "Filter on Column",
+                "type": "text",
+                "name": "filterColumnName",
+                "required": true,
+                "visible": true,
+                "editable": true,
+                "value": ""
+              },
+              {
+                "title": "Regex Filter",
+                "type": "text",
+                "name": "filter",
+                "required": true,
+                "visible": true,
+                "editable": true,
+                "placeholder": "\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}$",
+                "value": ""
+              }
+            ],
+            "Use 'isin' as Filter": [
+              {
+                "title": "Filter on Column",
+                "type": "text",
+                "name": "filterColumnName",
+                "required": true,
+                "visible": true,
+                "editable": true,
+                "value": ""
+              },
+              {
+                "title": "Filter String",
+                "type": "text",
+                "name": "filter",
+                "required": true,
+                "visible": true,
+                "editable": true,
+                "value": "",
+                "tooltip": "comma separated list of values on which you want to filter data.Values should be present in column metioned above"
               }
             ]
           }
@@ -502,7 +524,18 @@
           "editable": true,
           "value": null,
           "description": "If set , will return rows as recordSet in list of 20 batches otherwise complete result in a single recordSet",
-          "tooltip":"If set , will return rows as recordSet in list of 20 batches otherwise complete result in a single recordSet"
+          "tooltip": "If set , will return rows as recordSet in list of 20 batches otherwise complete result in a single recordSet"
+        },
+        {
+          "title": "Save as attachement",
+          "name": "saveAsAttachement",
+          "type": "checkbox",
+          "required": false,
+          "visible": true,
+          "editable": true,
+          "value": null,
+          "description": "If set , the resultant recordSet will be saved as attachment in CSV format",
+          "tooltip": "If set , the resultant recordSet will be saved as attachment in CSV format"
         }
       ],
       "open": true
@@ -545,7 +578,7 @@
           "editable": true,
           "value": "",
           "description": "comma separated list of columns name you want to extract from CSV File",
-          "tooltip":"comma separated list of columns name you want to extract from CSV File"
+          "tooltip": "comma separated list of columns name you want to extract from CSV File"
         },
         {
           "title": "Number of rows to skip from First File",
@@ -556,7 +589,7 @@
           "editable": true,
           "value": null,
           "description": "Number of rows you want to skip from top of CSV File. Note first row will be skipped even if it has column names",
-          "tooltip":"Number of rows you want to skip from top of CSV File. Note first row will be skipped even if it has column names"
+          "tooltip": "Number of rows you want to skip from top of CSV File. Note first row will be skipped even if it has column names"
         },
         {
           "title": "Type",
@@ -589,7 +622,7 @@
           "editable": true,
           "value": "",
           "description": "comma separated list of columns name you want to extract from CSV File",
-          "tooltip":"comma separated list of columns name you want to extract from CSV File"
+          "tooltip": "comma separated list of columns name you want to extract from CSV File"
         },
         {
           "title": "Number of rows to skip from Second File",
@@ -600,7 +633,7 @@
           "editable": true,
           "value": null,
           "description": "Number of rows you want to skip from top of CSV File. Note first row will be skipped even if it has column names",
-          "tooltip":"Number of rows you want to skip from top of CSV File.  Note first row will be skipped even if it has column names"
+          "tooltip": "Number of rows you want to skip from top of CSV File.  Note first row will be skipped even if it has column names"
         },
         {
           "title": "Deduplicate Values on",
@@ -611,7 +644,7 @@
           "editable": true,
           "value": "",
           "description": "Column name you want to use deduplicate data from CSV File.",
-          "tooltip":"Column name you want to use deduplicate data  from CSV File"
+          "tooltip": "Column name you want to use deduplicate data  from CSV File"
         },
         {
           "title": "Filter Dataset",
@@ -625,44 +658,45 @@
             "Use Regex as Filter",
             "Use 'isin' as Filter"
           ],
-          "onchange" :{
-            "Use Regex as Filter" :[{
-              "title": "Filter on Column",
-              "type": "text",
-              "name": "filterColumnName",
-              "required": true,
-              "visible": true,
-              "editable": true,
-              "value": "" 
-
-            },
-            { 
-              "title": "Regex Filter",
-              "type": "text",
-              "name": "filter",
-              "required": true,
-              "visible": true,
-              "editable": true,
-              "value": ""
-            }],
-            "Use 'isin' as Filter":[{
-              "title": "Filter on Column",
-              "type": "text",
-              "name": "filterColumnName",
-              "required": true,
-              "visible": true,
-              "editable": true,
-              "value": "" 
-
-            },
+          "onchange": {
+            "Use Regex as Filter": [
               {
-              "title": "Filter String",
-              "type": "text",
-              "name": "filter",
-              "required": true,
-              "visible": true,
-              "editable": true,
-              "value": ""
+                "title": "Filter on Column",
+                "type": "text",
+                "name": "filterColumnName",
+                "required": true,
+                "visible": true,
+                "editable": true,
+                "value": ""
+              },
+              {
+                "title": "Regex Filter",
+                "type": "text",
+                "name": "filter",
+                "required": true,
+                "visible": true,
+                "editable": true,
+                "value": ""
+              }
+            ],
+            "Use 'isin' as Filter": [
+              {
+                "title": "Filter on Column",
+                "type": "text",
+                "name": "filterColumnName",
+                "required": true,
+                "visible": true,
+                "editable": true,
+                "value": ""
+              },
+              {
+                "title": "Filter String",
+                "type": "text",
+                "name": "filter",
+                "required": true,
+                "visible": true,
+                "editable": true,
+                "value": ""
               }
             ]
           }
@@ -676,11 +710,21 @@
           "editable": true,
           "value": null,
           "description": "If set , will return rows as recordSet in list of 20 batches otherwise complete result in a single recordSet",
-          "tooltip":"If set , will return rows as recordSet in list of 20 batches otherwise complete result in a single recordSet"
+          "tooltip": "If set , will return rows as recordSet in list of 20 batches otherwise complete result in a single recordSet"
+        },
+        {
+          "title": "Save as attachement",
+          "name": "saveAsAttachement",
+          "type": "checkbox",
+          "required": false,
+          "visible": true,
+          "editable": true,
+          "value": null,
+          "description": "If set , the resultant recordSet will be saved as attachment in CSV format",
+          "tooltip": "If set , the resultant recordSet will be saved as attachment in CSV format"
         }
       ],
       "enabled": true
-      
     }
   ]
 }

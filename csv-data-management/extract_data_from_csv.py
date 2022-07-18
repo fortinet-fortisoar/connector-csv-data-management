@@ -15,7 +15,7 @@ import csv
 from os.path import join
 import json
 from connectors.core.connector import get_logger, ConnectorError
-from connectors.cyops_utilities.builtins import download_file_from_cyops
+from connectors.cyops_utilities.builtins import download_file_from_cyops,create_cyops_attachment
 from integrations.crudhub import make_request
 from .constants import LOGGER_NAME
 
@@ -79,17 +79,27 @@ def extract_data_from_csv(config, params):
         if params.get('filterInput'):
             df = _ds_filter(params,df)
 
+        #Create CSV file as attachment for resultant recordset 
+        if params.get('saveAsAttachement'):
+            attachmentDetail = _df_to_csv(df) 
 
+            
         #Create small chunks of dataset to consume by playbook if requested by user otherwise return complete recordset
         if params.get('recordBatch'):
             smaller_datasets = np.array_split(df, 20)
             all_records = []
             for batch in smaller_datasets:
                 all_records.append(batch.to_dict("records"))
+            if params.get('saveAsAttachement'):
+                final_result = {"records": all_records,"attachment": attachmentDetail}
+                return final_result
             final_result = {"records": all_records}
         else:
-            final_result = df.to_dict("records")
-
+            if params.get('saveAsAttachement'):
+                final_result = {"records": df.to_dict("records"),"attachment": attachmentDetail}
+                return final_result
+        
+        final_result = {"records": df.to_dict("records")}
         return final_result
 
     except Exception as Err:
@@ -140,10 +150,16 @@ def merge_two_csv_and_extract_data(config, params):
             all_records = []
             for batch in smaller_datasets:
                 all_records.append(batch.to_dict("records"))
+            if params.get('saveAsAttachement'):
+                final_result = {"records": all_records,"attachment":"true"}
+                return final_result
             final_result = {"records": all_records}
         else:
-            final_result = combined_recordSet.to_dict("records")
-            
+            if params.get('saveAsAttachement'):
+                final_result = {"records": combined_recordSet.to_dict("records"),"attachment":"true"}
+                return final_result
+        
+        final_result = {"records": combined_recordSet.to_dict("records")}
         return final_result
 
     except Exception as Err:
@@ -188,10 +204,16 @@ def concat_two_csv_and_extract_data(config, params):
             all_records = []
             for batch in smaller_datasets:
                 all_records.append(batch.to_dict("records"))
+            if params.get('saveAsAttachement'):
+                final_result = {"records": all_records,"attachment":"true"}
+                return final_result
             final_result = {"records": all_records}
         else:
-            final_result =  combined_recordSet.to_dict("records")
-            
+            if params.get('saveAsAttachement'):
+                final_result = {"records": combined_recordSet.to_dict("records"),"attachment":"true"}
+                return final_result
+        
+        final_result = {"records": combined_recordSet.to_dict("records")}
         return final_result
 
     except Exception as Err:
@@ -235,10 +257,16 @@ def join_two_csv_and_extract_data(config, params):
             all_records = []
             for batch in smaller_datasets:
                 all_records.append(batch.to_dict("records"))
+            if params.get('saveAsAttachement'):
+                final_result = {"records": all_records,"attachment":"true"}
+                return final_result
             final_result = {"records": all_records}
         else:
-            final_result = combined_recordSet.to_dict("records")
-            
+            if params.get('saveAsAttachement'):
+                final_result = {"records": combined_recordSet.to_dict("records"),"attachment":"true"}
+                return final_result
+        
+        final_result = {"records": combined_recordSet.to_dict("records")}
         return final_result
 
     except Exception as Err:
@@ -433,6 +461,8 @@ def _ds_filter(params,ds):
 
 def _df_to_csv(df):
     id = datetime.now().strftime('%Y%m-%d%H-%M%S-') + str(uuid4())
-    df.to_csv('/tmp/dataset-{}.csv'.format(id), encoding='utf-8', header='true',compression="zip")
-    filepath = '/tmp/dataset-{}.csv'.format(id)
-    return filepath
+    file_name = "dataset-{}.csv".format(id)
+    df.to_csv('/tmp/{}'.format(file_name), encoding='utf-8', header='true',compression="zip")
+    filepath = '/tmp/{}'.format(file_name)
+    ch_res = create_cyops_attachment(filename=filepath,name=file_name,description='Create by CSV Data Management Connector')
+    return ch_res
