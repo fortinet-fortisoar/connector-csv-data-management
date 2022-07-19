@@ -143,6 +143,10 @@ def merge_two_csv_and_extract_data(config, params):
         #Filter Dataset
         if params.get('filterInput'):
             combined_recordSet = _ds_filter(params,combined_recordSet)
+        
+        #Create CSV file as attachment for resultant recordset 
+        if params.get('saveAsAttachement'):
+            attachmentDetail = _df_to_csv(combined_recordSet) 
 
         #Create small chunks of dataset to consume by playbook if requested by user otherwise return complete recordset
         if params.get('recordBatch'):
@@ -151,12 +155,12 @@ def merge_two_csv_and_extract_data(config, params):
             for batch in smaller_datasets:
                 all_records.append(batch.to_dict("records"))
             if params.get('saveAsAttachement'):
-                final_result = {"records": all_records,"attachment":"true"}
+                final_result = {"records": all_records,"attachment": attachmentDetail}
                 return final_result
             final_result = {"records": all_records}
         else:
             if params.get('saveAsAttachement'):
-                final_result = {"records": combined_recordSet.to_dict("records"),"attachment":"true"}
+                final_result = {"records": combined_recordSet.to_dict("records"),"attachment": attachmentDetail}
                 return final_result
         
         final_result = {"records": combined_recordSet.to_dict("records")}
@@ -197,6 +201,10 @@ def concat_two_csv_and_extract_data(config, params):
         #Filter Dataset
         if params.get('filterInput'):
             combined_recordSet = _ds_filter(params,combined_recordSet)
+        
+        #Create CSV file as attachment for resultant recordset 
+        if params.get('saveAsAttachement'):
+            attachmentDetail = _df_to_csv(combined_recordSet) 
 
         #Create small chunks of dataset to consume by playbook if requested by user otherwise return complete recordset
         if params.get('recordBatch'):
@@ -205,12 +213,12 @@ def concat_two_csv_and_extract_data(config, params):
             for batch in smaller_datasets:
                 all_records.append(batch.to_dict("records"))
             if params.get('saveAsAttachement'):
-                final_result = {"records": all_records,"attachment":"true"}
+                final_result = {"records": all_records,"attachment": attachmentDetail}
                 return final_result
             final_result = {"records": all_records}
         else:
             if params.get('saveAsAttachement'):
-                final_result = {"records": combined_recordSet.to_dict("records"),"attachment":"true"}
+                final_result = {"records": combined_recordSet.to_dict("records"),"attachment": attachmentDetail}
                 return final_result
         
         final_result = {"records": combined_recordSet.to_dict("records")}
@@ -251,19 +259,23 @@ def join_two_csv_and_extract_data(config, params):
         if params.get('filterInput'):
             combined_recordSet = _ds_filter(params,combined_recordSet)
 
-        #Create small chunks of dataset to cosume by playbook if requested by user otherwise return complete recordset
+        #Create CSV file as attachment for resultant recordset 
+        if params.get('saveAsAttachement'):
+            attachmentDetail = _df_to_csv(combined_recordSet) 
+
+        #Create small chunks of dataset to consume by playbook if requested by user otherwise return complete recordset
         if params.get('recordBatch'):
             smaller_datasets = np.array_split(combined_recordSet, 20)
             all_records = []
             for batch in smaller_datasets:
                 all_records.append(batch.to_dict("records"))
             if params.get('saveAsAttachement'):
-                final_result = {"records": all_records,"attachment":"true"}
+                final_result = {"records": all_records,"attachment": attachmentDetail}
                 return final_result
             final_result = {"records": all_records}
         else:
             if params.get('saveAsAttachement'):
-                final_result = {"records": combined_recordSet.to_dict("records"),"attachment":"true"}
+                final_result = {"records": combined_recordSet.to_dict("records"),"attachment": attachmentDetail}
                 return final_result
         
         final_result = {"records": combined_recordSet.to_dict("records")}
