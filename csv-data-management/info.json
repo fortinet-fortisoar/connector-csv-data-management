@@ -1,8 +1,8 @@
 {
-  "name": "csv-data-management_dev",
+  "name": "csv-data-management",
   "version": "1.1.0",
   "label": "CSV Data Management",
-  "description": "CSV Data management can perform different operations on CSV files like read file, perform deduplication, merge two CSV files,join two CSV files,concat two CSV files and return well formatted dataset",
+  "description": "CSV Data management can perform different operations on CSV files like read file, perform deduplication, merge two CSV files, join two CSV files, concat two CSV files and return well formatted dataset",
   "publisher": "Fortinet",
   "icon_small_name": "fortisoar_logo.png",
   "icon_large_name": "fortisoar_logo.png",
