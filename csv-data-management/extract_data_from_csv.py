@@ -4,6 +4,10 @@
   FORTINET CONFIDENTIAL & FORTINET PROPRIETARY SOURCE CODE
   Copyright end """
 from asyncore import read
+from operator import truediv
+from webbrowser import Elinks
+from datetime import datetime
+from uuid import uuid4
 import requests
 import pandas as pd
 import numpy as np
@@ -11,7 +15,7 @@ import csv
 from os.path import join
 import json
 from connectors.core.connector import get_logger, ConnectorError
-from connectors.cyops_utilities.builtins import download_file_from_cyops
+from connectors.cyops_utilities.builtins import download_file_from_cyops,create_cyops_attachment
 from integrations.crudhub import make_request
 from .constants import LOGGER_NAME
 
@@ -38,9 +42,7 @@ def extract_data_from_csv(config, params):
             no_of_columns = res.get('columns')
         if res.get('columns') == 1:
             isSingleColumn = True
-
-        
-          
+  
         if params.get('columnNames') != "":  # CSV file with column header and specific columns to use in creating recordset 
             columnNames = params.get('columnNames')
             columnNames = columnNames.split(",")
@@ -72,17 +74,18 @@ def extract_data_from_csv(config, params):
         
         # Replace empty values with N/A 
         df = df.fillna('N/A')
+       
+        #Filter Dataset
+        if params.get('filterInput'):
+            df = _ds_filter(params,df)
 
-        #Create small chunks of dataset to consume by playbook if requested by user otherwise return complete recordset
-        if params.get('recordBatch'):
-            smaller_datasets = np.array_split(df, 20)
-            all_records = []
-            for batch in smaller_datasets:
-                all_records.append(batch.to_dict("records"))
-            final_result = {"records": all_records}
+        #Create CSV file as attachment for resultant recordset 
+        if params.get('saveAsAttachement'):
+            attachmentDetail = _df_to_csv(df)
         else:
-            final_result = df.to_dict("records")
+            attachmentDetail = None
 
+        final_result = _format_return_result(params=params,attDetail=attachmentDetail,df=df)
         return final_result
 
     except Exception as Err:
@@ -123,16 +126,17 @@ def merge_two_csv_and_extract_data(config, params):
         # Replace empty values with N/A 
         combined_recordSet = combined_recordSet.fillna('N/A')
 
-        #Create small chunks of dataset to consume by playbook if requested by user otherwise return complete recordset
-        if params.get('recordBatch'):
-            smaller_datasets = np.array_split(combined_recordSet, 20)
-            all_records = []
-            for batch in smaller_datasets:
-                all_records.append(batch.to_dict("records"))
-            final_result = {"records": all_records}
+        #Filter Dataset
+        if params.get('filterInput'):
+            combined_recordSet = _ds_filter(params,combined_recordSet)
+        
+        #Create CSV file as attachment for resultant recordset 
+        if params.get('saveAsAttachement'):
+            attachmentDetail = _df_to_csv(combined_recordSet)
         else:
-            final_result = combined_recordSet.to_dict("records")
-            
+            attachmentDetail = None 
+
+        final_result = _format_return_result(params=params,attDetail=attachmentDetail,df=combined_recordSet)
         return final_result
 
     except Exception as Err:
@@ -167,16 +171,17 @@ def concat_two_csv_and_extract_data(config, params):
         # Replace empty values with N/A 
         combined_recordSet = combined_recordSet.fillna('N/A')
 
-        #Create small chunks of dataset to consume by playbook if requested by user otherwise return complete recordset
-        if params.get('recordBatch'):
-            smaller_datasets = np.array_split(combined_recordSet, 20)
-            all_records = []
-            for batch in smaller_datasets:
-                all_records.append(batch.to_dict("records"))
-            final_result = {"records": all_records}
+        #Filter Dataset
+        if params.get('filterInput'):
+            combined_recordSet = _ds_filter(params,combined_recordSet)
+        
+        #Create CSV file as attachment for resultant recordset 
+        if params.get('saveAsAttachement'):
+            attachmentDetail = _df_to_csv(combined_recordSet)
         else:
-            final_result =  combined_recordSet.to_dict("records")
-            
+            attachmentDetail = None 
+
+        final_result = _format_return_result(params=params,attDetail=attachmentDetail,df=combined_recordSet)
         return final_result
 
     except Exception as Err:
@@ -210,17 +215,19 @@ def join_two_csv_and_extract_data(config, params):
         # Replace empty values with N/A 
         combined_recordSet = combined_recordSet.fillna('N/A')
 
-        #Create small chunks of dataset to cosume by playbook if requested by user otherwise return complete recordset
-        if params.get('recordBatch'):
-            smaller_datasets = np.array_split(combined_recordSet, 20)
-            all_records = []
-            for batch in smaller_datasets:
-                all_records.append(batch.to_dict("records"))
-            final_result = {"records": all_records}
+        #Filter Dataset
+        if params.get('filterInput'):
+            combined_recordSet = _ds_filter(params,combined_recordSet)
+
+        #Create CSV file as attachment for resultant recordset 
+        if params.get('saveAsAttachement'):
+            attachmentDetail = _df_to_csv(combined_recordSet)
         else:
-            final_result = combined_recordSet.to_dict("records")
-            
+            attachmentDetail = None 
+
+        final_result = _format_return_result(params=params,attDetail=attachmentDetail,df=combined_recordSet)
         return final_result
+        
 
     except Exception as Err:
         logger.error('Error in join_two_csv_and_extract_data(): %s' % Err)
@@ -395,5 +402,47 @@ def handle_params(params,file_param):
                 raise ConnectorError('Invalid File IRI {0}'.format(value))
     except Exception as err:
         logger.info('handle_params(): Exception occurred {0}'.format(err))
-        raise ConnectorError('Requested resource could not be found with input type "{0}" and value "{1}"'.format
-                             (input_type, value.replace('/api/3/attachments/', '')))
+        raise ConnectorError('Requested resource could not be found with input type "{0}" and value "{1}"'.format(input_type, value.replace('/api/3/attachments/', '')))
+
+def _ds_filter(params,ds):
+    df = ds
+    if(params.get('filterInput')):
+            input_type = params.get('filterInput')
+            if input_type == 'Use Regex as Filter':
+                reg = params.get('filter')
+                columnName = params.get('filterColumnName')
+                df= df[df[columnName].str.match(reg)==True]
+            elif input_type == 'Use \'isin\' as Filter':
+                filterValue = params.get('filter').split(",")
+                columnName = params.get('filterColumnName')
+                df= df[df[columnName].isin(filterValue)]
+
+    return df
+
+def _df_to_csv(df):
+    id = str(uuid4().fields[-1])
+    file_name = "dataset-{}.csv".format(id)
+    df.to_csv('/tmp/{}'.format(file_name), encoding='utf-8', header='true',compression="zip")
+    filepath = '/tmp/{}'.format(file_name)
+    ch_res = create_cyops_attachment(filename=filepath,name=file_name,description='Create by CSV Data Management Connector')
+    return ch_res
+
+
+def _format_return_result(params,attDetail,df):
+    #Create small chunks of dataset to consume by playbook if requested by user otherwise return complete recordset
+    if params.get('recordBatch'):
+        smaller_datasets = np.array_split(df, 20)
+        all_records = []
+        for batch in smaller_datasets:
+            all_records.append(batch.to_dict("records"))
+        if params.get('saveAsAttachement'):
+            final_result = {"records": all_records,"attachment": attDetail}
+            return final_result
+        final_result = {"records": all_records}
+        return final_result
+    else:
+        if params.get('saveAsAttachement'):
+            final_result = {"records": df.to_dict("records"),"attachment": attDetail}
+            return final_result       
+    final_result = {"records": df.to_dict("records")}
+    return final_result
