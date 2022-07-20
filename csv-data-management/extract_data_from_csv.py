@@ -81,9 +81,11 @@ def extract_data_from_csv(config, params):
 
         #Create CSV file as attachment for resultant recordset 
         if params.get('saveAsAttachement'):
-            attachmentDetail = _df_to_csv(df) 
+            attachmentDetail = _df_to_csv(df)
+        else:
+            attachmentDetail = None
 
-        final_result = _format_return_result(params=params,attachmentDetail=attachmentDetail,df=df)
+        final_result = _format_return_result(params=params,attDetail=attachmentDetail,df=df)
         return final_result
 
     except Exception as Err:
@@ -130,9 +132,11 @@ def merge_two_csv_and_extract_data(config, params):
         
         #Create CSV file as attachment for resultant recordset 
         if params.get('saveAsAttachement'):
-            attachmentDetail = _df_to_csv(combined_recordSet) 
+            attachmentDetail = _df_to_csv(combined_recordSet)
+        else:
+            attachmentDetail = None 
 
-        final_result = _format_return_result(params=params,attachmentDetail=attachmentDetail,df=combined_recordSet)
+        final_result = _format_return_result(params=params,attDetail=attachmentDetail,df=combined_recordSet)
         return final_result
 
     except Exception as Err:
@@ -173,9 +177,11 @@ def concat_two_csv_and_extract_data(config, params):
         
         #Create CSV file as attachment for resultant recordset 
         if params.get('saveAsAttachement'):
-            attachmentDetail = _df_to_csv(combined_recordSet) 
+            attachmentDetail = _df_to_csv(combined_recordSet)
+        else:
+            attachmentDetail = None 
 
-        final_result = _format_return_result(params=params,attachmentDetail=attachmentDetail,df=combined_recordSet)
+        final_result = _format_return_result(params=params,attDetail=attachmentDetail,df=combined_recordSet)
         return final_result
 
     except Exception as Err:
@@ -215,9 +221,11 @@ def join_two_csv_and_extract_data(config, params):
 
         #Create CSV file as attachment for resultant recordset 
         if params.get('saveAsAttachement'):
-            attachmentDetail = _df_to_csv(combined_recordSet) 
+            attachmentDetail = _df_to_csv(combined_recordSet)
+        else:
+            attachmentDetail = None 
 
-        final_result = _format_return_result(params=params,attachmentDetail=attachmentDetail,df=combined_recordSet)
+        final_result = _format_return_result(params=params,attDetail=attachmentDetail,df=combined_recordSet)
         return final_result
         
 
@@ -412,7 +420,7 @@ def _ds_filter(params,ds):
     return df
 
 def _df_to_csv(df):
-    id = datetime.now().strftime('%Y%m-%d%H-%M%S-') + str(uuid4())
+    id = str(uuid4().fields[-1])
     file_name = "dataset-{}.csv".format(id)
     df.to_csv('/tmp/{}'.format(file_name), encoding='utf-8', header='true',compression="zip")
     filepath = '/tmp/{}'.format(file_name)
@@ -420,7 +428,7 @@ def _df_to_csv(df):
     return ch_res
 
 
-def _format_return_result(params,attachmentDetail,df):
+def _format_return_result(params,attDetail,df):
     #Create small chunks of dataset to consume by playbook if requested by user otherwise return complete recordset
     if params.get('recordBatch'):
         smaller_datasets = np.array_split(df, 20)
@@ -428,13 +436,13 @@ def _format_return_result(params,attachmentDetail,df):
         for batch in smaller_datasets:
             all_records.append(batch.to_dict("records"))
         if params.get('saveAsAttachement'):
-            final_result = {"records": all_records,"attachment": attachmentDetail}
+            final_result = {"records": all_records,"attachment": attDetail}
             return final_result
         final_result = {"records": all_records}
+        return final_result
     else:
         if params.get('saveAsAttachement'):
-            final_result = {"records": df.to_dict("records"),"attachment": attachmentDetail}
-            return final_result
-        
+            final_result = {"records": df.to_dict("records"),"attachment": attDetail}
+            return final_result       
     final_result = {"records": df.to_dict("records")}
     return final_result
