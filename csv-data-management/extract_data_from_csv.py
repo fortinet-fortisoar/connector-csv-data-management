@@ -83,23 +83,7 @@ def extract_data_from_csv(config, params):
         if params.get('saveAsAttachement'):
             attachmentDetail = _df_to_csv(df) 
 
-            
-        #Create small chunks of dataset to consume by playbook if requested by user otherwise return complete recordset
-        if params.get('recordBatch'):
-            smaller_datasets = np.array_split(df, 20)
-            all_records = []
-            for batch in smaller_datasets:
-                all_records.append(batch.to_dict("records"))
-            if params.get('saveAsAttachement'):
-                final_result = {"records": all_records,"attachment": attachmentDetail}
-                return final_result
-            final_result = {"records": all_records}
-        else:
-            if params.get('saveAsAttachement'):
-                final_result = {"records": df.to_dict("records"),"attachment": attachmentDetail}
-                return final_result
-        
-        final_result = {"records": df.to_dict("records")}
+        final_result = _format_return_result(params=params,attachmentDetail=attachmentDetail,df=df)
         return final_result
 
     except Exception as Err:
@@ -148,22 +132,7 @@ def merge_two_csv_and_extract_data(config, params):
         if params.get('saveAsAttachement'):
             attachmentDetail = _df_to_csv(combined_recordSet) 
 
-        #Create small chunks of dataset to consume by playbook if requested by user otherwise return complete recordset
-        if params.get('recordBatch'):
-            smaller_datasets = np.array_split(combined_recordSet, 20)
-            all_records = []
-            for batch in smaller_datasets:
-                all_records.append(batch.to_dict("records"))
-            if params.get('saveAsAttachement'):
-                final_result = {"records": all_records,"attachment": attachmentDetail}
-                return final_result
-            final_result = {"records": all_records}
-        else:
-            if params.get('saveAsAttachement'):
-                final_result = {"records": combined_recordSet.to_dict("records"),"attachment": attachmentDetail}
-                return final_result
-        
-        final_result = {"records": combined_recordSet.to_dict("records")}
+        final_result = _format_return_result(params=params,attachmentDetail=attachmentDetail,df=combined_recordSet)
         return final_result
 
     except Exception as Err:
@@ -206,22 +175,7 @@ def concat_two_csv_and_extract_data(config, params):
         if params.get('saveAsAttachement'):
             attachmentDetail = _df_to_csv(combined_recordSet) 
 
-        #Create small chunks of dataset to consume by playbook if requested by user otherwise return complete recordset
-        if params.get('recordBatch'):
-            smaller_datasets = np.array_split(combined_recordSet, 20)
-            all_records = []
-            for batch in smaller_datasets:
-                all_records.append(batch.to_dict("records"))
-            if params.get('saveAsAttachement'):
-                final_result = {"records": all_records,"attachment": attachmentDetail}
-                return final_result
-            final_result = {"records": all_records}
-        else:
-            if params.get('saveAsAttachement'):
-                final_result = {"records": combined_recordSet.to_dict("records"),"attachment": attachmentDetail}
-                return final_result
-        
-        final_result = {"records": combined_recordSet.to_dict("records")}
+        final_result = _format_return_result(params=params,attachmentDetail=attachmentDetail,df=combined_recordSet)
         return final_result
 
     except Exception as Err:
@@ -263,23 +217,9 @@ def join_two_csv_and_extract_data(config, params):
         if params.get('saveAsAttachement'):
             attachmentDetail = _df_to_csv(combined_recordSet) 
 
-        #Create small chunks of dataset to consume by playbook if requested by user otherwise return complete recordset
-        if params.get('recordBatch'):
-            smaller_datasets = np.array_split(combined_recordSet, 20)
-            all_records = []
-            for batch in smaller_datasets:
-                all_records.append(batch.to_dict("records"))
-            if params.get('saveAsAttachement'):
-                final_result = {"records": all_records,"attachment": attachmentDetail}
-                return final_result
-            final_result = {"records": all_records}
-        else:
-            if params.get('saveAsAttachement'):
-                final_result = {"records": combined_recordSet.to_dict("records"),"attachment": attachmentDetail}
-                return final_result
-        
-        final_result = {"records": combined_recordSet.to_dict("records")}
+        final_result = _format_return_result(params=params,attachmentDetail=attachmentDetail,df=combined_recordSet)
         return final_result
+        
 
     except Exception as Err:
         logger.error('Error in join_two_csv_and_extract_data(): %s' % Err)
@@ -478,3 +418,23 @@ def _df_to_csv(df):
     filepath = '/tmp/{}'.format(file_name)
     ch_res = create_cyops_attachment(filename=filepath,name=file_name,description='Create by CSV Data Management Connector')
     return ch_res
+
+
+def _format_return_result(params,attachmentDetail,df):
+    #Create small chunks of dataset to consume by playbook if requested by user otherwise return complete recordset
+    if params.get('recordBatch'):
+        smaller_datasets = np.array_split(df, 20)
+        all_records = []
+        for batch in smaller_datasets:
+            all_records.append(batch.to_dict("records"))
+        if params.get('saveAsAttachement'):
+            final_result = {"records": all_records,"attachment": attachmentDetail}
+            return final_result
+        final_result = {"records": all_records}
+    else:
+        if params.get('saveAsAttachement'):
+            final_result = {"records": df.to_dict("records"),"attachment": attachmentDetail}
+            return final_result
+        
+    final_result = {"records": df.to_dict("records")}
+    return final_result
