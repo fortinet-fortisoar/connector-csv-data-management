@@ -408,11 +408,11 @@ def _ds_filter(params,ds):
     df = ds
     if(params.get('filterInput')):
             input_type = params.get('filterInput')
-            if input_type == 'Use Regex as Filter':
+            if input_type == 'On Values Matching a Regex':
                 reg = params.get('filter')
                 columnName = params.get('filterColumnName')
                 df= df[df[columnName].str.match(reg)==True]
-            elif input_type == 'Use \'isin\' as Filter':
+            elif input_type == 'On Specified values':
                 filterValue = params.get('filter').split(",")
                 columnName = params.get('filterColumnName')
                 df= df[df[columnName].isin(filterValue)]
