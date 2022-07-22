@@ -305,10 +305,9 @@ def _read_file_single_column_no_header(filepath,numberOfRowsToSkip=None,no_of_co
 
 def _json_to_csv(params,filepath):
     try:
-        root_key= params.get('root_key')
         filename = params.get('csvFileName')
         fileDetails = pd.read_json('{}'.format(filepath))
-        csvData = _df_to_csv(fileDetails)
+        csvData = _df_to_csv(fileDetails,filename)
         return csvData
     except Exception as Err:
         logger.error('Error in _json_to_csv(): %s' % Err)
@@ -445,14 +444,21 @@ def _ds_filter(params,ds):
 
     return df
 
-def _df_to_csv(df):
-    id = str(uuid4().fields[-1])
-    file_name = "dataset-{}.csv".format(id)
-    df.to_csv('/tmp/{}'.format(file_name), encoding='utf-8', header='true',compression="zip")
-    filepath = '/tmp/{}'.format(file_name)
-    ch_res = create_cyops_attachment(filename=filepath,name=file_name,description='Create by CSV Data Management Connector')
-    remove(filepath)
-    return ch_res
+def _df_to_csv(df,filename=None):
+    try:
+        id = str(uuid4().fields[-1])
+        file_name=filename if filename else "dataset-{}.csv".format(id) 
+        df.to_csv('/tmp/{}'.format(file_name), encoding='utf-8', header='true',compression="zip")
+        filepath = '/tmp/{}'.format(file_name)
+        ch_res = create_cyops_attachment(filename=filepath,name=file_name,description='Create by CSV Data Management Connector')
+        remove(filepath)
+        return ch_res
+    except Exception as err:
+        remove(filepath)
+        logger.error("Error creating attachment record for CSV file")
+        raise ConnectorError('Error in creating attachment record for CSV file: %s' % Err)
+
+    
 
 
 def _format_return_result(params,attDetail,df):
