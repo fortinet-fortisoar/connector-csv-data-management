@@ -8,7 +8,7 @@
   "icon_large_name": "fortisoar_logo.png",
   "category": "",
   "configuration": {},
-  "help_online": "https://docs.fortinet.com/document/fortisoar/1.0.0/csv-data-management/270/csv-data-management-v1-0-0",
+  "help_online": "https://docs.fortinet.com/document/fortisoar/1.1.0/csv-data-management/346/csv-data-management-v1-1-0",
   "cs_approved": true,
   "cs_compatible": true,
   "supportInfo": "Fortinet Customer Support",
@@ -755,6 +755,49 @@
         }
       ],
       "enabled": true
+    },
+    {
+      "title": "Convert JSON to CSV File",
+      "operation": "convert_json_to_csv_file",
+      "annotation": "json_to_csv",
+      "category": "investigation",
+      "description": "This action will convert given JSON file to a CSV file",
+      "parameters": [
+        {
+          "title": "Type",
+          "type": "select",
+          "name": "input",
+          "required": true,
+          "visible": true,
+          "editable": true,
+          "value": "",
+          "options": [
+            "Attachment IRI",
+            "File IRI"
+          ]
+        },
+        {
+          "title": "Reference ID",
+          "type": "text",
+          "name": "value",
+          "required": true,
+          "visible": true,
+          "editable": true,
+          "value": ""
+        },
+        {
+          "title": "Provide CSV Filename",
+          "type": "text",
+          "name": "csvFileName",
+          "required": true,
+          "visible": true,
+          "editable": true,
+          "value": "",
+          "description": "Provide name for resulant CSV file",
+          "tooltip": "Provide name for resulant CSV file"
+        }
+      ],
+      "open": true
     }
   ]
 }
