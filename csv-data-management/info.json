@@ -793,7 +793,7 @@
           "visible": true,
           "editable": true,
           "value": "",
-          "placeholder": "filename.zip",
+          "placeholder": "filename",
           "description": "Provide name for resulant CSV file. This file will be compressed",
           "tooltip": "Provide name for resulant CSV file. This file will be compressed"
         }
