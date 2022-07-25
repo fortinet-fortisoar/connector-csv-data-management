@@ -241,8 +241,6 @@ def convert_json_to_csv_file(config, params):
         file_path = join('/tmp', download_file_from_cyops(file_iri)['cyops_file_path'])
         fileDetails = _json_to_csv(params,file_path)
         return {"fileDetails" : fileDetails}
-
-
     except Exception as Err:
         logger.error('Error in convert_json_to_csv_file(): %s' % Err)
         raise ConnectorError('Error in processing CSV File: %s' % Err)
@@ -447,7 +445,7 @@ def _ds_filter(params,ds):
 def _df_to_csv(df,filename=None):
     try:
         id = str(uuid4().fields[-1])
-        file_name=filename if filename else "dataset-{}.csv".format(id) 
+        file_name=filename+".zip" if filename else "dataset-{}.zip".format(id) 
         df.to_csv('/tmp/{}'.format(file_name), encoding='utf-8', header='true',compression="zip")
         filepath = '/tmp/{}'.format(file_name)
         ch_res = create_cyops_attachment(filename=filepath,name=file_name,description='Create by CSV Data Management Connector')

@@ -157,8 +157,8 @@
           "visible": true,
           "editable": true,
           "value": null,
-          "description": "If set, the resultant recordSet will be saved as attachment in CSV format",
-          "tooltip": "If set, the resultant recordSet will be saved as attachment in CSV format"
+          "description": "If set, the resultant recordSet will be saved as compressed attachment in CSV format",
+          "tooltip": "If set, the resultant recordSet will be saved as compressed attachment in CSV format"
         }
       ],
       "open": true
@@ -362,8 +362,8 @@
           "visible": true,
           "editable": true,
           "value": null,
-          "description": "If set, the resultant recordSet will be saved as attachment in CSV format",
-          "tooltip": "If set, the resultant recordSet will be saved as attachment in CSV format"
+          "description": "If set, the resultant recordSet will be saved as compressed attachment in CSV format",
+          "tooltip": "If set, the resultant recordSet will be saved as compressed attachment in CSV format"
         }
       ],
       "open": true
@@ -556,8 +556,8 @@
           "visible": true,
           "editable": true,
           "value": null,
-          "description": "If set, the resultant recordSet will be saved as attachment in CSV format",
-          "tooltip": "If set, the resultant recordSet will be saved as attachment in CSV format"
+          "description": "If set, the resultant recordSet will be saved as compressed attachment in CSV format",
+          "tooltip": "If set, the resultant recordSet will be saved as compressed attachment in CSV format"
         }
       ],
       "open": true
@@ -750,8 +750,8 @@
           "visible": true,
           "editable": true,
           "value": null,
-          "description": "If set, the resultant recordSet will be saved as attachment in CSV format",
-          "tooltip": "If set, the resultant recordSet will be saved as attachment in CSV format"
+          "description": "If set, the resultant recordSet will be saved as compressed attachment in CSV format",
+          "tooltip": "If set, the resultant recordSet will be saved as compressed attachment in CSV format"
         }
       ],
       "enabled": true
@@ -793,8 +793,9 @@
           "visible": true,
           "editable": true,
           "value": "",
-          "description": "Provide name for resulant CSV file",
-          "tooltip": "Provide name for resulant CSV file"
+          "placeholder": "filename.zip",
+          "description": "Provide name for resulant CSV file. This file will be compressed",
+          "tooltip": "Provide name for resulant CSV file. This file will be compressed"
         }
       ],
       "open": true
