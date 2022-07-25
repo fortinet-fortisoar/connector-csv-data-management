@@ -445,9 +445,10 @@ def _ds_filter(params,ds):
 def _df_to_csv(df,filename=None):
     try:
         id = str(uuid4().fields[-1])
-        file_name=filename+".zip" if filename else "dataset-{}.zip".format(id) 
-        df.to_csv('/tmp/{}'.format(file_name), encoding='utf-8', header='true',compression="zip")
-        filepath = '/tmp/{}'.format(file_name)
+        file_name=filename+ ".csv" if filename else "dataset-{}.csv".format(id) 
+        compression = dict(method='zip', archive_name=file_name)
+        df.to_csv('/tmp/{}'.format(file_name.split(".")[0])+'.zip', encoding='utf-8', header='true',compression=compression)
+        filepath = '/tmp/{}'.format(file_name.split(".")[0])+'.zip'
         ch_res = create_cyops_attachment(filename=filepath,name=file_name,description='Create by CSV Data Management Connector')
         remove(filepath)
         return ch_res
