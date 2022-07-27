@@ -13,6 +13,7 @@ import pandas as pd
 import numpy as np
 import csv
 from os.path import join
+from os import remove
 import json
 from connectors.core.connector import get_logger, ConnectorError
 from connectors.cyops_utilities.builtins import download_file_from_cyops,create_cyops_attachment
@@ -232,7 +233,19 @@ def join_two_csv_and_extract_data(config, params):
     except Exception as Err:
         logger.error('Error in join_two_csv_and_extract_data(): %s' % Err)
         raise ConnectorError('Error in processing CSV File: %s' % Err)        
+
+
+def convert_json_to_csv_file(config, params):
+    try:
+        file_iri = handle_params(params,params.get('value'))
+        file_path = join('/tmp', download_file_from_cyops(file_iri)['cyops_file_path'])
+        fileDetails = _json_to_csv(params,file_path)
+        return {"fileDetails" : fileDetails}
+    except Exception as Err:
+        logger.error('Error in convert_json_to_csv_file(): %s' % Err)
+        raise ConnectorError('Error in processing CSV File: %s' % Err)
     
+
 def _read_file_specific_columns(filepath,columns_t,numberOfRowsToSkip=None):
     try:
         chunk = pd.read_csv('{}'.format(filepath), delimiter=',', encoding="utf-8-sig",skiprows=numberOfRowsToSkip,chunksize=100000,error_bad_lines=False,usecols=columns_t)
@@ -286,6 +299,16 @@ def _read_file_single_column_no_header(filepath,numberOfRowsToSkip=None,no_of_co
         return df
     except Exception as Err:
         logger.error('Error in _read_file_single_column_no_header(): %s' % Err)
+        raise ConnectorError('Error in processing CSV File: %s' % Err)
+
+def _json_to_csv(params,filepath):
+    try:
+        filename = params.get('csvFileName')
+        fileDetails = pd.read_json('{}'.format(filepath))
+        csvData = _df_to_csv(fileDetails,filename)
+        return csvData
+    except Exception as Err:
+        logger.error('Error in _json_to_csv(): %s' % Err)
         raise ConnectorError('Error in processing CSV File: %s' % Err)  
 
 def _check_if_csv(filepath,numberOfRowsToSkip=None):
@@ -412,20 +435,29 @@ def _ds_filter(params,ds):
                 reg = params.get('filter')
                 columnName = params.get('filterColumnName')
                 df= df[df[columnName].str.match(reg)==True]
-            elif input_type == 'On Specified values':
+            elif input_type == 'On Specified Values':
                 filterValue = params.get('filter').split(",")
                 columnName = params.get('filterColumnName')
                 df= df[df[columnName].isin(filterValue)]
 
     return df
 
-def _df_to_csv(df):
-    id = str(uuid4().fields[-1])
-    file_name = "dataset-{}.csv".format(id)
-    df.to_csv('/tmp/{}'.format(file_name), encoding='utf-8', header='true',compression="zip")
-    filepath = '/tmp/{}'.format(file_name)
-    ch_res = create_cyops_attachment(filename=filepath,name=file_name,description='Create by CSV Data Management Connector')
-    return ch_res
+def _df_to_csv(df,filename=None):
+    try:
+        id = str(uuid4().fields[-1])
+        file_name=filename+ ".csv" if filename else "dataset-{}.csv".format(id) 
+        compression = dict(method='zip', archive_name=file_name)
+        df.to_csv('/tmp/{}'.format(file_name.split(".")[0])+'.zip', encoding='utf-8', header='true',compression=compression)
+        filepath = '/tmp/{}'.format(file_name.split(".")[0])+'.zip'
+        ch_res = create_cyops_attachment(filename=filepath,name=file_name,description='Create by CSV Data Management Connector')
+        remove(filepath)
+        return ch_res
+    except Exception as err:
+        remove(filepath)
+        logger.error("Error creating attachment record for CSV file")
+        raise ConnectorError('Error in creating attachment record for CSV file: %s' % Err)
+
+    
 
 
 def _format_return_result(params,attDetail,df):
