@@ -678,7 +678,7 @@
           "filtervalue": "",
           "options": [
             "On Values Matching a Regex",
-            "On Specified values"
+            "On Specified Values"
           ],
           "onchange": {
             "On Values Matching a Regex": [
