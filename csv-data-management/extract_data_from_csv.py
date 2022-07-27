@@ -435,7 +435,7 @@ def _ds_filter(params,ds):
                 reg = params.get('filter')
                 columnName = params.get('filterColumnName')
                 df= df[df[columnName].str.match(reg)==True]
-            elif input_type == 'On Specified values':
+            elif input_type == 'On Specified Values':
                 filterValue = params.get('filter').split(",")
                 columnName = params.get('filterColumnName')
                 df= df[df[columnName].isin(filterValue)]
