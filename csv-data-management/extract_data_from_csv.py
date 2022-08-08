@@ -81,7 +81,7 @@ def extract_data_from_csv(config, params):
             df = _ds_filter(params,df)
 
         #Create CSV file as attachment for resultant recordset 
-        if params.get('saveAsAttachement'):
+        if params.get('saveAsAttachment') and not df.empty:
             attachmentDetail = _df_to_csv(df)
         else:
             attachmentDetail = None
@@ -132,7 +132,7 @@ def merge_two_csv_and_extract_data(config, params):
             combined_recordSet = _ds_filter(params,combined_recordSet)
         
         #Create CSV file as attachment for resultant recordset 
-        if params.get('saveAsAttachement'):
+        if params.get('saveAsAttachment') and not combined_recordSet.empty:
             attachmentDetail = _df_to_csv(combined_recordSet)
         else:
             attachmentDetail = None 
@@ -177,7 +177,7 @@ def concat_two_csv_and_extract_data(config, params):
             combined_recordSet = _ds_filter(params,combined_recordSet)
         
         #Create CSV file as attachment for resultant recordset 
-        if params.get('saveAsAttachement'):
+        if params.get('saveAsAttachment') and not combined_recordSet.empty:
             attachmentDetail = _df_to_csv(combined_recordSet)
         else:
             attachmentDetail = None 
@@ -221,7 +221,7 @@ def join_two_csv_and_extract_data(config, params):
             combined_recordSet = _ds_filter(params,combined_recordSet)
 
         #Create CSV file as attachment for resultant recordset 
-        if params.get('saveAsAttachement'):
+        if params.get('saveAsAttachment') and not combined_recordSet.empty:
             attachmentDetail = _df_to_csv(combined_recordSet)
         else:
             attachmentDetail = None 
@@ -449,7 +449,7 @@ def _df_to_csv(df,filename=None):
         compression = dict(method='zip', archive_name=file_name)
         df.to_csv('/tmp/{}'.format(file_name.split(".")[0])+'.zip', encoding='utf-8', header='true',compression=compression)
         filepath = '/tmp/{}'.format(file_name.split(".")[0])+'.zip'
-        ch_res = create_cyops_attachment(filename=filepath,name=file_name,description='Create by CSV Data Management Connector')
+        ch_res = create_cyops_attachment(filename=filepath,name=file_name,description='Created by CSV Data Management Connector')
         remove(filepath)
         return ch_res
     except Exception as err:
@@ -467,13 +467,13 @@ def _format_return_result(params,attDetail,df):
         all_records = []
         for batch in smaller_datasets:
             all_records.append(batch.to_dict("records"))
-        if params.get('saveAsAttachement'):
+        if params.get('saveAsAttachment'):
             final_result = {"records": all_records,"attachment": attDetail}
             return final_result
         final_result = {"records": all_records}
         return final_result
     else:
-        if params.get('saveAsAttachement'):
+        if params.get('saveAsAttachment'):
             final_result = {"records": df.to_dict("records"),"attachment": attDetail}
             return final_result       
     final_result = {"records": df.to_dict("records")}
