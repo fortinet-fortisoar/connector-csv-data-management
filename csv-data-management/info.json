@@ -150,8 +150,8 @@
           "tooltip": "If set, will return rows as recordSet in list of 20 batches otherwise complete result in a single recordSet"
         },
         {
-          "title": "Save as attachement",
-          "name": "saveAsAttachement",
+          "title": "Save as attachment",
+          "name": "saveAsAttachment",
           "type": "checkbox",
           "required": false,
           "visible": true,
@@ -355,8 +355,8 @@
           "tooltip": "If set, will return rows as recordSet in list of 20 batches otherwise complete result in a single recordSet"
         },
         {
-          "title": "Save as attachement",
-          "name": "saveAsAttachement",
+          "title": "Save as attachment",
+          "name": "saveAsAttachment",
           "type": "checkbox",
           "required": false,
           "visible": true,
@@ -549,8 +549,8 @@
           "tooltip": "If set, will return rows as recordSet in list of 20 batches otherwise complete result in a single recordSet"
         },
         {
-          "title": "Save as attachement",
-          "name": "saveAsAttachement",
+          "title": "Save as attachment",
+          "name": "saveAsAttachment",
           "type": "checkbox",
           "required": false,
           "visible": true,
@@ -743,8 +743,8 @@
           "tooltip": "If set, will return rows as recordSet in list of 20 batches otherwise complete result in a single recordSet"
         },
         {
-          "title": "Save as attachement",
-          "name": "saveAsAttachement",
+          "title": "Save as attachment",
+          "name": "saveAsAttachment",
           "type": "checkbox",
           "required": false,
           "visible": true,
