@@ -447,7 +447,7 @@ def _df_to_csv(df,filename=None):
         id = str(uuid4().fields[-1])
         file_name=filename+ ".csv" if filename else "dataset-{}.csv".format(id) 
         compression = dict(method='zip', archive_name=file_name)
-        df.to_csv('/tmp/{}'.format(file_name.split(".")[0])+'.zip', encoding='utf-8', header='true',compression=compression)
+        df.to_csv('/tmp/{}'.format(file_name.split(".")[0])+'.zip', encoding='utf-8', header='true',compression=compression,index=False)
         filepath = '/tmp/{}'.format(file_name.split(".")[0])+'.zip'
         ch_res = create_cyops_attachment(filename=filepath,name=file_name,description='Created by CSV Data Management Connector')
         remove(filepath)
