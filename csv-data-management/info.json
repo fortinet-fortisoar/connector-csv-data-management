@@ -1,14 +1,14 @@
 {
   "name": "csv-data-management",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "label": "CSV Data Management",
-  "description": "CSV Data management can perform different operations on CSV files like read file, perform deduplication, merge two CSV files,join two CSV files,concat two CSV files and return well formatted dataset",
+  "description": "CSV Data management can perform different operations on CSV files like read file, perform deduplication, merge two CSV files, join two CSV files, concat two CSV files and return well formatted dataset",
   "publisher": "Fortinet",
   "icon_small_name": "fortisoar_logo.png",
   "icon_large_name": "fortisoar_logo.png",
   "category": "",
   "configuration": {},
-  "help_online": "https://docs.fortinet.com/document/fortisoar/1.0.0/csv-data-management/270/csv-data-management-v1-0-0",
+  "help_online": "https://docs.fortinet.com/document/fortisoar/1.1.0/csv-data-management/346/csv-data-management-v1-1-0",
   "cs_approved": true,
   "cs_compatible": true,
   "supportInfo": "Fortinet Customer Support",
@@ -50,8 +50,8 @@
           "visible": true,
           "editable": true,
           "value": "",
-          "description": "comma separated  columns name you want to extract from CSV File",
-          "tooltip":"comma separated columns name you want to extract from CSV File"
+          "description": "Comma separated columns name you want to extract from CSV File",
+          "tooltip": "Comma separated columns name you want to extract from CSV File"
         },
         {
           "title": "Deduplicate Values on",
@@ -62,7 +62,7 @@
           "editable": true,
           "value": "",
           "description": "Column name you want to use deduplicate data  from CSV File",
-          "tooltip":"Column name you want to use deduplicate data  from CSV File"
+          "tooltip": "Column name you want to use deduplicate data  from CSV File"
         },
         {
           "title": "Number of rows to skip",
@@ -73,7 +73,70 @@
           "editable": true,
           "value": null,
           "description": "Number of rows you want to skip from top of CSV File. Note first row will be skipped even if it has column names",
-          "tooltip":"Number of rows you want to skip from top of CSV File. Note first row will be skipped even if it has column names"
+          "tooltip": "Number of rows you want to skip from top of CSV File. Note first row will be skipped even if it has column names"
+        },
+        {
+          "title": "Filter Dataset",
+          "type": "select",
+          "name": "filterInput",
+          "required": false,
+          "visible": true,
+          "editable": true,
+          "filtervalue": "",
+          "options": [
+            "On Values Matching a Regex",
+            "On Specified Values"
+          ],
+          "onchange": {
+            "On Values Matching a Regex": [
+              {
+                "title": "Filter on Column",
+                "type": "text",
+                "name": "filterColumnName",
+                "required": true,
+                "visible": true,
+                "editable": true,
+                "value": "",
+                "description": "Provide column name which you want to use to filter data",
+                "tooltip": "Provide column name which you want to use to filter data"
+              },
+              {
+                "title": "Regex Filter",
+                "type": "text",
+                "name": "filter",
+                "required": true,
+                "visible": true,
+                "editable": true,
+                "value": "",
+                "placeholder": "\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}$",
+                "description": "Provide regex expression",
+                "tooltip": "Provide regex expression"
+              }
+            ],
+            "On Specified Values": [
+              {
+                "title": "Filter on Column",
+                "type": "text",
+                "name": "filterColumnName",
+                "required": true,
+                "visible": true,
+                "editable": true,
+                "value": "",
+                "description": "Provide column name which you want to use to filter data",
+                "tooltip": "Provide column name which you want to use to filter data"
+              },
+              {
+                "title": "Filter String",
+                "type": "text",
+                "name": "filter",
+                "required": true,
+                "visible": true,
+                "editable": true,
+                "value": "",
+                "tooltip": "Comma separated list of values on which you want to filter data. Values should be present in column metioned above"
+              }
+            ]
+          }
         },
         {
           "title": "Convert recordset into batch",
@@ -83,8 +146,19 @@
           "visible": true,
           "editable": true,
           "value": null,
-          "description": "If set , will return rows as recordSet in list of 20 batches otherwise complete result in a single recordSet",
-          "tooltip":"If set , will return rows as recordSet in list of 20 batches otherwise complete result in a single recordSet"
+          "description": "If set, will return rows as recordSet in list of 20 batches otherwise complete result in a single recordSet",
+          "tooltip": "If set, will return rows as recordSet in list of 20 batches otherwise complete result in a single recordSet"
+        },
+        {
+          "title": "Save as attachment",
+          "name": "saveAsAttachment",
+          "type": "checkbox",
+          "required": false,
+          "visible": true,
+          "editable": true,
+          "value": null,
+          "description": "If set, the resultant recordSet will be saved as compressed attachment in CSV format",
+          "tooltip": "If set, the resultant recordSet will be saved as compressed attachment in CSV format"
         }
       ],
       "open": true
@@ -94,7 +168,7 @@
       "operation": "merge_two_csv_and_extract_data",
       "annotation": "read_and_merge_csv_file",
       "category": "investigation",
-      "description": "This action will extract data from CSV based on column names provided ,by merging two CSV file. Optionally, User can select an option to deduplicate resultant recordset based on column(s) provided",
+      "description": "This action will extract data from CSV based on column names provided, by merging two CSV file. Optionally, User can select an option to deduplicate resultant recordset based on column(s) provided",
       "parameters": [
         {
           "title": "Type",
@@ -126,8 +200,8 @@
           "visible": true,
           "editable": true,
           "value": "",
-          "description": "comma separated list of columns name you want to extract from CSV File",
-          "tooltip":"comma separated list of columns name you want to extract from CSV File"
+          "description": "Comma separated list of columns name you want to extract from CSV File",
+          "tooltip": "Comma separated list of columns name you want to extract from CSV File"
         },
         {
           "title": "Number of rows to skip from First File",
@@ -137,9 +211,8 @@
           "visible": true,
           "editable": true,
           "value": null,
-          "description": "Number of rows you want to skip from top of CSV File.  Note first row will be skipped even if it has column names",
-          "tooltip":"Number of rows you want to skip from top of CSV File.  Note first row will be skipped even if it has column names"
-          
+          "description": "Number of rows you want to skip from top of CSV File. Note first row will be skipped even if it has column names",
+          "tooltip": "Number of rows you want to skip from top of CSV File. Note first row will be skipped even if it has column names"
         },
         {
           "title": "Type",
@@ -171,8 +244,8 @@
           "visible": true,
           "editable": true,
           "value": "",
-          "description": "comma separated list of columns name you want to extract from CSV File",
-          "tooltip":"comma separated list of columns name you want to extract from CSV File"
+          "description": "Comma separated list of columns name you want to extract from CSV File",
+          "tooltip": "Comma separated list of columns name you want to extract from CSV File"
         },
         {
           "title": "Number of rows to skip from Second File",
@@ -182,10 +255,9 @@
           "visible": true,
           "editable": true,
           "value": null,
-          "description": "Number of rows you want to skip from top of CSV File.  Note first row will be skipped even if it has column names",
-          "tooltip":"Number of rows you want to skip from top of CSV File.  Note first row will be skipped even if it has column names"
+          "description": "Number of rows you want to skip from top of CSV File. Note first row will be skipped even if it has column names",
+          "tooltip": "Number of rows you want to skip from top of CSV File. Note first row will be skipped even if it has column names"
         },
-        
         {
           "title": "Merge on Column",
           "type": "text",
@@ -195,7 +267,7 @@
           "editable": true,
           "value": "",
           "description": "Column name which is common in two files which you want to use to merge data from both files",
-          "tooltip":"Column name which is common in two files which you want to use to merge data from both files"
+          "tooltip": "Column name which is common in two files which you want to use to merge data from both files"
         },
         {
           "title": "Deduplicate Values on",
@@ -205,8 +277,71 @@
           "visible": true,
           "editable": true,
           "value": "",
-          "description": "Column name you want to use deduplicate data  from CSV File",
-          "tooltip":"Column name you want to use deduplicate data  from CSV File"
+          "description": "Column name you want to use deduplicate data from CSV File",
+          "tooltip": "Column name you want to use deduplicate data from CSV File"
+        },
+        {
+          "title": "Filter Dataset",
+          "type": "select",
+          "name": "filterInput",
+          "required": false,
+          "visible": true,
+          "editable": true,
+          "filtervalue": "",
+          "options": [
+            "On Values Matching a Regex",
+            "On Specified Values"
+          ],
+          "onchange": {
+            "On Values Matching a Regex": [
+              {
+                "title": "Filter on Column",
+                "type": "text",
+                "name": "filterColumnName",
+                "required": true,
+                "visible": true,
+                "editable": true,
+                "value": "",
+                "description": "Provide column name which you want to use to filter data",
+                "tooltip": "Provide column name which you want to use to filter data"
+              },
+              {
+                "title": "Regex Filter",
+                "type": "text",
+                "name": "filter",
+                "required": true,
+                "visible": true,
+                "editable": true,
+                "value": "",
+                "placeholder": "\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}$",
+                "description": "Provide regex expression",
+                "tooltip": "Provide regex expression"
+              }
+            ],
+            "On Specified Values": [
+              {
+                "title": "Filter on Column",
+                "type": "text",
+                "name": "filterColumnName",
+                "required": true,
+                "visible": true,
+                "editable": true,
+                "value": "",
+                "description": "Provide column name which you want to use to filter data",
+                "tooltip": "Provide column name which you want to use to filter data"
+              },
+              {
+                "title": "Filter String",
+                "type": "text",
+                "name": "filter",
+                "required": true,
+                "visible": true,
+                "editable": true,
+                "value": "",
+                "tooltip": "Comma separated list of values on which you want to filter data. Values should be present in column metioned above"
+              }
+            ]
+          }
         },
         {
           "title": "Convert recordset into batch",
@@ -216,8 +351,19 @@
           "visible": true,
           "editable": true,
           "value": null,
-          "description": "If set , will return rows as recordSet in list of 20 batches otherwise complete result in a single recordSet",
-          "tooltip":"If set , will return rows as recordSet in list of 20 batches otherwise complete result in a single recordSet"
+          "description": "If set, will return rows as recordSet in list of 20 batches otherwise complete result in a single recordSet",
+          "tooltip": "If set, will return rows as recordSet in list of 20 batches otherwise complete result in a single recordSet"
+        },
+        {
+          "title": "Save as attachment",
+          "name": "saveAsAttachment",
+          "type": "checkbox",
+          "required": false,
+          "visible": true,
+          "editable": true,
+          "value": null,
+          "description": "If set, the resultant recordSet will be saved as compressed attachment in CSV format",
+          "tooltip": "If set, the resultant recordSet will be saved as compressed attachment in CSV format"
         }
       ],
       "open": true
@@ -259,8 +405,8 @@
           "visible": true,
           "editable": true,
           "value": "",
-          "description": "comma separated list of columns name you want to extract from CSV File",
-          "tooltip":"comma separated list of columns name you want to extract from CSV File"
+          "description": "Comma separated list of columns name you want to extract from CSV File",
+          "tooltip": "Comma separated list of columns name you want to extract from CSV File"
         },
         {
           "title": "Number of rows to skip from First File",
@@ -271,7 +417,7 @@
           "editable": true,
           "value": null,
           "description": "Number of rows you want to skip from top of CSV File. Note first row will be skipped even if it has column names",
-          "tooltip":"Number of rows you want to skip from top of CSV File.  Note first row will be skipped even if it has column names"
+          "tooltip": "Number of rows you want to skip from top of CSV File. Note first row will be skipped even if it has column names"
         },
         {
           "title": "Type",
@@ -303,8 +449,8 @@
           "visible": true,
           "editable": true,
           "value": "",
-          "description": "comma separated list of columns name you want to extract from CSV File",
-          "tooltip":"comma separated list of columns name you want to extract from CSV File"
+          "description": "Comma separated list of columns name you want to extract from CSV File",
+          "tooltip": "Comma separated list of columns name you want to extract from CSV File"
         },
         {
           "title": "Number of rows to skip from Second File",
@@ -314,8 +460,8 @@
           "visible": true,
           "editable": true,
           "value": null,
-          "description": "Number of rows you want to skip from top of CSV File.  Note first row will be skipped even if it has column names",
-          "tooltip":"Number of rows you want to skip from top of CSV File.  Note first row will be skipped even if it has column names"
+          "description": "Number of rows you want to skip from top of CSV File. Note first row will be skipped even if it has column names",
+          "tooltip": "Number of rows you want to skip from top of CSV File. Note first row will be skipped even if it has column names"
         },
         {
           "title": "Deduplicate Values on",
@@ -325,8 +471,71 @@
           "visible": true,
           "editable": true,
           "value": "",
-          "description": "Column name you want to use deduplicate data  from CSV File.",
-          "tooltip":"Column name you want to use deduplicate data  from CSV File"
+          "description": "Column name you want to use deduplicate data from CSV File.",
+          "tooltip": "Column name you want to use deduplicate data from CSV File"
+        },
+        {
+          "title": "Filter Dataset",
+          "type": "select",
+          "name": "filterInput",
+          "required": false,
+          "visible": true,
+          "editable": true,
+          "filtervalue": "",
+          "options": [
+            "On Values Matching a Regex",
+            "On Specified Values"
+          ],
+          "onchange": {
+            "On Values Matching a Regex": [
+              {
+                "title": "Filter on Column",
+                "type": "text",
+                "name": "filterColumnName",
+                "required": true,
+                "visible": true,
+                "editable": true,
+                "value": "",
+                "description": "Provide column name which you want to use to filter data",
+                "tooltip": "Provide column name which you want to use to filter data"
+              },
+              {
+                "title": "Regex Filter",
+                "type": "text",
+                "name": "filter",
+                "required": true,
+                "visible": true,
+                "editable": true,
+                "value": "",
+                "placeholder": "\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}$",
+                "description": "Provide regex expression",
+                "tooltip": "Provide regex expression"
+              }
+            ],
+            "On Specified Values": [
+              {
+                "title": "Filter on Column",
+                "type": "text",
+                "name": "filterColumnName",
+                "required": true,
+                "visible": true,
+                "editable": true,
+                "value": "",
+                "description": "Provide column name which you want to use to filter data",
+                "tooltip": "Provide column name which you want to use to filter data"
+              },
+              {
+                "title": "Filter String",
+                "type": "text",
+                "name": "filter",
+                "required": true,
+                "visible": true,
+                "editable": true,
+                "value": "",
+                "tooltip": "Comma separated list of values on which you want to filter data. Values should be present in column metioned above"
+              }
+            ]
+          }
         },
         {
           "title": "Convert recordset into batch",
@@ -336,8 +545,19 @@
           "visible": true,
           "editable": true,
           "value": null,
-          "description": "If set , will return rows as recordSet in list of 20 batches otherwise complete result in a single recordSet",
-          "tooltip":"If set , will return rows as recordSet in list of 20 batches otherwise complete result in a single recordSet"
+          "description": "If set, will return rows as recordSet in list of 20 batches otherwise complete result in a single recordSet",
+          "tooltip": "If set, will return rows as recordSet in list of 20 batches otherwise complete result in a single recordSet"
+        },
+        {
+          "title": "Save as attachment",
+          "name": "saveAsAttachment",
+          "type": "checkbox",
+          "required": false,
+          "visible": true,
+          "editable": true,
+          "value": null,
+          "description": "If set, the resultant recordSet will be saved as compressed attachment in CSV format",
+          "tooltip": "If set, the resultant recordSet will be saved as compressed attachment in CSV format"
         }
       ],
       "open": true
@@ -379,8 +599,8 @@
           "visible": true,
           "editable": true,
           "value": "",
-          "description": "comma separated list of columns name you want to extract from CSV File",
-          "tooltip":"comma separated list of columns name you want to extract from CSV File"
+          "description": "Comma separated list of columns name you want to extract from CSV File",
+          "tooltip": "Comma separated list of columns name you want to extract from CSV File"
         },
         {
           "title": "Number of rows to skip from First File",
@@ -391,7 +611,7 @@
           "editable": true,
           "value": null,
           "description": "Number of rows you want to skip from top of CSV File. Note first row will be skipped even if it has column names",
-          "tooltip":"Number of rows you want to skip from top of CSV File. Note first row will be skipped even if it has column names"
+          "tooltip": "Number of rows you want to skip from top of CSV File. Note first row will be skipped even if it has column names"
         },
         {
           "title": "Type",
@@ -423,8 +643,8 @@
           "visible": true,
           "editable": true,
           "value": "",
-          "description": "comma separated list of columns name you want to extract from CSV File",
-          "tooltip":"comma separated list of columns name you want to extract from CSV File"
+          "description": "Comma separated list of columns name you want to extract from CSV File",
+          "tooltip": "Comma separated list of columns name you want to extract from CSV File"
         },
         {
           "title": "Number of rows to skip from Second File",
@@ -435,7 +655,7 @@
           "editable": true,
           "value": null,
           "description": "Number of rows you want to skip from top of CSV File. Note first row will be skipped even if it has column names",
-          "tooltip":"Number of rows you want to skip from top of CSV File.  Note first row will be skipped even if it has column names"
+          "tooltip": "Number of rows you want to skip from top of CSV File.  Note first row will be skipped even if it has column names"
         },
         {
           "title": "Deduplicate Values on",
@@ -446,7 +666,70 @@
           "editable": true,
           "value": "",
           "description": "Column name you want to use deduplicate data from CSV File.",
-          "tooltip":"Column name you want to use deduplicate data  from CSV File"
+          "tooltip": "Column name you want to use deduplicate data from CSV File"
+        },
+        {
+          "title": "Filter Dataset",
+          "type": "select",
+          "name": "filterInput",
+          "required": false,
+          "visible": true,
+          "editable": true,
+          "filtervalue": "",
+          "options": [
+            "On Values Matching a Regex",
+            "On Specified Values"
+          ],
+          "onchange": {
+            "On Values Matching a Regex": [
+              {
+                "title": "Filter on Column",
+                "type": "text",
+                "name": "filterColumnName",
+                "required": true,
+                "visible": true,
+                "editable": true,
+                "value": "",
+                "description": "Provide column name which you want to use to filter data",
+                "tooltip": "Provide column name which you want to use to filter data"
+              },
+              {
+                "title": "Regex Filter",
+                "type": "text",
+                "name": "filter",
+                "required": true,
+                "visible": true,
+                "editable": true,
+                "value": "",
+                "placeholder": "\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}$",
+                "description": "Provide regex expression",
+                "tooltip": "Provide regex expression"
+              }
+            ],
+            "On Specified Values": [
+              {
+                "title": "Filter on Column",
+                "type": "text",
+                "name": "filterColumnName",
+                "required": true,
+                "visible": true,
+                "editable": true,
+                "value": "",
+                "description": "Provide column name which you want to use to filter data",
+                "tooltip": "Provide column name which you want to use to filter data"
+              },
+              {
+                "title": "Filter String",
+                "type": "text",
+                "name": "filter",
+                "required": true,
+                "visible": true,
+                "editable": true,
+                "value": "",
+                "tooltip": "Comma separated list of values on which you want to filter data.Values should be present in column metioned above"
+              }
+            ]
+          }
         },
         {
           "title": "Convert recordset into batch",
@@ -456,12 +739,66 @@
           "visible": true,
           "editable": true,
           "value": null,
-          "description": "If set , will return rows as recordSet in list of 20 batches otherwise complete result in a single recordSet",
-          "tooltip":"If set , will return rows as recordSet in list of 20 batches otherwise complete result in a single recordSet"
+          "description": "If set, will return rows as recordSet in list of 20 batches otherwise complete result in a single recordSet",
+          "tooltip": "If set, will return rows as recordSet in list of 20 batches otherwise complete result in a single recordSet"
+        },
+        {
+          "title": "Save as attachment",
+          "name": "saveAsAttachment",
+          "type": "checkbox",
+          "required": false,
+          "visible": true,
+          "editable": true,
+          "value": null,
+          "description": "If set, the resultant recordSet will be saved as compressed attachment in CSV format",
+          "tooltip": "If set, the resultant recordSet will be saved as compressed attachment in CSV format"
         }
       ],
       "enabled": true
-      
+    },
+    {
+      "title": "Convert JSON to CSV File",
+      "operation": "convert_json_to_csv_file",
+      "annotation": "json_to_csv",
+      "category": "investigation",
+      "description": "This action will convert given JSON file to a CSV file",
+      "parameters": [
+        {
+          "title": "Type",
+          "type": "select",
+          "name": "input",
+          "required": true,
+          "visible": true,
+          "editable": true,
+          "value": "",
+          "options": [
+            "Attachment IRI",
+            "File IRI"
+          ]
+        },
+        {
+          "title": "Reference ID",
+          "type": "text",
+          "name": "value",
+          "required": true,
+          "visible": true,
+          "editable": true,
+          "value": ""
+        },
+        {
+          "title": "Provide CSV Filename",
+          "type": "text",
+          "name": "csvFileName",
+          "required": true,
+          "visible": true,
+          "editable": true,
+          "value": "",
+          "placeholder": "filename - without file extension",
+          "description": "Provide name for resulant CSV file. This file will be compressed",
+          "tooltip": "Provide name for resulant CSV file. This file will be compressed"
+        }
+      ],
+      "open": true
     }
   ]
 }

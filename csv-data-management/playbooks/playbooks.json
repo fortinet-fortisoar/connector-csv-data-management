@@ -3,20 +3,146 @@
   "data": [
     {
       "@type": "WorkflowCollection",
-      "name": "Sample - CSV Data Management - 1.0.0",
+      "name": "Sample - CSV Data Management - 1.1.0",
       "description": "Sample playbooks for \"CSV Data Management\" connector. If you are planning to use any of the sample playbooks in your environment, ensure that you clone those playbooks and move them to a different collection, since the sample playbook collection gets deleted during connector upgrade and delete.",
       "visible": true,
-      "image": "/api/3/images/1c20912a-8f7f-460b-850a-c7ca87ab4d0d",
+      "image": "fortisoar_logo.png",
       "uuid": "98074fea-fb2d-4fb0-bbcd-84231772900f",
-      "id": 62,
-      "createUser": "/api/3/appliances/57545210-2adc-472b-a24f-2df6ee8dfe63",
-      "createDate": 1651750119.114925,
-      "modifyUser": "/api/3/appliances/57545210-2adc-472b-a24f-2df6ee8dfe63",
-      "modifyDate": 1651750119.114925,
+      "id": 59,
       "deletedAt": null,
       "importedBy": [],
       "recordTags": [],
       "workflows": [
+        {
+          "@type": "Workflow",
+          "triggerLimit": null,
+          "name": "Read CSV file and filter for a specific value",
+          "aliasName": null,
+          "tag": null,
+          "description": "Read CSV and filter Dataset for a specific value",
+          "isActive": false,
+          "debug": true,
+          "singleRecordExecution": false,
+          "remoteExecutableFlag": false,
+          "parameters": [],
+          "synchronous": false,
+          "lastModifyDate": 1659961727,
+          "collection": "/api/3/workflow_collections/98074fea-fb2d-4fb0-bbcd-84231772900f",
+          "versions": [],
+          "triggerStep": "/api/3/workflow_steps/483e5f32-57eb-4f72-8bf8-4805a63723a4",
+          "steps": [
+            {
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "arguments": {
+                "route": "31477d38-7fbc-4da3-93ba-f89123dd57a0",
+                "resources": [
+                  "attachments"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "params": [],
+                    "records": "{{vars.input.records}}"
+                  }
+                },
+                "displayConditions": {
+                  "attachments": {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": []
+                  }
+                },
+                "executeButtonText": "Execute",
+                "noRecordExecution": false,
+                "singleRecordExecution": true
+              },
+              "status": null,
+              "top": "30",
+              "left": "125",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+              "group": null,
+              "uuid": "483e5f32-57eb-4f72-8bf8-4805a63723a4"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Configuration",
+              "description": null,
+              "arguments": {
+                "number_of_records": "10"
+              },
+              "status": null,
+              "top": "165",
+              "left": "125",
+              "stepType": "/api/3/workflow_step_types/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+              "group": null,
+              "uuid": "bb4309dd-1ceb-44a6-ac69-0dad6751cfbf"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Read and Filter CSV with specific value",
+              "description": null,
+              "arguments": {
+                "name": "CSV Data Management",
+                "params": {
+                  "input": "Attachment IRI",
+                  "value": "/api/3/attachments/2af3a93a-646f-414a-b9f4-fbab3d446d27",
+                  "filter": "myLatop",
+                  "columnNames": "",
+                  "filterInput": "On Specified Values",
+                  "recordBatch": "",
+                  "deDupValuesOn": "",
+                  "filterColumnName": "Hostname",
+                  "saveAsAttachement": "",
+                  "numberOfRowsToSkip": ""
+                },
+                "version": "1.1.0",
+                "connector": "csv-data-management",
+                "operation": "extract_data_from_csv",
+                "operationTitle": "Extract Data from Single CSV",
+                "pickFromTenant": false,
+                "step_variables": []
+              },
+              "status": null,
+              "top": "300",
+              "left": "125",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
+              "group": null,
+              "uuid": "4ee272d3-ae1c-458a-bad8-8c64f8273012"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "name": "Start -> Configuration",
+              "targetStep": "/api/3/workflow_steps/bb4309dd-1ceb-44a6-ac69-0dad6751cfbf",
+              "sourceStep": "/api/3/workflow_steps/483e5f32-57eb-4f72-8bf8-4805a63723a4",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "5c116949-ec9b-454b-b250-3d7b39487a2c"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Configuration -> Read and Filter CSV with specific value",
+              "targetStep": "/api/3/workflow_steps/4ee272d3-ae1c-458a-bad8-8c64f8273012",
+              "sourceStep": "/api/3/workflow_steps/bb4309dd-1ceb-44a6-ac69-0dad6751cfbf",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "8d5322c0-56be-477c-b9ca-fbe181a870dc"
+            }
+          ],
+          "groups": [],
+          "priority": "/api/3/picklists/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
+          "uuid": "0f22f562-6688-426d-8fa0-f1bcc2afe078",
+          "id": 650,
+          "owners": [],
+          "isPrivate": false,
+          "deletedAt": null,
+          "importedBy": [],
+          "recordTags": []
+        },
         {
           "@type": "Workflow",
           "triggerLimit": null,
@@ -60,6 +186,7 @@
               "top": "235",
               "left": "202",
               "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
+              "group": null,
               "uuid": "0eb357d9-6a6d-4297-8fdc-cb66353da76b"
             },
             {
@@ -94,6 +221,7 @@
               "top": "40",
               "left": "40",
               "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+              "group": null,
               "uuid": "b4bf578d-8810-4247-8c35-752cf8983717"
             }
           ],
@@ -108,13 +236,10 @@
               "uuid": "dd8b1f36-8aa2-4f1a-baf3-24910a03960e"
             }
           ],
+          "groups": [],
           "priority": "/api/3/picklists/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
           "uuid": "43bc9852-b291-467a-80b4-bdb29864c91e",
-          "id": 652,
-          "createUser": "/api/3/appliances/57545210-2adc-472b-a24f-2df6ee8dfe63",
-          "createDate": 1651750119.115014,
-          "modifyUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
-          "modifyDate": 1652158081.443996,
+          "id": 651,
           "owners": [],
           "isPrivate": false,
           "deletedAt": null,
@@ -163,6 +288,7 @@
               "top": "40",
               "left": "40",
               "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+              "group": null,
               "uuid": "91f005c3-7111-4238-ada2-edcc46f58557"
             },
             {
@@ -190,6 +316,7 @@
               "top": "220",
               "left": "240",
               "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
+              "group": null,
               "uuid": "9c2e0368-777b-4e13-9890-b91783870bc6"
             }
           ],
@@ -204,13 +331,10 @@
               "uuid": "4c8ff4db-d5cf-44b6-872b-68c9747782c5"
             }
           ],
+          "groups": [],
           "priority": "/api/3/picklists/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
           "uuid": "460d853f-fbcc-4f14-975f-8b68388ee5a4",
-          "id": 653,
-          "createUser": "/api/3/appliances/57545210-2adc-472b-a24f-2df6ee8dfe63",
-          "createDate": 1651750119.115239,
-          "modifyUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
-          "modifyDate": 1652158081.452254,
+          "id": 652,
           "owners": [],
           "isPrivate": false,
           "deletedAt": null,
@@ -264,6 +388,7 @@
               "top": "152",
               "left": "195",
               "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
+              "group": null,
               "uuid": "d0e465c6-f06e-4223-b113-b81d3fdf3ba1"
             },
             {
@@ -290,6 +415,7 @@
               "top": "40",
               "left": "40",
               "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+              "group": null,
               "uuid": "d60027b8-d116-415d-9870-2689e2a622a5"
             }
           ],
@@ -304,13 +430,10 @@
               "uuid": "367b4caa-dd85-4f3b-83e3-8e10c866924f"
             }
           ],
+          "groups": [],
           "priority": "/api/3/picklists/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
           "uuid": "7a7cf47c-ae15-4afc-8318-a41223d4631c",
-          "id": 654,
-          "createUser": "/api/3/appliances/57545210-2adc-472b-a24f-2df6ee8dfe63",
-          "createDate": 1651750119.115334,
-          "modifyUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
-          "modifyDate": 1652158081.457169,
+          "id": 653,
           "owners": [],
           "isPrivate": false,
           "deletedAt": null,
@@ -359,6 +482,7 @@
               "top": "40",
               "left": "40",
               "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+              "group": null,
               "uuid": "4ccaa18b-e81c-4317-925e-70951fd8db92"
             },
             {
@@ -386,6 +510,7 @@
               "top": "216",
               "left": "224",
               "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
+              "group": null,
               "uuid": "b59524f9-3df0-4818-b8be-91fdfa1a4a98"
             }
           ],
@@ -400,13 +525,10 @@
               "uuid": "80ab462d-f223-445f-8858-52e9a4cdcc64"
             }
           ],
+          "groups": [],
           "priority": "/api/3/picklists/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
           "uuid": "85f517c9-06bc-41a4-8cba-0d9f00142da3",
-          "id": 655,
-          "createUser": "/api/3/appliances/57545210-2adc-472b-a24f-2df6ee8dfe63",
-          "createDate": 1651750119.115402,
-          "modifyUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
-          "modifyDate": 1652158081.470304,
+          "id": 654,
           "owners": [],
           "isPrivate": false,
           "deletedAt": null,
@@ -455,6 +577,7 @@
               "top": "40",
               "left": "40",
               "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+              "group": null,
               "uuid": "1a7bbad7-bfce-40b8-be7a-403052552e21"
             },
             {
@@ -485,6 +608,7 @@
               "top": "160",
               "left": "180",
               "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
+              "group": null,
               "uuid": "e3ff7fb2-da97-48be-b3ea-c855c851ed0f"
             }
           ],
@@ -499,13 +623,10 @@
               "uuid": "69fc004c-2a71-4a94-9ab5-1a3504610723"
             }
           ],
+          "groups": [],
           "priority": "/api/3/picklists/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
           "uuid": "baccb6ab-fbf1-4847-9942-81a10da6d9e1",
-          "id": 656,
-          "createUser": "/api/3/appliances/57545210-2adc-472b-a24f-2df6ee8dfe63",
-          "createDate": 1651750119.115468,
-          "modifyUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
-          "modifyDate": 1652158164.99216,
+          "id": 655,
           "owners": [],
           "isPrivate": false,
           "deletedAt": null,
@@ -525,7 +646,7 @@
           "remoteExecutableFlag": false,
           "parameters": [],
           "synchronous": false,
-          "lastModifyDate": 1652158756,
+          "lastModifyDate": 1658913114,
           "collection": "/api/3/workflow_collections/98074fea-fb2d-4fb0-bbcd-84231772900f",
           "versions": [],
           "triggerStep": "/api/3/workflow_steps/e4c3b1ef-2622-4c18-9e08-32d82221ad51",
@@ -538,16 +659,18 @@
                 "name": "CSV Data Management",
                 "params": {
                   "input": "Attachment IRI",
+                  "filterInput": "",
                   "recordBatch": "",
                   "deDupValuesOn": "",
-                  "file_one_value": "/api/3/attachments/0a82c89b-c915-403a-ba4e-3e1047e26dae",
-                  "file_two_value": "/api/3/attachments/2fc73925-2c47-4e9c-81f3-312e96f40339",
+                  "file_one_value": "/api/3/attachments/7f5cf4db-7331-477e-bc6a-4d35ee808a42",
+                  "file_two_value": "/api/3/attachments/c57d3579-db93-45ef-9526-da427a4e161a",
+                  "saveAsAttachement": "",
                   "file1_column_names": "",
                   "file2_column_names": "",
                   "numberOfRowsToSkipFirst": "",
                   "numberOfRowsToSkipSecond": ""
                 },
-                "version": "1.0.0",
+                "version": "1.1.0",
                 "connector": "csv-data-management",
                 "operation": "join_two_csv_and_extract_data",
                 "operationTitle": "Join and Extract Data from two CSV",
@@ -558,6 +681,7 @@
               "top": "152",
               "left": "195",
               "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
+              "group": null,
               "uuid": "e1a46d27-1bb8-4a3a-87bb-99f94e8a87e4"
             },
             {
@@ -584,6 +708,7 @@
               "top": "40",
               "left": "40",
               "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+              "group": null,
               "uuid": "e4c3b1ef-2622-4c18-9e08-32d82221ad51"
             }
           ],
@@ -598,13 +723,217 @@
               "uuid": "ac8bed83-265a-49a4-a800-857331e2b0ce"
             }
           ],
+          "groups": [],
           "priority": "/api/3/picklists/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
           "uuid": "c45115d0-76cb-4626-a075-7646e16a1610",
+          "id": 656,
+          "owners": [],
+          "isPrivate": false,
+          "deletedAt": null,
+          "importedBy": [],
+          "recordTags": []
+        },
+        {
+          "@type": "Workflow",
+          "triggerLimit": null,
+          "name": "Convert JSON to CSV File",
+          "aliasName": null,
+          "tag": null,
+          "description": "Converts simple JSON file to CSV file",
+          "isActive": false,
+          "debug": true,
+          "singleRecordExecution": false,
+          "remoteExecutableFlag": false,
+          "parameters": [],
+          "synchronous": false,
+          "lastModifyDate": 1659076481,
+          "collection": "/api/3/workflow_collections/98074fea-fb2d-4fb0-bbcd-84231772900f",
+          "versions": [],
+          "triggerStep": "/api/3/workflow_steps/b38913d1-6510-414e-85f2-96bdd83a6e9f",
+          "steps": [
+            {
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "arguments": {
+                "route": "5c2af60c-3a9c-408e-a459-5a50b2a73907",
+                "resources": [
+                  "attachments"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "params": [],
+                    "records": "{{vars.input.records}}"
+                  }
+                },
+                "displayConditions": {
+                  "attachments": {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": []
+                  }
+                },
+                "executeButtonText": "Execute",
+                "noRecordExecution": false,
+                "singleRecordExecution": false
+              },
+              "status": null,
+              "top": "30",
+              "left": "125",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+              "group": null,
+              "uuid": "b38913d1-6510-414e-85f2-96bdd83a6e9f"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Convert JSON to CSV",
+              "description": null,
+              "arguments": {
+                "name": "CSV Data Management",
+                "params": {
+                  "input": "Attachment IRI",
+                  "value": "/api/3/attachments/3a1932c4-32c8-4b5a-8c7e-3479a26eea9b",
+                  "csvFileName": "Feed.csv"
+                },
+                "version": "1.1.0",
+                "connector": "csv-data-management",
+                "operation": "convert_json_to_csv_file",
+                "operationTitle": "Convert JSON to CSV File",
+                "pickFromTenant": false,
+                "step_variables": []
+              },
+              "status": null,
+              "top": "165",
+              "left": "125",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
+              "group": null,
+              "uuid": "f7a322b9-bfde-4f88-923b-d1d835de2d4a"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "name": "Start -> Convert JSON to CSV",
+              "targetStep": "/api/3/workflow_steps/f7a322b9-bfde-4f88-923b-d1d835de2d4a",
+              "sourceStep": "/api/3/workflow_steps/b38913d1-6510-414e-85f2-96bdd83a6e9f",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "fbdbe621-f921-4fb9-b5e5-3102db7da256"
+            }
+          ],
+          "groups": [],
+          "priority": "/api/3/picklists/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
+          "uuid": "db3ecf38-a4c7-4077-a8e2-d1ec44bab744",
           "id": 657,
-          "createUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
-          "createDate": 1652158013.126476,
-          "modifyUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
-          "modifyDate": 1652158756.319022,
+          "owners": [],
+          "isPrivate": false,
+          "deletedAt": null,
+          "importedBy": [],
+          "recordTags": []
+        },
+        {
+          "@type": "Workflow",
+          "triggerLimit": null,
+          "name": "Read CSV and Filter dataset using Regex",
+          "aliasName": null,
+          "tag": null,
+          "description": "Read CSV and filter Dataset using Regex",
+          "isActive": false,
+          "debug": true,
+          "singleRecordExecution": false,
+          "remoteExecutableFlag": false,
+          "parameters": [],
+          "synchronous": false,
+          "lastModifyDate": 1659005814,
+          "collection": "/api/3/workflow_collections/98074fea-fb2d-4fb0-bbcd-84231772900f",
+          "versions": [],
+          "triggerStep": "/api/3/workflow_steps/ddae69a8-45e9-461d-a7a0-f2c1d72f5330",
+          "steps": [
+            {
+              "@type": "WorkflowStep",
+              "name": "Read CSV and filter using Regex",
+              "description": null,
+              "arguments": {
+                "name": "CSV Data Management",
+                "params": {
+                  "input": "Attachment IRI",
+                  "value": "{{vars.input.records[0]['@id']}}",
+                  "filter": "\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}$",
+                  "columnNames": "",
+                  "filterInput": "On Values Matching a Regex",
+                  "recordBatch": "",
+                  "deDupValuesOn": "IP",
+                  "filterColumnName": "IOC",
+                  "saveAsAttachement": "",
+                  "numberOfRowsToSkip": 4
+                },
+                "version": "1.1.0",
+                "connector": "csv-data-management",
+                "operation": "extract_data_from_csv",
+                "operationTitle": "Extract Data from Single CSV",
+                "pickFromTenant": false,
+                "step_variables": []
+              },
+              "status": null,
+              "top": "200",
+              "left": "200",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
+              "group": null,
+              "uuid": "fe8e9b92-e0d6-47c4-8ca9-4ad005d6de16"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "arguments": {
+                "route": "cd5c8896-121f-4e2f-9b1f-0057bca50aa6",
+                "resources": [
+                  "attachments"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "params": [],
+                    "records": "{{vars.input.records}}"
+                  }
+                },
+                "displayConditions": {
+                  "attachments": {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": []
+                  }
+                },
+                "executeButtonText": "Execute",
+                "noRecordExecution": false,
+                "singleRecordExecution": true
+              },
+              "status": null,
+              "top": "40",
+              "left": "40",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+              "group": null,
+              "uuid": "ddae69a8-45e9-461d-a7a0-f2c1d72f5330"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "name": "Start -> Read CSV and filter using Regex",
+              "targetStep": "/api/3/workflow_steps/fe8e9b92-e0d6-47c4-8ca9-4ad005d6de16",
+              "sourceStep": "/api/3/workflow_steps/ddae69a8-45e9-461d-a7a0-f2c1d72f5330",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "aabc52a4-692c-4d36-a31c-e0a0f54f8f6c"
+            }
+          ],
+          "groups": [],
+          "priority": "/api/3/picklists/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
+          "uuid": "f97652fc-f6a7-404a-b9cc-c4cb4e5f2e26",
+          "id": 658,
           "owners": [],
           "isPrivate": false,
           "deletedAt": null,
