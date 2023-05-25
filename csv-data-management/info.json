@@ -1,6 +1,6 @@
 {
   "name": "csv-data-management",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "label": "CSV Data Management",
   "description": "CSV Data management can perform different operations on CSV files like read file, perform deduplication, merge two CSV files, join two CSV files, concat two CSV files and return well formatted dataset",
   "publisher": "Fortinet",
@@ -772,30 +772,105 @@
           "editable": true,
           "value": "",
           "options": [
+            "JSON Field",
             "Attachment IRI",
             "File IRI"
-          ]
-        },
-        {
-          "title": "Reference ID",
-          "type": "text",
-          "name": "value",
-          "required": true,
-          "visible": true,
-          "editable": true,
-          "value": ""
-        },
-        {
-          "title": "Provide CSV Filename",
-          "type": "text",
-          "name": "csvFileName",
-          "required": true,
-          "visible": true,
-          "editable": true,
-          "value": "",
-          "placeholder": "filename - without file extension",
-          "description": "Provide name for resulant CSV file. This file will be compressed",
-          "tooltip": "Provide name for resulant CSV file. This file will be compressed"
+          ],
+          "onchange": {
+            "JSON Field": [
+              {
+                "title": "JSON Data",
+                "type": "json",
+                "name": "json_data",
+                "required": true,
+                "visible": true,
+                "editable": true,
+                "value": "",
+                "description": "Provide the JSON data that you want to change to CSV",
+                "tooltip": "Provide the JSON data that you want to change to CSV"
+              },
+              {
+                "title": "Provide CSV Filename",
+                "type": "text",
+                "name": "csvFileName",
+                "required": true,
+                "visible": true,
+                "editable": true,
+                "value": "",
+                "placeholder": "filename - without file extension",
+                "description": "Provide name for resulant CSV file. This file will be compressed",
+                "tooltip": "Provide name for resulant CSV file. This file will be compressed"
+              },
+              {
+                "title": "Record Path",
+                "type": "text",
+                "name": "record_path",
+                "required": false,
+                "visible": true,
+                "editable": true,
+                "value": "",
+                "description": "Specify the Entry Point of the JSON Field, If it is not provided then by default It will convert all the JSON Data to CSV",
+                "tooltip": "Specify the Entry Point of the JSON Field, If it is not provided then by default It will convert all the JSON Data to CSV"
+              },
+              {
+                "title": "Additional Fields",
+                "type": "text",
+                "name": "meta",
+                "required": false,
+                "visible": true,
+                "editable": true,
+                "value": "",
+                "description": "Specify the Additional Fields you want to add in the CSV. If more than one Fields are there, Please Provide Fields in a Comma Separated Manner with no spaces. By Default this is set to None meaning no additional Fields will be merged",
+                "tooltip": "Specify the Additional Fields you want to add in the CSV. If more than one Fields are there, Please Provide Fields in a Comma Separated Manner with no spaces. By Default this is set to None meaning no additional Fields will be merged"
+              }
+            ],
+            "Attachment IRI": [
+              {
+                "title": "Reference ID",
+                "type": "text",
+                "name": "value",
+                "required": true,
+                "visible": true,
+                "editable": true,
+                "value": ""
+              },
+              {
+                "title": "Provide CSV Filename",
+                "type": "text",
+                "name": "csvFileName",
+                "required": true,
+                "visible": true,
+                "editable": true,
+                "value": "",
+                "placeholder": "filename - without file extension",
+                "description": "Provide name for resulant CSV file. This file will be compressed",
+                "tooltip": "Provide name for resulant CSV file. This file will be compressed"
+              }
+            ],
+            "File IRI": [
+              {
+                "title": "Reference ID",
+                "type": "text",
+                "name": "value",
+                "required": true,
+                "visible": true,
+                "editable": true,
+                "value": ""
+              },
+              {
+                "title": "Provide CSV Filename",
+                "type": "text",
+                "name": "csvFileName",
+                "required": true,
+                "visible": true,
+                "editable": true,
+                "value": "",
+                "placeholder": "filename - without file extension",
+                "description": "Provide name for resulant CSV file. This file will be compressed",
+                "tooltip": "Provide name for resulant CSV file. This file will be compressed"
+              }
+            ]
+          }
         }
       ],
       "open": true
