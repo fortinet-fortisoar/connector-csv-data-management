@@ -1,6 +1,6 @@
 {
   "name": "csv-data-management",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "label": "CSV Data Management",
   "description": "CSV Data management can perform different operations on CSV files like read file, perform deduplication, merge two CSV files, join two CSV files, concat two CSV files and return well formatted dataset",
   "publisher": "Fortinet",
@@ -27,7 +27,6 @@
           "required": true,
           "visible": true,
           "editable": true,
-          "value": "",
           "options": [
             "Attachment IRI",
             "File IRI"
@@ -39,8 +38,7 @@
           "name": "value",
           "required": true,
           "visible": true,
-          "editable": true,
-          "value": ""
+          "editable": true
         },
         {
           "title": "Column Names",
@@ -49,7 +47,6 @@
           "required": false,
           "visible": true,
           "editable": true,
-          "value": "",
           "description": "Comma separated columns name you want to extract from CSV File",
           "tooltip": "Comma separated columns name you want to extract from CSV File"
         },
@@ -60,7 +57,6 @@
           "required": false,
           "visible": true,
           "editable": true,
-          "value": "",
           "description": "Column name you want to use deduplicate data  from CSV File",
           "tooltip": "Column name you want to use deduplicate data  from CSV File"
         },
@@ -96,7 +92,6 @@
                 "required": true,
                 "visible": true,
                 "editable": true,
-                "value": "",
                 "description": "Provide column name which you want to use to filter data",
                 "tooltip": "Provide column name which you want to use to filter data"
               },
@@ -107,7 +102,6 @@
                 "required": true,
                 "visible": true,
                 "editable": true,
-                "value": "",
                 "placeholder": "\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}$",
                 "description": "Provide regex expression",
                 "tooltip": "Provide regex expression"
@@ -121,7 +115,6 @@
                 "required": true,
                 "visible": true,
                 "editable": true,
-                "value": "",
                 "description": "Provide column name which you want to use to filter data",
                 "tooltip": "Provide column name which you want to use to filter data"
               },
@@ -132,7 +125,6 @@
                 "required": true,
                 "visible": true,
                 "editable": true,
-                "value": "",
                 "tooltip": "Comma separated list of values on which you want to filter data. Values should be present in column metioned above"
               }
             ]
@@ -177,7 +169,6 @@
           "required": true,
           "visible": true,
           "editable": true,
-          "value": "",
           "options": [
             "Attachment IRI",
             "File IRI"
@@ -189,8 +180,7 @@
           "name": "file_one_value",
           "required": true,
           "visible": true,
-          "editable": true,
-          "value": ""
+          "editable": true
         },
         {
           "title": "First File Column Names",
@@ -199,7 +189,6 @@
           "required": false,
           "visible": true,
           "editable": true,
-          "value": "",
           "description": "Comma separated list of columns name you want to extract from CSV File",
           "tooltip": "Comma separated list of columns name you want to extract from CSV File"
         },
@@ -221,7 +210,6 @@
           "required": true,
           "visible": true,
           "editable": true,
-          "value": "",
           "options": [
             "Attachment IRI",
             "File IRI"
@@ -233,8 +221,7 @@
           "name": "file_two_value",
           "required": true,
           "visible": true,
-          "editable": true,
-          "value": ""
+          "editable": true
         },
         {
           "title": "Second File Column Names",
@@ -243,7 +230,6 @@
           "required": false,
           "visible": true,
           "editable": true,
-          "value": "",
           "description": "Comma separated list of columns name you want to extract from CSV File",
           "tooltip": "Comma separated list of columns name you want to extract from CSV File"
         },
@@ -265,7 +251,6 @@
           "required": true,
           "visible": true,
           "editable": true,
-          "value": "",
           "description": "Column name which is common in two files which you want to use to merge data from both files",
           "tooltip": "Column name which is common in two files which you want to use to merge data from both files"
         },
@@ -276,7 +261,6 @@
           "required": false,
           "visible": true,
           "editable": true,
-          "value": "",
           "description": "Column name you want to use deduplicate data from CSV File",
           "tooltip": "Column name you want to use deduplicate data from CSV File"
         },
@@ -301,7 +285,6 @@
                 "required": true,
                 "visible": true,
                 "editable": true,
-                "value": "",
                 "description": "Provide column name which you want to use to filter data",
                 "tooltip": "Provide column name which you want to use to filter data"
               },
@@ -312,7 +295,6 @@
                 "required": true,
                 "visible": true,
                 "editable": true,
-                "value": "",
                 "placeholder": "\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}$",
                 "description": "Provide regex expression",
                 "tooltip": "Provide regex expression"
@@ -326,7 +308,6 @@
                 "required": true,
                 "visible": true,
                 "editable": true,
-                "value": "",
                 "description": "Provide column name which you want to use to filter data",
                 "tooltip": "Provide column name which you want to use to filter data"
               },
@@ -337,7 +318,6 @@
                 "required": true,
                 "visible": true,
                 "editable": true,
-                "value": "",
                 "tooltip": "Comma separated list of values on which you want to filter data. Values should be present in column metioned above"
               }
             ]
@@ -382,7 +362,6 @@
           "required": true,
           "visible": true,
           "editable": true,
-          "value": "",
           "options": [
             "Attachment IRI",
             "File IRI"
@@ -394,8 +373,7 @@
           "name": "file_one_value",
           "required": true,
           "visible": true,
-          "editable": true,
-          "value": ""
+          "editable": true
         },
         {
           "title": "First File Column Names",
@@ -404,7 +382,6 @@
           "required": false,
           "visible": true,
           "editable": true,
-          "value": "",
           "description": "Comma separated list of columns name you want to extract from CSV File",
           "tooltip": "Comma separated list of columns name you want to extract from CSV File"
         },
@@ -426,7 +403,6 @@
           "required": true,
           "visible": true,
           "editable": true,
-          "value": "",
           "options": [
             "Attachment IRI",
             "File IRI"
@@ -438,8 +414,7 @@
           "name": "file_two_value",
           "required": true,
           "visible": true,
-          "editable": true,
-          "value": ""
+          "editable": true
         },
         {
           "title": "Second File Column Names",
@@ -448,7 +423,6 @@
           "required": false,
           "visible": true,
           "editable": true,
-          "value": "",
           "description": "Comma separated list of columns name you want to extract from CSV File",
           "tooltip": "Comma separated list of columns name you want to extract from CSV File"
         },
@@ -470,7 +444,6 @@
           "required": false,
           "visible": true,
           "editable": true,
-          "value": "",
           "description": "Column name you want to use deduplicate data from CSV File.",
           "tooltip": "Column name you want to use deduplicate data from CSV File"
         },
@@ -495,7 +468,6 @@
                 "required": true,
                 "visible": true,
                 "editable": true,
-                "value": "",
                 "description": "Provide column name which you want to use to filter data",
                 "tooltip": "Provide column name which you want to use to filter data"
               },
@@ -506,7 +478,6 @@
                 "required": true,
                 "visible": true,
                 "editable": true,
-                "value": "",
                 "placeholder": "\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}$",
                 "description": "Provide regex expression",
                 "tooltip": "Provide regex expression"
@@ -520,7 +491,6 @@
                 "required": true,
                 "visible": true,
                 "editable": true,
-                "value": "",
                 "description": "Provide column name which you want to use to filter data",
                 "tooltip": "Provide column name which you want to use to filter data"
               },
@@ -531,7 +501,6 @@
                 "required": true,
                 "visible": true,
                 "editable": true,
-                "value": "",
                 "tooltip": "Comma separated list of values on which you want to filter data. Values should be present in column metioned above"
               }
             ]
@@ -576,7 +545,6 @@
           "required": true,
           "visible": true,
           "editable": true,
-          "value": "",
           "options": [
             "Attachment IRI",
             "File IRI"
@@ -588,8 +556,7 @@
           "name": "file_one_value",
           "required": true,
           "visible": true,
-          "editable": true,
-          "value": ""
+          "editable": true
         },
         {
           "title": "First File Column Names",
@@ -598,7 +565,6 @@
           "required": false,
           "visible": true,
           "editable": true,
-          "value": "",
           "description": "Comma separated list of columns name you want to extract from CSV File",
           "tooltip": "Comma separated list of columns name you want to extract from CSV File"
         },
@@ -620,7 +586,6 @@
           "required": true,
           "visible": true,
           "editable": true,
-          "value": "",
           "options": [
             "Attachment IRI",
             "File IRI"
@@ -632,8 +597,7 @@
           "name": "file_two_value",
           "required": true,
           "visible": true,
-          "editable": true,
-          "value": ""
+          "editable": true
         },
         {
           "title": "Second File Column Names",
@@ -642,7 +606,6 @@
           "required": false,
           "visible": true,
           "editable": true,
-          "value": "",
           "description": "Comma separated list of columns name you want to extract from CSV File",
           "tooltip": "Comma separated list of columns name you want to extract from CSV File"
         },
@@ -664,7 +627,6 @@
           "required": false,
           "visible": true,
           "editable": true,
-          "value": "",
           "description": "Column name you want to use deduplicate data from CSV File.",
           "tooltip": "Column name you want to use deduplicate data from CSV File"
         },
@@ -689,7 +651,6 @@
                 "required": true,
                 "visible": true,
                 "editable": true,
-                "value": "",
                 "description": "Provide column name which you want to use to filter data",
                 "tooltip": "Provide column name which you want to use to filter data"
               },
@@ -700,7 +661,6 @@
                 "required": true,
                 "visible": true,
                 "editable": true,
-                "value": "",
                 "placeholder": "\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}$",
                 "description": "Provide regex expression",
                 "tooltip": "Provide regex expression"
@@ -714,7 +674,6 @@
                 "required": true,
                 "visible": true,
                 "editable": true,
-                "value": "",
                 "description": "Provide column name which you want to use to filter data",
                 "tooltip": "Provide column name which you want to use to filter data"
               },
@@ -725,7 +684,6 @@
                 "required": true,
                 "visible": true,
                 "editable": true,
-                "value": "",
                 "tooltip": "Comma separated list of values on which you want to filter data.Values should be present in column metioned above"
               }
             ]
@@ -764,38 +722,106 @@
       "description": "This action will convert given JSON file to a CSV file",
       "parameters": [
         {
-          "title": "Type",
+          "title": "Input Type",
           "type": "select",
           "name": "input",
           "required": true,
           "visible": true,
           "editable": true,
-          "value": "",
           "options": [
+            "JSON",
             "Attachment IRI",
             "File IRI"
-          ]
-        },
-        {
-          "title": "Reference ID",
-          "type": "text",
-          "name": "value",
-          "required": true,
-          "visible": true,
-          "editable": true,
-          "value": ""
-        },
-        {
-          "title": "Provide CSV Filename",
-          "type": "text",
-          "name": "csvFileName",
-          "required": true,
-          "visible": true,
-          "editable": true,
-          "value": "",
-          "placeholder": "filename - without file extension",
-          "description": "Provide name for resulant CSV file. This file will be compressed",
-          "tooltip": "Provide name for resulant CSV file. This file will be compressed"
+          ],
+          "onchange": {
+            "JSON": [
+              {
+                "title": "JSON Data",
+                "type": "json",
+                "name": "json_data",
+                "required": true,
+                "visible": true,
+                "editable": true,
+                "description": "Provide the JSON data that you want to change to CSV",
+                "tooltip": "Provide the JSON data that you want to change to CSV"
+              },
+              {
+                "title": "Provide CSV Filename",
+                "type": "text",
+                "name": "csvFileName",
+                "required": true,
+                "visible": true,
+                "editable": true,
+                "placeholder": "filename - without file extension",
+                "description": "Provide name for resulant CSV file. This file will be compressed",
+                "tooltip": "Provide name for resulant CSV file. This file will be compressed"
+              },
+              {
+                "title": "Record Path",
+                "type": "text",
+                "name": "record_path",
+                "required": false,
+                "placeholder": "records",
+                "visible": true,
+                "editable": true,
+                "description": "Specify the Entry Point of the JSON Field, If it is not provided then by default It will convert all the JSON Data to CSV",
+                "tooltip": "Specify the Entry Point of the JSON Field, If it is not provided then by default It will convert all the JSON Data to CSV"
+              },
+              {
+                "title": "Additional Fields",
+                "type": "text",
+                "name": "meta",
+                "required": false,
+                "placeholder": "['name','address']",
+                "visible": true,
+                "editable": true,
+                "description": "Specify the Additional Fields you want to add in the CSV. If more than one Fields are there, Please Provide Fields in a Comma Separated Manner with no spaces. By Default this is set to None meaning no additional Fields will be merged",
+                "tooltip": "Specify the Additional Fields you want to add in the CSV. If more than one Fields are there, Please Provide Fields in a Comma Separated Manner with no spaces. By Default this is set to None meaning no additional Fields will be merged"
+              }
+            ],
+            "Attachment IRI": [
+              {
+                "title": "Reference ID",
+                "type": "text",
+                "name": "value",
+                "required": true,
+                "visible": true,
+                "editable": true
+              },
+              {
+                "title": "Provide CSV Filename",
+                "type": "text",
+                "name": "csvFileName",
+                "required": true,
+                "visible": true,
+                "editable": true,
+                "placeholder": "filename - without file extension",
+                "description": "Provide name for resulant CSV file. This file will be compressed",
+                "tooltip": "Provide name for resulant CSV file. This file will be compressed"
+              }
+            ],
+            "File IRI": [
+              {
+                "title": "Reference ID",
+                "type": "text",
+                "name": "value",
+                "required": true,
+                "visible": true,
+                "editable": true
+              },
+              {
+                "title": "Provide CSV Filename",
+                "type": "text",
+                "name": "csvFileName",
+                "required": true,
+                "visible": true,
+                "editable": true,
+                "placeholder": "filename - without file extension",
+                "description": "Provide name for resulant CSV file. This file will be compressed",
+                "tooltip": "Provide name for resulant CSV file. This file will be compressed"
+              }
+            ]
+          }
         }
       ],
       "open": true

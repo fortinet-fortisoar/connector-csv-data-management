@@ -1,3 +1,4 @@
 # Add Python Dependencies
 pandas
 numpy
+polars
