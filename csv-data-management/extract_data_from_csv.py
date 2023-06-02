@@ -252,7 +252,7 @@ def join_two_csv_and_extract_data(config, params):
 def convert_json_to_csv_file(config, params):
     try:
         params = _build_payload(params)
-        if params.get('input') == "JSON Field":
+        if params.get('input') == "JSON":
             logger.info("In JSON Field")
             rp = _check_if_present(params.get("record_path"))
             meta = _check_if_present(params.get("meta"))
@@ -334,7 +334,6 @@ def _read_file_single_column(filepath, numberOfRowsToSkip=None):
     try:
         chunk = pl.read_csv('{}'.format(filepath), columns=[0], skip_rows=numberOfRowsToSkip, batch_size=100000,
                             ignore_errors=True)
-        # df = pl.concat(chunk)
         return _check_if_series_change_to_df(chunk)
     except Exception as Err:
         logger.error('Error in _read_file_single_column(): %s' % Err)
@@ -492,8 +491,7 @@ def handle_params(params, file_param):
                                                                                                      '')))
 
 
-def _ds_filter(params, ds):
-    df = ds
+def _ds_filter(params, df):
     if (params.get('filterInput')):
         input_type = params.get('filterInput')
         if input_type == 'On Values Matching a Regex':
