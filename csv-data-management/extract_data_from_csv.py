@@ -537,7 +537,8 @@ def _format_return_result(params, attDetail, df):
         smaller_datasets = [df[i:i+20] for i in range(0, len(df), 20)]
         all_records = []
         for batch in smaller_datasets:
-            all_records.append(batch.to_dict(as_series=False))
+            # all_records.append(batch.to_dict(as_series=False))
+            all_records.append(batch.rows())
         if params.get('saveAsAttachment'):
             final_result = {"records": all_records, "attachment": attDetail}
             return final_result
@@ -545,7 +546,9 @@ def _format_return_result(params, attDetail, df):
         return final_result
     else:
         if params.get('saveAsAttachment'):
-            final_result = {"records": df.to_dict(as_series=False), "attachment": attDetail}
+            # final_result = {"records": df.to_dict(as_series=False), "attachment": attDetail}
+            final_result = {"records": df.rows(), "attachment": attDetail}
             return final_result
-    final_result = {"records": df.to_dict(as_series=False)}
+    # final_result = {"records": df.to_dict(as_series=False)}
+    final_result = {"records": df.rows()}
     return final_result
