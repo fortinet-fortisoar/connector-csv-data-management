@@ -13,17 +13,17 @@
       "modifyDate": 1684737996.837553,
       "deletedAt": null,
       "importedBy": [],
-      "recordTags": [],
+      "recordTags": ["csv-data-management"],
       "workflows": [
         {
           "@type": "Workflow",
           "triggerLimit": null,
           "name": "Read CSV file and filter for a specific value",
           "aliasName": null,
-          "tag": null,
+          "tag": "#csv-data-management",
           "description": "Read CSV and filter Dataset for a specific value",
           "isActive": false,
-          "debug": true,
+          "debug": false,
           "singleRecordExecution": false,
           "remoteExecutableFlag": false,
           "parameters": [],
@@ -145,17 +145,17 @@
           "isPrivate": false,
           "deletedAt": null,
           "importedBy": [],
-          "recordTags": []
+          "recordTags": ["csv-data-management"]
         },
         {
           "@type": "Workflow",
           "triggerLimit": null,
           "name": "Read CSV and create dataset",
           "aliasName": null,
-          "tag": null,
+          "tag": "#csv-data-management",
           "description": "Reads a CSV file and returns a dataset which can be consumed in FortiSOAR",
           "isActive": false,
-          "debug": true,
+          "debug": false,
           "singleRecordExecution": false,
           "remoteExecutableFlag": false,
           "parameters": [],
@@ -249,17 +249,17 @@
           "isPrivate": false,
           "deletedAt": null,
           "importedBy": [],
-          "recordTags": []
+          "recordTags": ["csv-data-management"]
         },
         {
           "@type": "Workflow",
           "triggerLimit": null,
           "name": "Read CSV with no headers",
           "aliasName": null,
-          "tag": null,
+          "tag": "#csv-data-management",
           "description": "Read CSV file with no headers. Connector read files and determines if it have any headers , depending on result will add dummy header and provide result",
           "isActive": false,
-          "debug": true,
+          "debug": false,
           "singleRecordExecution": false,
           "remoteExecutableFlag": false,
           "parameters": [],
@@ -345,17 +345,17 @@
           "isPrivate": false,
           "deletedAt": null,
           "importedBy": [],
-          "recordTags": []
+          "recordTags": ["csv-data-management"]
         },
         {
           "@type": "Workflow",
           "triggerLimit": null,
           "name": "Read two CSV and merge in single data set",
           "aliasName": null,
-          "tag": null,
+          "tag": "#csv-data-management",
           "description": "Will read two CSV files and merge into single data set pivoting on column provided to merge on",
           "isActive": false,
-          "debug": true,
+          "debug": false,
           "singleRecordExecution": false,
           "remoteExecutableFlag": false,
           "parameters": [],
@@ -445,17 +445,17 @@
           "isPrivate": false,
           "deletedAt": null,
           "importedBy": [],
-          "recordTags": []
+          "recordTags": ["csv-data-management"]
         },
         {
           "@type": "Workflow",
           "triggerLimit": null,
           "name": "Read Single Column CSV",
           "aliasName": null,
-          "tag": null,
+          "tag": "#csv-data-management",
           "description": "Reads single column csv and returns rows as dataset",
           "isActive": false,
-          "debug": true,
+          "debug": false,
           "singleRecordExecution": false,
           "remoteExecutableFlag": false,
           "parameters": [],
@@ -541,17 +541,17 @@
           "isPrivate": false,
           "deletedAt": null,
           "importedBy": [],
-          "recordTags": []
+          "recordTags": ["csv-data-management"]
         },
         {
           "@type": "Workflow",
           "triggerLimit": null,
           "name": "Read two CSV and concat in single data set",
           "aliasName": null,
-          "tag": null,
+          "tag": "#csv-data-management",
           "description": "Will read two CSV files and concat them into single data set pivoting on column provided to merge on",
           "isActive": false,
-          "debug": true,
+          "debug": false,
           "singleRecordExecution": false,
           "remoteExecutableFlag": false,
           "parameters": [],
@@ -640,17 +640,17 @@
           "isPrivate": false,
           "deletedAt": null,
           "importedBy": [],
-          "recordTags": []
+          "recordTags": ["csv-data-management"]
         },
         {
           "@type": "Workflow",
           "triggerLimit": null,
           "name": "Read two CSV and join into single data set",
           "aliasName": null,
-          "tag": null,
+          "tag": "#csv-data-management",
           "description": "Will read two CSV files and join into single data",
           "isActive": false,
-          "debug": true,
+          "debug": false,
           "singleRecordExecution": false,
           "remoteExecutableFlag": false,
           "parameters": [],
@@ -742,17 +742,17 @@
           "isPrivate": false,
           "deletedAt": null,
           "importedBy": [],
-          "recordTags": []
+          "recordTags": ["csv-data-management"]
         },
         {
           "@type": "Workflow",
           "triggerLimit": null,
           "name": "Convert JSON to CSV File",
           "aliasName": null,
-          "tag": null,
+          "tag": "#csv-data-management",
           "description": "Converts simple JSON file to CSV file",
           "isActive": false,
-          "debug": true,
+          "debug": false,
           "singleRecordExecution": false,
           "remoteExecutableFlag": false,
           "parameters": [],
@@ -843,17 +843,17 @@
           "isPrivate": false,
           "deletedAt": null,
           "importedBy": [],
-          "recordTags": []
+          "recordTags": ["csv-data-management"]
         },
         {
           "@type": "Workflow",
           "triggerLimit": null,
           "name": "Read CSV and Filter dataset using Regex",
           "aliasName": null,
-          "tag": null,
+          "tag": "#csv-data-management",
           "description": "Read CSV and filter Dataset using Regex",
           "isActive": false,
-          "debug": true,
+          "debug": false,
           "singleRecordExecution": false,
           "remoteExecutableFlag": false,
           "parameters": [],
@@ -950,7 +950,7 @@
           "isPrivate": false,
           "deletedAt": null,
           "importedBy": [],
-          "recordTags": []
+          "recordTags": ["csv-data-management"]
         }
       ]
     }
