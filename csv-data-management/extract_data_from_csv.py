@@ -85,7 +85,7 @@ def extract_data_from_csv(config, params):
             logger.error('Error in deduplicating data  extract_data_from_csv(): %s' % Err)
             raise ConnectorError('Error in deduplicating data  extract_data_from_csv(): %s' % Err)
 
-        # Replace empty values with N/A 
+        # Replace empty values with N/A
         df = df.fill_null("N/A")
 
         # Filter Dataset
@@ -533,22 +533,27 @@ def _df_to_csv(df, filename=None):
 
 def _format_return_result(params, attDetail, df):
     # Create small chunks of dataset to consume by playbook if requested by user otherwise return complete recordset
+    result = []
     if params.get('recordBatch'):
-        smaller_datasets = [df[i:i+20] for i in range(0, len(df), 20)]
+        smaller_datasets = [df[i:i + 20] for i in range(0, len(df), 20)]
         all_records = []
         for batch in smaller_datasets:
-            # all_records.append(batch.to_dict(as_series=False))
-            all_records.append(batch.rows())
+            temp = []
+            for row in batch.rows():
+                row_dict = {column: value if not value == "" else "N/A" for column, value in zip(df.columns, row)}
+                temp.append(row_dict)
+            all_records.append(temp)
         if params.get('saveAsAttachment'):
             final_result = {"records": all_records, "attachment": attDetail}
             return final_result
         final_result = {"records": all_records}
         return final_result
     else:
+        for row in df.rows():
+            row_dict = {column: value if not value == "" else "N/A" for column, value in zip(df.columns, row)}
+            result.append(row_dict)
         if params.get('saveAsAttachment'):
-            # final_result = {"records": df.to_dict(as_series=False), "attachment": attDetail}
-            final_result = {"records": df.rows(), "attachment": attDetail}
+            final_result = {"records": result, "attachment": attDetail}
             return final_result
-    # final_result = {"records": df.to_dict(as_series=False)}
-    final_result = {"records": df.rows()}
+    final_result = {"records": result}
     return final_result
