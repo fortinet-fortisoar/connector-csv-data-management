@@ -87,7 +87,6 @@ def extract_data_from_csv(config, params):
 
         # Replace empty values with N/A
         df = df.fill_null("N/A")
-        logger.info(df)
 
         # Filter Dataset
         if params.get('filterInput'):
@@ -359,7 +358,7 @@ def _read_file_single_column_no_header(filepath, numberOfRowsToSkip=None, no_of_
                             batch_size=100000, ignore_errors=True)
         df = _check_if_series_change_to_df(chunk)
         df.columns = colList
-        return df, colList
+        return df
     except Exception as Err:
         logger.error('Error in _read_file_single_column_no_header(): %s' % Err)
         raise ConnectorError('Error in processing CSV File: %s' % Err)
