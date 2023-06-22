@@ -65,7 +65,7 @@
                   "saveAsAttachement": "",
                   "numberOfRowsToSkip": ""
                 },
-                "version": "1.1.0",
+                "version": "1.2.0",
                 "connector": "csv-data-management",
                 "operation": "extract_data_from_csv",
                 "operationTitle": "Extract Data from Single CSV",
@@ -179,7 +179,7 @@
                   "deDupValuesOn": "",
                   "numberOfRowsToSkip": ""
                 },
-                "version": "1.0.0",
+                "version": "1.2.0",
                 "connector": "csv-data-management",
                 "operation": "extract_data_from_csv",
                 "operationTitle": "Extract Data from Single CSV",
@@ -283,7 +283,7 @@
                   "deDupValuesOn": "",
                   "numberOfRowsToSkip": ""
                 },
-                "version": "1.0.0",
+                "version": "1.2.0",
                 "connector": "csv-data-management",
                 "operation": "extract_data_from_csv",
                 "operationTitle": "Extract Data from Single CSV",
@@ -383,7 +383,7 @@
                   "numberOfRowsToSkipFirst": "",
                   "numberOfRowsToSkipSecond": ""
                 },
-                "version": "1.0.0",
+                "version": "1.2.0",
                 "connector": "csv-data-management",
                 "operation": "merge_two_csv_and_extract_data",
                 "operationTitle": "Merge and Extract Data from two CSV",
@@ -479,7 +479,7 @@
                   "deDupValuesOn": "",
                   "numberOfRowsToSkip": ""
                 },
-                "version": "1.0.0",
+                "version": "1.2.0",
                 "connector": "csv-data-management",
                 "operation": "extract_data_from_csv",
                 "operationTitle": "Extract Data from Single CSV",
@@ -578,7 +578,7 @@
                   "numberOfRowsToSkipFirst": "",
                   "numberOfRowsToSkipSecond": ""
                 },
-                "version": "1.0.0",
+                "version": "1.2.0",
                 "connector": "csv-data-management",
                 "operation": "concat_two_csv_and_extract_data",
                 "operationTitle": "Concat and Extract Data from two CSV",
@@ -680,7 +680,7 @@
                   "numberOfRowsToSkipFirst": "",
                   "numberOfRowsToSkipSecond": ""
                 },
-                "version": "1.1.0",
+                "version": "1.2.0",
                 "connector": "csv-data-management",
                 "operation": "join_two_csv_and_extract_data",
                 "operationTitle": "Join and Extract Data from two CSV",
@@ -773,7 +773,7 @@
                   "value": "/api/3/attachments/3a1932c4-32c8-4b5a-8c7e-3479a26eea9b",
                   "csvFileName": "Feed.csv"
                 },
-                "version": "1.1.0",
+                "version": "1.2.0",
                 "connector": "csv-data-management",
                 "operation": "convert_json_to_csv_file",
                 "operationTitle": "Convert JSON to CSV File",
@@ -880,7 +880,7 @@
                   "saveAsAttachement": "",
                   "numberOfRowsToSkip": ""
                 },
-                "version": "1.1.0",
+                "version": "1.2.0",
                 "connector": "csv-data-management",
                 "operation": "extract_data_from_csv",
                 "operationTitle": "Extract Data from Single CSV",

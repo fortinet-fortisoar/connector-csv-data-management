@@ -764,8 +764,8 @@
                 "placeholder": "records",
                 "visible": true,
                 "editable": true,
-                "description": "Specify the Entry Point of the JSON Field, If it is not provided then by default It will convert all the JSON Data to CSV",
-                "tooltip": "Specify the Entry Point of the JSON Field, If it is not provided then by default It will convert all the JSON Data to CSV"
+                "description": "Specify the Entry Point of the JSON Field,The field provided must be a List, If it is not provided then by default It will convert all the JSON Data to CSV",
+                "tooltip": "Specify the Entry Point of the JSON Field,The field provided must be a List, If it is not provided then by default It will convert all the JSON Data to CSV"
               },
               {
                 "title": "Additional Fields",

@@ -59,21 +59,21 @@ def extract_data_from_csv(config, params):
             df = _read_file_specific_columns(file_path, columnNames, numberOfRowsToSkip)
 
         elif isSingleColumn and not isCSVWithoutHeaders:  # CSV file with one  column and header
-            df = _read_file_single_column(file_path, numberOfRowsToSkip)
             logger.info("isSingleColumn and not isCSVWithoutHeaders")
+            df = _read_file_single_column(file_path, numberOfRowsToSkip)
 
         elif isSingleColumn and isCSVWithoutHeaders:  # CSV file with one  column and no header
-            df = _read_file_single_column_no_header(file_path, numberOfRowsToSkip, no_of_columns)
             logger.info("isSingleColumn and isCSVWithoutHeaders")
+            df = _read_file_single_column_no_header(file_path, numberOfRowsToSkip, no_of_columns)
 
         elif isCSVWithoutHeaders:  # CSV file without column header and all columns
-            df = _read_file_no_headers(file_path, numberOfRowsToSkip, no_of_columns)
             logger.info("isCSVWithoutHeaders")
+            df = _read_file_no_headers(file_path, numberOfRowsToSkip, no_of_columns)
 
         else:
             # We are reading complete file assuming it has column header
+            logger.info("Inside Read all columns")
             df = _read_file_all_columns(file_path, numberOfRowsToSkip)
-            logger.info("Inside Read all columns" + str(type(df)))
 
         # If user has selected to deduplicate recordset
         try:
@@ -125,6 +125,9 @@ def merge_two_csv_and_extract_data(config, params):
         # Merge both files
         combined_recordSet = df1.join(df2, on=mergeColumn, how='left')
 
+        # Replace empty values with N/A
+        combined_recordSet = combined_recordSet.fill_null('N/A')
+
         # If user has selected to deduplicate recordset
         try:
             if params.get('deDupValuesOn'):
@@ -134,9 +137,6 @@ def merge_two_csv_and_extract_data(config, params):
         except Exception as Err:
             logger.error('Error in deduplicating data  extract_data_from_csv(): %s' % Err)
             raise ConnectorError('Error in deduplicating data  extract_data_from_csv(): %s' % Err)
-
-        # Replace empty values with N/A 
-        combined_recordSet = combined_recordSet.fill_null('N/A')
 
         # Filter Dataset
         if params.get('filterInput'):
@@ -170,6 +170,9 @@ def concat_two_csv_and_extract_data(config, params):
 
         # concat both files
         combined_recordSet = pl.concat([df1, df2])
+
+        # Replace empty values with N/A
+        combined_recordSet = combined_recordSet.fill_null('N/A')
 
         # If user has selected to deduplicate recordset
         try:
@@ -212,7 +215,6 @@ def join_two_csv_and_extract_data(config, params):
 
         df1 = _read_and_return_ds(fileOnePath, params, config, filePassed="First")
         df2 = _read_and_return_ds(fileTwoPath, params, config, filePassed="Second")
-
         df1.columns, df2.columns = _find_duplicate_columns_add_suffix(df1.columns, df2.columns)
         # Join both files
         combined_recordSet = pl.concat([df1, df2], how="horizontal")
@@ -256,7 +258,6 @@ def convert_json_to_csv_file(config, params):
             logger.info("In JSON Field")
             rp = _check_if_present(params.get("record_path"))
             meta = _check_if_present(params.get("meta"))
-
             df = pd.json_normalize(params.get('json_data'), record_path=rp, meta=meta)
             result = _df_to_csv(df, params.get('csvFileName'))
             return {"fileDetails": result}
@@ -284,7 +285,7 @@ def _check_if_present(param):
     if param is None or param == "":
         return None
     else:
-        return param.split(",")
+        return param
 
 
 def _check_if_series_change_to_df(df):
@@ -296,7 +297,8 @@ def _check_if_series_change_to_df(df):
 
 def _read_file_specific_columns(filepath, columns_t, numberOfRowsToSkip=0):
     try:
-        chunk = pl.read_csv('{}'.format(filepath), separator=',', encoding="utf-8-sig", skip_rows=numberOfRowsToSkip,
+        chunk = pl.read_csv('{}'.format(filepath), separator=',', encoding="utf-8-sig", null_values=[''],
+                            skip_rows_after_header=numberOfRowsToSkip,
                             batch_size=100000, ignore_errors=True, columns=columns_t)
         return _check_if_series_change_to_df(chunk)
     except Exception as Err:
@@ -306,8 +308,10 @@ def _read_file_specific_columns(filepath, columns_t, numberOfRowsToSkip=0):
 
 def _read_file_all_columns(filepath, numberOfRowsToSkip=0):
     try:
-        chunk = pl.read_csv('{}'.format(filepath), separator=',', encoding="utf-8-sig", skip_rows=numberOfRowsToSkip,
-                            batch_size=100000, ignore_errors=True)
+        chunk = pl.read_csv('{}'.format(filepath), separator=',', has_header=True, encoding="utf-8-sig",
+                            skip_rows_after_header=numberOfRowsToSkip,
+                            batch_size=100000, null_values=[''], ignore_errors=True)
+
         return _check_if_series_change_to_df(chunk)
     except Exception as Err:
         logger.error('Error in _read_file_all_columns(): %s' % Err)
@@ -321,7 +325,8 @@ def _read_file_no_headers(filepath, numberOfRowsToSkip=None, no_of_columns=None)
             for i in range(no_of_columns):
                 colList.append("Column" + str(i))
         chunk = pl.read_csv('{}'.format(filepath), separator=',', encoding="utf-8-sig", has_header=False,
-                            skip_rows=numberOfRowsToSkip, batch_size=100000, ignore_errors=True)
+                            null_values=[''],
+                            skip_rows_after_header=numberOfRowsToSkip, batch_size=100000, ignore_errors=True)
         df = _check_if_series_change_to_df(chunk)
         df.columns = colList
         return df
@@ -332,8 +337,10 @@ def _read_file_no_headers(filepath, numberOfRowsToSkip=None, no_of_columns=None)
 
 def _read_file_single_column(filepath, numberOfRowsToSkip=None):
     try:
-        chunk = pl.read_csv('{}'.format(filepath), columns=[0], skip_rows=numberOfRowsToSkip, batch_size=100000,
+        chunk = pl.read_csv('{}'.format(filepath), columns=[0], null_values=[''],
+                            skip_rows_after_header=numberOfRowsToSkip, batch_size=100000,
                             ignore_errors=True)
+
         return _check_if_series_change_to_df(chunk)
     except Exception as Err:
         logger.error('Error in _read_file_single_column(): %s' % Err)
@@ -346,7 +353,8 @@ def _read_file_single_column_no_header(filepath, numberOfRowsToSkip=None, no_of_
             colList = []
             for i in range(no_of_columns):
                 colList.append("Column" + str(i))
-        chunk = pl.read_csv('{}'.format(filepath), columns=[0], has_header=False, skip_rows=numberOfRowsToSkip,
+        chunk = pl.read_csv('{}'.format(filepath), columns=[0], has_header=False, null_values=[''],
+                            skip_rows_after_header=numberOfRowsToSkip,
                             batch_size=100000, ignore_errors=True)
         df = _check_if_series_change_to_df(chunk)
         df.columns = colList
@@ -372,7 +380,7 @@ def _check_if_csv(filepath, numberOfRowsToSkip=0):
     # bailing out incase CSV file encoding is not UTF-8
     # To-Do  Read CSV file encoding and then use it for reading file. use -chardet.detect
     try:
-        res = sniffer.has_header(open(filepath).read(2048))
+        res_whole = sniffer.has_header(open(filepath).read(2048))
     except Exception as Err:
         if "UnicodeDecodeError" in repr(Err):
             raise ConnectorError("CSV file has unsupported encoding. Supported encoding is UTF-8")
@@ -387,10 +395,11 @@ def _check_if_csv(filepath, numberOfRowsToSkip=0):
                 res = sniffer.has_header(fileobj.read(2048))
         else:
             res = sniffer.has_header(open(filepath).read(2048))
-        df = pl.read_csv('{}'.format(filepath), ignore_errors=True, n_rows=10, skip_rows=numberOfRowsToSkip)
+        df = pl.read_csv('{}'.format(filepath), ignore_errors=True, n_rows=10,
+                         skip_rows_after_header=numberOfRowsToSkip, null_values=[''])
 
         row, col = df.shape
-        if res:
+        if res or res_whole:
             return {"headers": True, "columns": col}
 
         return {"headers": False, "columns": col}
@@ -398,7 +407,7 @@ def _check_if_csv(filepath, numberOfRowsToSkip=0):
         logger.error(
             'Error in _check_if_csv(), checking with polars only due to exception reading file with csv module : %s' % Err)
         try:
-            df = pl.read_csv('{}'.format(filepath), ignore_errors=True, n_rows=10, skip_rows=numberOfRowsToSkip)
+            df = pl.read_csv('{}'.format(filepath), ignore_errors=True, n_rows=10)
 
             row, col = df.shape
             return {"headers": False, "columns": col}
@@ -533,14 +542,18 @@ def _df_to_csv(df, filename=None):
 
 def _format_return_result(params, attDetail, df):
     # Create small chunks of dataset to consume by playbook if requested by user otherwise return complete recordset
+    columns = df.columns
+
     result = []
     if params.get('recordBatch'):
-        smaller_datasets = [df[i:i + 20] for i in range(0, len(df), 20)]
+        # val = (len(df)//20) + 1
+        # smaller_datasets = [df[i:i + val] for i in range(0, len(df), val)]
+        smaller_datasets = np.array_split(df, 20)
         all_records = []
         for batch in smaller_datasets:
             temp = []
-            for row in batch.rows():
-                row_dict = {column: value if not value == "" else "N/A" for column, value in zip(df.columns, row)}
+            for row in batch:
+                row_dict = {column: value if not value == "" else "N/A" for column, value in zip(columns, row)}
                 temp.append(row_dict)
             all_records.append(temp)
         if params.get('saveAsAttachment'):
@@ -550,7 +563,7 @@ def _format_return_result(params, attDetail, df):
         return final_result
     else:
         for row in df.rows():
-            row_dict = {column: value if not value == "" else "N/A" for column, value in zip(df.columns, row)}
+            row_dict = {column: value if not value == "" else "N/A" for column, value in zip(columns, row)}
             result.append(row_dict)
         if params.get('saveAsAttachment'):
             final_result = {"records": result, "attachment": attDetail}
