@@ -1,6 +1,5 @@
 #### What's Improved
 
-- Added JSON Field as an input type in action _Convert JSON to CSV_
-- Migrated from Pandas to Polars library for every action except for the action (Convert JSON to CSV).
-- Improved CPU Usage and Execution Speed of the actions. 
-    
+- Added the ability to directly add JSON data as input to the "Convert JSON to CSV" action.
+- Migrated all actions, except the "Convert JSON to CSV" action, to use the 'Polas' library. Previously, actions were using the 'Pandas' library.
+- Reduced the connector's CPU usage and sped up the execution of its actions to improve the performance of the CSV Data Management connector. 
