@@ -1,18 +1,20 @@
-""" Copyright start
-  Copyright (C) 2008 - 2022 Fortinet Inc.
-  All rights reserved.
-  FORTINET CONFIDENTIAL & FORTINET PROPRIETARY SOURCE CODE
-  Copyright end """
+"""
+Copyright start
+MIT License
+Copyright (c) 2026 Fortinet Inc
+Copyright end
+"""
 
 from connectors.core.connector import Connector
 from connectors.core.connector import get_logger, ConnectorError
 from django.utils.module_loading import import_string
 from .builtins import *
 from .constants import LOGGER_NAME
+
 logger = get_logger(LOGGER_NAME)
 
-class Csvdatamanagement(Connector):
 
+class Csvdatamanagement(Connector):
 
     def execute(self, config, operation, params, *args, **kwargs):
         return supported_operations.get(operation)(config, params)
