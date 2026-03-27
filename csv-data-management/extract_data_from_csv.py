@@ -9,18 +9,14 @@ from uuid import uuid4
 import pandas as pd
 import polars as pl
 import numpy as np
-import csv
+import csv, re
 from os.path import join
 from os import remove
 from connectors.core.connector import get_logger, ConnectorError
 from connectors.cyops_utilities.builtins import download_file_from_cyops, create_cyops_attachment
 from integrations.crudhub import make_request
-from .constants import LOGGER_NAME, INVALID_CHARS
-
-try:
-    import defusedcsv as safe_csv
-except ImportError:
-    import csv as safe_csv
+from .constants import LOGGER_NAME
+import defusedcsv as safe_csv
 
 logger = get_logger(LOGGER_NAME)
 
@@ -268,25 +264,38 @@ def validate_input_value(value):
 
 
 def sanitize_for_csv(value):
-    if isinstance(value, str) and value[:1] in ('=', '+', '-', '@', '\t', '\r'):
-        return "'" + value
-    return value
+    if not isinstance(value, str):
+        return value
+
+    # Remove leading tabs/newlines/extra spaces
+    cleaned = re.sub(r'^[\s\u200b\xa0]+', '', value)
+
+    # Already safe
+    if cleaned.startswith("'"):
+        return cleaned
+
+    # Dangerous prefix
+    if cleaned[:1] in ('=', '+', '-', '@'):
+        return "'" + cleaned
+
+    return cleaned
 
 
 def sanitize_dataframe(df):
-    return df.applymap(sanitize_for_csv)
+    df = df.applymap(sanitize_for_csv)
+
+    # Prevent pandas type coercion
+    return df.astype(str)
 
 
 def read_csv_safely(filepath):
-    rows = []
     with open(filepath, newline='', encoding='utf-8') as f:
         reader = safe_csv.reader(f)
-        for row in reader:
-            for cell in row:
-                validate_input_value(cell)
-            rows.append(row)
+        rows = list(reader)
+    # Build DataFrame safely
+    df = pd.DataFrame(rows[1:], columns=rows[0])
 
-    return pd.DataFrame(rows[1:], columns=rows[0])
+    return df
 
 
 def convert_json_to_csv_file(config, params):
@@ -575,7 +584,10 @@ def _df_to_csv(df, filename=None):
         compression = dict(method='zip', archive_name=file_name)
 
         if isinstance(df, pd.DataFrame):
+            # sanitize
             df = sanitize_dataframe(df)
+            # CRITICAL: prevent Excel evaluation
+            df = df.astype(str)
             df.to_csv('/tmp/{}'.format(file_name.split(".")[0]) + '.zip', encoding='utf-8', header='true',
                       compression=compression, index=False)
             filepath = '/tmp/{}'.format(file_name.split(".")[0]) + '.zip'

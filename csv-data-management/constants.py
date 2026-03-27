@@ -6,5 +6,3 @@ Copyright end
 """
 
 LOGGER_NAME = 'csv-data-management'
-
-INVALID_CHARS = {'=', '+', '-', '@', '\t', '\r'}
