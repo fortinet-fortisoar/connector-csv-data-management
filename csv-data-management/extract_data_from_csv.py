@@ -1,25 +1,22 @@
-""" Copyright start
-  Copyright (C) 2008 - 2022 Fortinet Inc.
-  All rights reserved.
-  FORTINET CONFIDENTIAL & FORTINET PROPRIETARY SOURCE CODE
-  Copyright end """
-from asyncore import read
-from operator import truediv
-from webbrowser import Elinks
-from datetime import datetime
+"""
+Copyright start
+MIT License
+Copyright (c) 2026 Fortinet Inc
+Copyright end
+"""
+
 from uuid import uuid4
-import requests
 import pandas as pd
 import polars as pl
 import numpy as np
-import csv
+import csv, re
 from os.path import join
 from os import remove
-import json
 from connectors.core.connector import get_logger, ConnectorError
 from connectors.cyops_utilities.builtins import download_file_from_cyops, create_cyops_attachment
 from integrations.crudhub import make_request
 from .constants import LOGGER_NAME
+import defusedcsv as safe_csv
 
 logger = get_logger(LOGGER_NAME)
 
@@ -184,7 +181,7 @@ def concat_two_csv_and_extract_data(config, params):
             logger.error('Error in deduplicating data  extract_data_from_csv(): %s' % Err)
             raise ConnectorError('Error in deduplicating data  extract_data_from_csv(): %s' % Err)
 
-        # Replace empty values with N/A 
+        # Replace empty values with N/A
         combined_recordSet = combined_recordSet.fill_null('N/A')
 
         # Filter Dataset
@@ -229,7 +226,7 @@ def join_two_csv_and_extract_data(config, params):
             logger.error('Error in deduplicating data  extract_data_from_csv(): %s' % Err)
             raise ConnectorError('Error in deduplicating data  extract_data_from_csv(): %s' % Err)
 
-        # Replace empty values with N/A 
+        # Replace empty values with N/A
         combined_recordSet = combined_recordSet.fill_null('N/A')
 
         # Filter Dataset
@@ -251,19 +248,83 @@ def join_two_csv_and_extract_data(config, params):
         raise ConnectorError('Error in processing CSV File: %s' % Err)
 
 
+def validate_input_value(value):
+    if not isinstance(value, str):
+        return
+
+    # Already neutralized → allow
+    if value.startswith("'"):
+        return
+
+    # Block only if the FIRST character is dangerous
+    if value[:1] in ('=', '+', '-', '@', '\t', '\r'):
+        raise ConnectorError(
+            "Input starts with an invalid CSV formula character"
+        )
+
+
+def sanitize_for_csv(value):
+    if not isinstance(value, str):
+        return value
+
+    # Remove leading tabs/newlines/extra spaces
+    cleaned = re.sub(r'^[\s\u200b\xa0]+', '', value)
+
+    # Already safe
+    if cleaned.startswith("'"):
+        return cleaned
+
+    # Dangerous prefix
+    if cleaned[:1] in ('=', '+', '-', '@'):
+        return "'" + cleaned
+
+    return cleaned
+
+
+def sanitize_dataframe(df):
+    df = df.applymap(sanitize_for_csv)
+
+    # Prevent pandas type coercion
+    return df.astype(str)
+
+
+def read_csv_safely(filepath):
+    with open(filepath, newline='', encoding='utf-8') as f:
+        reader = safe_csv.reader(f)
+        rows = list(reader)
+    # Build DataFrame safely
+    df = pd.DataFrame(rows[1:], columns=rows[0])
+
+    return df
+
+
 def convert_json_to_csv_file(config, params):
     try:
         params = _build_payload(params)
+
+        # Central allow-list validation
+        for val in params.values():
+            validate_input_value(val)
+
         if params.get('input') == "JSON":
             logger.info("In JSON Field")
             rp = _check_if_present(params.get("record_path"))
             meta = _check_if_present(params.get("meta"))
             df = pd.json_normalize(params.get('json_data'), record_path=rp, meta=meta)
+            df = sanitize_dataframe(df)
             result = _df_to_csv(df, params.get('csvFileName'))
             return {"fileDetails": result}
         else:
             file_iri = handle_params(params, params.get('value'))
             file_path = join('/tmp', download_file_from_cyops(file_iri)['cyops_file_path'])
+
+            # Safely read CSV if CSV is provided
+            if file_path.lower().endswith('.csv'):
+                df = read_csv_safely(file_path)
+                df = sanitize_dataframe(df)
+                result = _df_to_csv(df, params.get('csvFileName'))
+                return {"fileDetails": result}
+
             fileDetails = _json_to_csv(params, file_path)
             return {"fileDetails": fileDetails}
     except Exception as Err:
@@ -368,6 +429,7 @@ def _json_to_csv(params, filepath):
     try:
         filename = params.get('csvFileName')
         fileDetails = pd.read_json('{}'.format(filepath))
+        fileDetails = sanitize_dataframe(fileDetails)
         csvData = _df_to_csv(fileDetails, filename)
         return csvData
     except Exception as Err:
@@ -522,6 +584,10 @@ def _df_to_csv(df, filename=None):
         compression = dict(method='zip', archive_name=file_name)
 
         if isinstance(df, pd.DataFrame):
+            # sanitize
+            df = sanitize_dataframe(df)
+            # CRITICAL: prevent Excel evaluation
+            df = df.astype(str)
             df.to_csv('/tmp/{}'.format(file_name.split(".")[0]) + '.zip', encoding='utf-8', header='true',
                       compression=compression, index=False)
             filepath = '/tmp/{}'.format(file_name.split(".")[0]) + '.zip'
