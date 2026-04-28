@@ -267,18 +267,17 @@ def sanitize_for_csv(value):
     if not isinstance(value, str):
         return value
 
-    # Remove leading tabs/newlines/extra spaces
-    cleaned = re.sub(r'^[\s\u200b\xa0]+', '', value)
+    # Already neutralized
+    if value.startswith("'"):
+        return value
 
-    # Already safe
-    if cleaned.startswith("'"):
-        return cleaned
+    # Detect hidden leading whitespace + dangerous formula char
+    trimmed = value.lstrip(" \t\r\n\u200b\xa0")
 
-    # Dangerous prefix
-    if cleaned[:1] in ('=', '+', '-', '@'):
-        return "'" + cleaned
+    if trimmed[:1] in ('=', '+', '-', '@'):
+        return "'" + value  # preserve original formatting
 
-    return cleaned
+    return value
 
 
 def sanitize_dataframe(df):
