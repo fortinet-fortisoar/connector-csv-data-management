@@ -10,7 +10,7 @@ import pandas as pd
 import polars as pl
 import numpy as np
 import csv, re
-from os.path import join
+from os.path import join, exists
 from os import remove
 from connectors.core.connector import get_logger, ConnectorError
 from connectors.cyops_utilities.builtins import download_file_from_cyops, create_cyops_attachment
@@ -83,6 +83,7 @@ def extract_data_from_csv(config, params):
             raise ConnectorError('Error in deduplicating data  extract_data_from_csv(): %s' % Err)
 
         # Replace empty values with N/A
+        df = df.cast({col: pl.Utf8 for col in df.columns}, strict=False)
         df = df.fill_null("N/A")
 
         # Filter Dataset
@@ -577,6 +578,7 @@ def _ds_filter(params, df):
 
 
 def _df_to_csv(df, filename=None):
+    filepath = None
     try:
         id = str(uuid4().fields[-1])
         file_name = filename + ".csv" if filename else "dataset-{}.csv".format(id)
@@ -592,15 +594,18 @@ def _df_to_csv(df, filename=None):
             filepath = '/tmp/{}'.format(file_name.split(".")[0]) + '.zip'
 
         else:
-            df.write_csv('/tmp/{}'.format(file_name.split(".")[0]) + '.csv', has_header=True)
+            #df.write_csv('/tmp/{}'.format(file_name.split(".")[0]) + '.csv', has_header=True)
             filepath = '/tmp/{}'.format(file_name.split(".")[0]) + '.csv'
+            df.write_csv(filepath)
 
         ch_res = create_cyops_attachment(filename=filepath, name=file_name,
                                          description='Created by CSV Data Management Connector')
-        remove(filepath)
+        if filepath and exists(filepath):
+            remove(filepath)
         return ch_res
     except Exception as err:
-        remove(filepath)
+        if filepath and exists(filepath):
+            remove(filepath)
         logger.error("Error creating attachment record for CSV file")
         raise ConnectorError('Error in creating attachment record for CSV file: %s' % err)
 
